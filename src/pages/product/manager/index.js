@@ -31,7 +31,7 @@ let editConfig = [
     { title: '图片', dataIndex: 'images', type:"images", limit: 3},
     { title: '尺码', dataIndex: 'size'},
     { title: '详情页', dataIndex: 'detailImages', type:"images", limit:1},
-    
+
 ]
 
 
@@ -153,7 +153,7 @@ export default function ProductManager() {
                     setEditInfo(null);
                     pageData();
                 }
-                
+
             })
         }
         if (modelType === 'create') {
@@ -197,7 +197,7 @@ export default function ProductManager() {
                <Button type="primary" size="small" onClick={() => _delete(record)}>{record.enable === '禁用' ? '启用' : '禁用'}</Button>
             </div>},
         ])
-   
+
     return <div className="product-manager">
         <section className="product-manager-search">
             <div className="manager-search-item">
@@ -206,9 +206,12 @@ export default function ProductManager() {
             </div>
             <div className="manager-search-btn"><Button onClick={pageData} type="primary" >筛选</Button></div>
         </section>
+
+        {process.env.REACT_APP_ENV === 'production' ? "https://www.newdreamer.cn" : 'https://test.newdreamer.cn'}
         <section className="product-manager-operation">
-            <Upload 
-            action="//newdreamer.cn/newdreamer/productInfo/importExcel"
+            <Upload
+            action={(process.env.REACT_APP_ENV === 'production' ? '//newdreamer.cn' : '//test.newdreamer.cn') + '/newdreamer/productInfo/importExcel'}
+            // action="//newdreamer.cn/newdreamer/productInfo/importExcel"
             method="post"
             onChange={({ file, fileList }) => {
                 // TODO 导入之后没有反应，显示上传成功了
@@ -218,7 +221,7 @@ export default function ProductManager() {
                 } else if (file.status === 'error') {
                     message.info('导入失败');
                 }
-            }}><Button type="primary">批量导入</Button></Upload> 
+            }}><Button type="primary">批量导入</Button></Upload>
             {/* <Button onClick={_delete_batch} type="primary">批量禁用</Button> */}
             <Button onClick={export_data} type="primary">数据导出</Button>
             <Button onClick={create} type="primary">新增</Button>
@@ -233,8 +236,8 @@ export default function ProductManager() {
                         setChooseItems((selectedRowKeys + '').split(','));
                       }
                 }}
-                dataSource={dataSource} 
-                columns={columns} 
+                dataSource={dataSource}
+                columns={columns}
                 pagination={{
                     current: pageInfo.page,
                     total: tableSize,
@@ -253,24 +256,24 @@ export default function ProductManager() {
                 {editConfig.map(col => <div className="pm-edit-item">
                     <span className="edit-item__title">{col.title}</span>
                     {
-                        col.dataIndex === 'product_Status' && <Select 
+                        col.dataIndex === 'product_Status' && <Select
                         style={{ width: 300 }}
-                        defaultValue={editInfo[col.dataIndex]} 
+                        defaultValue={editInfo[col.dataIndex]}
                         onChange={value => updateEditInfo(col.dataIndex, value)}>
                         <Select.Option value="显示">显示</Select.Option>
                         <Select.Option value="隐藏">隐藏</Select.Option>
                       </Select>
                     }
                     {
-                        col.dataIndex === 'enable' && <Select 
+                        col.dataIndex === 'enable' && <Select
                             style={{ width: 300 }}
-                            defaultValue={editInfo.enable} 
+                            defaultValue={editInfo.enable}
                             onChange={value => updateEditInfo(col.dataIndex, value)}>
                             <Select.Option value="禁用">禁用</Select.Option>
                             <Select.Option value="启用">启用</Select.Option>
                         </Select>
                     }
-                    {(col.type === 'images') 
+                    {(col.type === 'images')
                         && <div className="pm-edit__images">
                             {/* {Array.isArray(editInfo[col.dataIndex]) && editInfo[col.dataIndex].map(img => <img className="pm-edit__image" alt="edit" src={img} />)} */}
                             {
@@ -312,12 +315,12 @@ export default function ProductManager() {
                                      </Upload>
                                 })
                             }
-                            
+
                         </div>
                     }
 
-                    {(!col.type && col.dataIndex!=='product_Status' && col.dataIndex!== 'enable') && <Input 
-                            placeholder="输入你的数据" 
+                    {(!col.type && col.dataIndex!=='product_Status' && col.dataIndex!== 'enable') && <Input
+                            placeholder="输入你的数据"
                             disabled={col.onlyRead && modelType === 'edit'}
                             value={editInfo && editInfo[col.dataIndex]}
                             onChange={e => updateEditInfo(col.dataIndex, e.target.value)}
@@ -325,6 +328,6 @@ export default function ProductManager() {
                 </div>)}
                 </div>
             </Modal>}
-        
+
         </div>
 }

@@ -2,8 +2,8 @@ import React, {useEffect, useState, useCallback} from 'react';
 import { Button, Table, Modal, Input, Upload, message, Select } from 'antd';
 import { exportFile, dealOssImageUrl, previewImage } from '../../../assets/js/common';
 
-import { 
-    requestForFabricList,requestForFabricEdit, 
+import {
+    requestForFabricList,requestForFabricEdit,
     requestForFabricCreate, requestForFabricDelete,
     requestForFabricExport
  } from './action';
@@ -105,7 +105,7 @@ export default function FabricManager() {
                 pageData();
                 setVisible(false);
             }
-            
+
         })
     }, [pageData])
 
@@ -159,12 +159,12 @@ export default function FabricManager() {
                             _record.fabric_Image = dealOssImageUrl(file.response[0])
                             submitUpdate(_record);
                         }
-                        
+
                     }}
                 ><Button type="primary" size="small">换图</Button></Upload> */}
             </div>},
         ])
-   
+
     return <div className="product-manager">
         <section className="product-manager-search">
             <div className="manager-search-item">
@@ -174,8 +174,9 @@ export default function FabricManager() {
             <div className="manager-search-btn"><Button onClick={pageData} type="primary" >筛选</Button></div>
         </section>
         <section className="product-manager-operation">
-        <Upload 
-            action="//newdreamer.cn/newdreamer/fabric/importExcel"
+        <Upload
+            action={(process.env.REACT_APP_ENV === 'production' ? '//newdreamer.cn' : '//test.newdreamer.cn') + '/newdreamer/fabric/importExcel'}
+            // action="//newdreamer.cn/newdreamer/fabric/importExcel"
             method="post"
             onChange={({ file, fileList }) => {
                 // TODO 导入之后没有反应，显示上传成功了
@@ -185,13 +186,13 @@ export default function FabricManager() {
                 } else if (file.status === 'error') {
                     message.info('导入失败');
                 }
-            }}><Button type="primary">批量导入</Button></Upload> 
+            }}><Button type="primary">批量导入</Button></Upload>
             {/* <Button onClick={_delete_batch} type="primary">批量禁用</Button> */}
             <Button onClick={export_data} type="primary">数据导出</Button>
             <Button onClick={create} type="primary">新增</Button>
         </section>
         <section className="product-manager-table">
-            <Table 
+            <Table
                 rowKey="fabric_Id"
                 rowSelection={{
                     type: 'checkbox',
@@ -200,8 +201,8 @@ export default function FabricManager() {
                         console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
                       }
                 }}
-                dataSource={dataSource} 
-                columns={columns} 
+                dataSource={dataSource}
+                columns={columns}
                 pagination={{
                     current: pageInfo.page,
                     total: tableSize,
@@ -220,15 +221,15 @@ export default function FabricManager() {
                 {[...columns.slice(0, columns.length - 1), ...appendEdit].map(col => <div className="pm-edit-item">
                     <span className="edit-item__title">{col.title}</span>
                     {
-                        col.dataIndex === 'enable' && <Select 
+                        col.dataIndex === 'enable' && <Select
                             style={{ width: 300 }}
-                            defaultValue={editInfo.enable} 
+                            defaultValue={editInfo.enable}
                             onChange={value => updateEditInfo(col.dataIndex, value)}>
                             <Select.Option value="禁用">禁用</Select.Option>
                             <Select.Option value="启用">启用</Select.Option>
                         </Select>
                     }
-                    {(col.type === 'image') 
+                    {(col.type === 'image')
                         && <div className="pm-edit__images">
                             {editInfo[col.dataIndex] &&  <img className="pm-edit__image" alt="edit" src={editInfo[col.dataIndex]} />}
                             <Upload
@@ -244,13 +245,13 @@ export default function FabricManager() {
                                     if (file.response) {
                                         updateEditInfo(col.dataIndex, dealOssImageUrl(file.response[0]))
                                     }
-                                    
+
                                 }}
                             ><Button type="primary" size="small">替换</Button></Upload>
                         </div>
                     }
-                    {(!col.type && col.dataIndex !== 'enable') && <Input 
-                            placeholder="输入你的数据" 
+                    {(!col.type && col.dataIndex !== 'enable') && <Input
+                            placeholder="输入你的数据"
                             disabled={col.onRead && modelType === 'edit'}
                             value={editInfo && editInfo[col.dataIndex]}
                             onChange={e => updateEditInfo(col.dataIndex, e.target.value)}

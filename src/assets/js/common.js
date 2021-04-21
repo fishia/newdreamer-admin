@@ -10,11 +10,12 @@ export function exportFile(url, data) {
             Result += `&ids=${value}`
         }
         return Result;
-        
+
     }, '') : ''
     const link = document.createElement('a');
     link.target ='_blank';
-    link.href = `https://newdreamer.cn${url}?${params}`;
+    // link.href = `https://newdreamer.cn${url}?${params}`;
+    link.href = (process.env.REACT_APP_ENV === 'production' ? "//www.newdreamer.cn" : '//test.newdreamer.cn') + `${url}?${params}`;
     link.click();
     return Promise.resolve();
 }
@@ -41,7 +42,7 @@ export class UploadImages {
     imageToUploadImages = (images) => {
         if (!Array.isArray(images) || images.length === 0) {
             return [];
-        } 
+        }
         return Array.from(images, (item, index) => ({
             uid: index,
             name: matchNameFromImage(item),
