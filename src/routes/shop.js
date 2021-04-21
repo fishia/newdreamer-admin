@@ -1,6 +1,6 @@
 export default [{
     path: '/shop',
-    name: '店铺设置',
+    name: '店铺设置111',
     children: [{
         path: '/home',
         name: '首页',
