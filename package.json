@@ -21,7 +21,7 @@
     "start": "craco start",
     "start:production": "npm run build && npm run start:prod",
     "start:prod": "NODE_ENV=production PUBLIC_URL=/nd node server.js",
-    "start:prod01": "cross-env REACT_APP_ENV=production craco start",
+    "start:pro": "cross-env REACT_APP_ENV=production craco start",
     "start:test": "cross-env REACT_APP_ENV=test craco start",
     "start:dev": "cross-env REACT_APP_ENV=development craco start",
     "build": "PUBLIC_URL=/nd/res craco build",
