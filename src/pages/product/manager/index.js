@@ -207,7 +207,6 @@ export default function ProductManager() {
             <div className="manager-search-btn"><Button onClick={pageData} type="primary" >筛选</Button></div>
         </section>
 
-        {process.env.REACT_APP_ENV === 'production' ? "https://www.newdreamer.cn" : 'https://test.newdreamer.cn'}
         <section className="product-manager-operation">
             <Upload
             action={(process.env.REACT_APP_ENV === 'production' ? '//newdreamer.cn' : '//test.newdreamer.cn') + '/newdreamer/productInfo/importExcel'}
