@@ -11,7 +11,7 @@ let defaultKeys = pathName.split('/').slice(1).reduce((result, item) => {
     if (!result.length) {
         result.push(`/${item}`);
         return result;
-    } 
+    }
     let last = result[result.length - 1];
     result.push(`${last}/${item}`);
     return result;
@@ -19,7 +19,7 @@ let defaultKeys = pathName.split('/').slice(1).reduce((result, item) => {
 function renderRoute(routes, parent) {
     return routes.map((route, index) => {
         return <React.Fragment key={route.path + index}>
-        <Route 
+        <Route
             path={route.path}
             render={props => {
                 if (!route.component) {
@@ -27,7 +27,7 @@ function renderRoute(routes, parent) {
                 }
                 return <div style={{padding: '20px'}}>
                     <Breadcrumb>
-                        {route.bread.map(item => <Breadcrumb.Item>{item}</Breadcrumb.Item>)}
+                        {route.bread.map((item, itemIndex) => <Breadcrumb.Item key={itemIndex}>{item}</Breadcrumb.Item>)}
                     </Breadcrumb>
                     <route.component  {...props} />
                 </div>
@@ -54,7 +54,7 @@ function renderMenu(routes) {
             child.path =  route.path + child.path;
             child.bread = [...route.bread || [], ...[child.name]]
             if (!child.children) {
-                return <Menu.Item key={child.path}> 
+                return <Menu.Item key={child.path}>
                 <Link to={child.path}>{child.name}</Link>
             </Menu.Item>
             }
@@ -92,7 +92,7 @@ function App() {
                         >
                              {renderMenu(Routes)}
                         </Menu>
-                   
+
                 </Sider>
             </Layout>
             <Layout className="site-layout" style={{ paddingLeft: 200, height: '100vh', width: '100vw', overflow:'scroll' }}>
@@ -100,7 +100,7 @@ function App() {
                     {renderRoute(Routes)}
                 </Switch>
             </Layout>
-                
+
             </BrowserRouter>
         </div>
     );

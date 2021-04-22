@@ -61,13 +61,13 @@ export default class ShopHome extends React.Component {
         console.log('提交数据');
         let { notice, photos, manModules, womenModules, titles } = this.state;
         requestHomeSave({
-            photos: JSON.stringify(photos), 
+            photos: JSON.stringify(photos),
             notice: JSON.stringify(notice),
             manModules: JSON.stringify(manModules),
             womenModules: JSON.stringify(womenModules),
             titles: JSON.stringify(titles)
         }).then(this.PageData)
-            
+
     }
 
     // EVALUATION("evaluation","评价图片目录"),
@@ -82,10 +82,10 @@ export default class ShopHome extends React.Component {
                 <div className="home-section__title">顶部滚动图</div>
                 <div className="home-photos-content">
                 {
-                    Array.from({length: photosCount}).map((item,index) => <div className="home-photos-item">
+                    Array.from({length: photosCount}).map((item,index) => <div className="home-photos-item" key={index}>
                         <div className="home-photos-image">
                             {
-                                photos[index] 
+                                photos[index]
                                 ? <img className="photos-image__item" width="100%" alt="photos" src={photos[index]} />
                                 : <span>+</span>
                             }
@@ -112,15 +112,15 @@ export default class ShopHome extends React.Component {
                     </div>)
                 }
                 </div>
-                
+
             </section>
 
             <section className="home-section">
                 <div className="home-section__title">小喇叭</div>
                {
-                   Array.from({length: noticeCount}).map((item, index) =>  <div className="home-section__tip">
-                   <TextArea 
-                       value={notice[index] || ''} 
+                   Array.from({length: noticeCount}).map((item, index) =>  <div className="home-section__tip" key={index}>
+                   <TextArea
+                       value={notice[index] || ''}
                        className="tip-input"
                        placeholder="请输入小喇叭的内容"
                        onChange={e => {
@@ -134,17 +134,17 @@ export default class ShopHome extends React.Component {
                }
             </section>
             {
-                barcodeConfig.map(barcode =>  <section className="home-section">
+                barcodeConfig.map((barcode, barcodeIndex) =>  <section className="home-section" key={barcodeIndex}>
                 <div className="home-section__title">{barcode.titile}</div>
                 {
-                    barcode.conf.map(config => <div className="section-barcode-setting">
+                    barcode.conf.map((config, configIndex) => <div className="section-barcode-setting" key={configIndex}>
                     <div className="barcode-setting_title">
                         {
                             editable === config.enableKey
-                            ? <Input 
-                                style={{width: 300}} 
-                                placeholder="输入标题" 
-                                value={this.state[barcode.keyName][config.keyName] && this.state[barcode.keyName][config.keyName].title} 
+                            ? <Input
+                                style={{width: 300}}
+                                placeholder="输入标题"
+                                value={this.state[barcode.keyName][config.keyName] && this.state[barcode.keyName][config.keyName].title}
                                 onChange={e => {
                                     let modules = this.state[barcode.keyName];
                                     if (!modules[config.keyName]) {
@@ -175,9 +175,9 @@ export default class ShopHome extends React.Component {
                     </div>
                     <div className="edit-list">
                         {
-                            Array.from({length:4}).map((item, index) => <div className="man-row-eidt">
+                            Array.from({length:4}).map((item, index) => <div className="man-row-eidt" key={index}>
                                 {editable === config.enableKey  // 男西服
-                                    ?   <Input 
+                                    ?   <Input
                                         value={this.state[barcode.keyName][config.keyName] && this.state[barcode.keyName][config.keyName].codes[index]}
                                         onChange={e => {
                                         let _manModules = {...this.state[barcode.keyName]};
@@ -188,7 +188,7 @@ export default class ShopHome extends React.Component {
                                         _manModules[config.keyName].codes[index] = e.target.value;
                                         this.setState({[barcode.keyName]: _manModules})
                                     }} />
-                                            
+
                                     :   <div>{(this.state[barcode.keyName][config.keyName] && this.state[barcode.keyName][config.keyName].codes[index]) || `条码${index}`}</div>}
                             </div>)
                         }
@@ -197,7 +197,7 @@ export default class ShopHome extends React.Component {
                 }
             </section>)
             }
-           
+
         </div>
     }
 }

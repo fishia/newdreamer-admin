@@ -183,14 +183,14 @@ export default function ProductManager() {
             { title: '工艺', dataIndex: 'crafts'},
             { title: '排序', dataIndex: 'is_Top', width: 80},
             { title: '图片', dataIndex: 'images', render: item => <div className="product-table-images">
-                {Array.isArray(item) && item.map(_img => <img onClick={() => {
+                {Array.isArray(item) && item.map((_img, imgIndex) => <img onClick={() => {
                     previewImage(_img);
-                }} className="product-table-image" alt="img" src={_img} />)}
+                }} className="product-table-image" alt="img" src={_img} key={imgIndex} />)}
             </div>},
             { title: '详情页', dataIndex: 'detailImages', render: item => <div className="product-table-images">
-                {Array.isArray(item) && item.map(_img => <img onClick={() => {
+                {Array.isArray(item) && item.map((_img, imgIndex) => <img onClick={() => {
                     previewImage(_img);
-                }} className="product-table-image" alt="img" src={_img} />)}
+                }} className="product-table-image" alt="img" src={_img} key={imgIndex} />)}
             </div>},
             { title: '操作', dataIndex: 'name11', width: 150, render: (item, record) => <div className="product-table-operations">
                <Button type="primary" size="small" onClick={() => _edit(record)} >编辑</Button>
