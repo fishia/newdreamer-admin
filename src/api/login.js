@@ -8,3 +8,9 @@ export function requestLogin(data) {
         params: data
     })
 }
+export function requestLoginOut() {
+    return request({
+        method: 'get',
+        url: '/newdreamer/auth/logout'
+    })
+}

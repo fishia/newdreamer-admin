@@ -1,8 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import {Layout, Menu, Breadcrumb, Button, message} from 'antd';
 import Routes from '../routes';
 import '../App.less';
+import { requestLoginOut } from '../api/login';
 
 const { Sider } = Layout;
 
@@ -74,6 +75,18 @@ function App() {
     //     </BrowserRouter>
     //     </div>
     // }
+    let loginOut = () => {
+        requestLoginOut().then(res => {
+            if (res.code === 200) {
+                // this.props.history.push('/login');
+                message.success('退出登录');
+                setTimeout(function () {
+                    window.location.href = window.location.origin + '/login';
+                }, 1000)
+
+            }
+        })
+    };
     return (
         <div className="App">
             <BrowserRouter >
@@ -92,7 +105,9 @@ function App() {
                         >
                              {renderMenu(Routes)}
                         </Menu>
-
+                    <div className="loginOut">
+                        <Button type="primary" size="small" onClick={loginOut}>退出登录</Button>
+                    </div>
                 </Sider>
             </Layout>
             <Layout className="site-layout" style={{ paddingLeft: 200, height: '100vh', width: '100vw', overflow:'scroll' }}>
