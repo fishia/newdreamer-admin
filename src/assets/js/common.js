@@ -81,3 +81,27 @@ export function previewImage (img) {
         content: <div><img alt="preview" style={{ width: '100%' }} src={img} /></div>,
       });
 }
+
+/*
+* 存储cookie
+* @c_name: 存储的cookie名称
+* @value: 存储的cookie值
+* @expiredays: 到期时间
+* */
+export function setCookie (c_name, value, expiredays) {
+  let exdate = new Date();
+  exdate.setDate(exdate.getDate() + expiredays);
+  document.cookie = c_name + '=' + escape(value) + ((expiredays == null) ? '' : ';expires=' + exdate.toGMTString() + ';path=/;domain=localhost')
+}
+/*
+* 读取cookies
+* @name: cookie名称
+* */
+export function getCookie (name) {
+  let arr;
+  let reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)');
+  // console.log(document.cookie.match(reg));
+  arr = document.cookie.match(reg);
+  if (arr) return unescape(arr[2]);
+  else return null;
+}
