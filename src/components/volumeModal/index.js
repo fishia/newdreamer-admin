@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import { Modal, Radio, Button, Input } from 'antd';
+import { previewImage } from '../../assets/js/common';
 import './index.less';
 
 
@@ -27,7 +28,7 @@ const pureSize = [
     {title: '中裆', key: 'mid_Range'},
     {title: '袖长', key: 'sleeve_Length'},
     {title: '小腿围', key: 'calf_Circumference'},
-    {title: '大臂围', key: 'big_Arm_Circumference'}, 
+    {title: '大臂围', key: 'big_Arm_Circumference'},
     {title: '脚口', key: 'foot_Mouth'},
     {title: '小臂围', key: 'small_Arm_Circumference'},
     {title: '通裆', key: 'full_Crotch'},
@@ -114,15 +115,15 @@ export default function VolumeModal({ info, editable, submit, cancel, showModal,
                 {customerInfo.map(cust => <div className="volume-customer-item">
                     <div className="customer-item__title">{cust.title}</div>
                     {
-                        _editable 
-                        ? <Input 
-                            value={_info[cust.key] || ''} 
+                        _editable
+                        ? <Input
+                            value={_info[cust.key] || ''}
                             placeholder={`请输入${cust.title}`}
                             onChange={e => updateForm(cust.key, e.target.value)}
                          />
                         : <div className="customer-item__value">{_info[cust.key]}</div>
                     }
-                    
+
                 </div>)}
             </div>
 
@@ -134,16 +135,16 @@ export default function VolumeModal({ info, editable, submit, cancel, showModal,
                             <div className="size-item__title">{size.title}</div>
                             {
                                 _editable
-                                ? <Input 
-                                    value={_info[size.key] || ''} 
+                                ? <Input
+                                    value={_info[size.key] || ''}
                                     placeholder={`请输入${size.title}`}
                                     onChange={e => updateForm(size.key, e.target.value)}
                                 />
                                 : <div className="size-item__value">{_info[size.key]}</div>
                             }
-                            
+
                         </div>)}
-                        
+
                     </div>
                 </div>
 
@@ -161,8 +162,8 @@ export default function VolumeModal({ info, editable, submit, cancel, showModal,
                                     <div className="modal-size-item">
                                         <div className="size-item__title">{child.title}</div>
                                         <div className="size-item__value"><Radio
-                                            onChange={() => updateForm(size.key, child.key)} 
-                                            checked={_info[size.key] === child.key} 
+                                            onChange={() => updateForm(size.key, child.key)}
+                                            checked={_info[size.key] === child.key}
                                             disabled={!_editable}
                                         /></div>
                                     </div>
@@ -174,9 +175,30 @@ export default function VolumeModal({ info, editable, submit, cancel, showModal,
                 <div className="modal-figure-images">
                     <div className="figure-images-title">体型图</div>
                     <div className="figure-images-content">
-                        {info.body_Shape_Back && <img alt="figure" className="figure-image-item" src={info.body_Shape_Back} />}
-                        {info.body_Shape_Front && <img alt="figure" className="figure-image-item" src={info.body_Shape_Front} />}
-                        {info.body_Shape_Remark && <div>量体备注: {info.body_Shape_Remark}</div>}
+
+                        {info.body_Shape_Front &&
+                            <div className="line">
+                                <img onClick={() => {previewImage(info.body_Shape_Front);}} alt="figure" className="figure-image-item" src={info.body_Shape_Front} />
+                                {/*<Image src={info.body_Shape_Front}/>*/}
+                                <p>正面照</p>
+                            </div>
+                        }
+                        {info.body_Shape_Side &&
+                            <div className="line">
+                                <img onClick={() => {previewImage(info.body_Shape_Side);}} alt="figure" className="figure-image-item" src={info.body_Shape_Side} />
+                                <p>侧面照</p>
+                            </div>
+                        }
+                        {info.body_Shape_Back &&
+                            <div className="line">
+                                <img onClick={() => {previewImage(info.body_Shape_Back);}} alt="figure" className="figure-image-item" src={info.body_Shape_Back}/>
+                                <p>背面照</p>
+                            </div>
+                        }
+                        {/*{info.body_Shape_Remark && <div>量体备注: {info.body_Shape_Remark}</div>}*/}
+                    </div>
+                    <div className="figure-images-content">
+                        {info.body_Shape_Remark && <div>量体备注: <div className="remark">{info.body_Shape_Remark}</div></div>}
                     </div>
                 </div>
             </div>
