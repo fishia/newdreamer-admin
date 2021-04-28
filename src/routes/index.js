@@ -6,6 +6,7 @@ import measureRoutes from './measure';
 import orderRoutes from './order';
 import productRoutes from './product';
 import distributorRoutes from './distributor';
+import couponRoutes from './coupon';
 
 
 export default [{
@@ -18,7 +19,8 @@ export default [{
         ...measureRoutes,
         ...distributionRoutes,
         ...bonusRoutes,
-        ...distributorRoutes
+        ...distributorRoutes,
+        ...couponRoutes
     ]
 }
 ]
