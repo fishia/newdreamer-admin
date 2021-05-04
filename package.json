@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^7.2.1",
     "antd": "^4.3.4",
     "cbkfe-request": "^1.0.6",
+    "moment": "^2.29.1",
     "pm2": "^4.4.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { message } from 'antd';
 
 export default function request (options) {
+    // console.log(options)
     let header = options.header || {};
     if (options.type === 'json') {
         header['Content-Type'] = 'application/json;utf-8';
@@ -49,17 +50,52 @@ export default function request (options) {
             // return Promise.reject(error)
         }
     );
-    return axios(options).then(response => {
-        if (response) {
-            let resCode = response.status;
-            let resSuccess = resCode >= 200 && resCode < 300 || resCode === 304; // jq
-            if (resSuccess) {
-                return response.data;
-            } else {
-                return Promise.reject(response.data);
+    // 将post请求的参数放在body中
+    if (options.method === 'post' && options.version === 2) {
+        return axios.post(options.url, options.params).then(response => {
+            // 200 
+            if (response) {
+                let resCode = response.status;
+                let resSuccess = resCode >= 200 && resCode < 300 || resCode === 304; // jq
+                if (resSuccess) {
+                    return response.data;
+                } else {
+                    return Promise.reject(response.data);
+                }
             }
-        }
-    }).catch(err => {
-        return Promise.reject(err);
-    })
+          }).catch((err) => {
+            return Promise.reject(err);
+          })
+    } else if (options.method === 'delete' && options.version === 2) {
+        // console.log(options)
+        return axios.delete(options.url, {params: options.params}).then(response => {
+            // 200 
+            if (response) {
+                let resCode = response.status;
+                let resSuccess = resCode >= 200 && resCode < 300 || resCode === 304; // jq
+                if (resSuccess) {
+                    return response.data;
+                } else {
+                    return Promise.reject(response.data);
+                }
+            }
+          }).catch((err) => {
+            return Promise.reject(err);
+          })
+    } else {
+        return axios(options).then(response => {
+            if (response) {
+                let resCode = response.status;
+                let resSuccess = resCode >= 200 && resCode < 300 || resCode === 304; // jq
+                if (resSuccess) {
+                    return response.data;
+                } else {
+                    return Promise.reject(response.data);
+                }
+            }
+        }).catch(err => {
+            return Promise.reject(err);
+        })
+    }
+    
 }

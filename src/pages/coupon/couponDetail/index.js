@@ -1,33 +1,26 @@
 import React from 'react';
 import { Button, Input, Table, Modal, message } from 'antd/lib/index';
-import { requestcoupomList, couponDelete } from './action';
-import moment from 'moment'
+import { queryAllCustomerCoupon } from '../../../api/coupon';
 import './index.less'
-import AddCoupon from '../../../components/coupon/addCoupon/index'
+import moment from 'moment'
 export default class Index extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       searchForm: {
-        couponCode: '',
-        couponType: ''
+
       },
       pageInfo: {
         page: 1,
         size: 10
       },
       tableSize: 0,
-      coupomList: [],
-      visible: false, // 打开新增弹窗
-      confirmLoading: false,
-      rowData: {}, // 行数据
-      editStatue: false // 点击修改时设置为true
+      couponDetailList: [],
     }
   }
   componentDidMount() {
     this.pageData()
   }
-
   updateSearch(key, e) {
     let params = { ...this.state.searchForm }
     Object.getOwnPropertyNames(params).forEach(function (k) {
@@ -37,10 +30,11 @@ export default class Index extends React.Component {
       searchForm: params
     })
   }
+
   pageData() {
     let _pageInfo = { ...this.state.pageInfo, ...this.state.searchForm };
     _pageInfo.page -= 1;
-    requestcoupomList(_pageInfo).then(res => {
+    queryAllCustomerCoupon(_pageInfo).then(res => {
       const { data } = res
       data.content.forEach(e => {
         e.key = e.id
@@ -51,7 +45,7 @@ export default class Index extends React.Component {
       // updateSource(content)
       this.setState({
         tableSize: data.totalElements,
-        coupomList: data.content
+        couponDetailList: data.content
       })
     })
     // console.log(this.state.searchForm);
@@ -59,62 +53,29 @@ export default class Index extends React.Component {
   onPageChange() {
 
   }
-
-  updateListInfo(record) {
-    // console.log(record);
-    this.setState({
-      rowData: record,
-      editStatue: true,
-      visible: true
-    })
-  }
-  // 删除
-  updateDelData(record) {
-    // console.log(record);
-    couponDelete(record.id).then(res => {
-      // console.log(res)
-      if (res.code === 200) {
-        message.success('操作成功');
-        this.pageData()
-      }
-    })
-  }
-
-  addListData() {
-    this.setState({
-      visible: true
-    })
-    // console.log(this.state.coupomList);
-  }
-  //  新增成功，刷新列表
-  handleOk = () => {
-    this.pageData()
-    this.handleCancel(); // 关闭弹窗
-  }
-  // confirmLoading () {
-  //   this.setState({
-  //     visible: false
-  //   })
-  // }
-  //  关闭弹窗
-  handleCancel = () => {
-    this.setState({
-      visible: false
-    })
-    //  如果是通过点击修改打开的弹窗，关闭时清空数据并重置状态
-    if (this.state.editStatue) {
-      this.setState({
-        rowData: {},
-        editStatue: false
-      })
-    }
-  }
-
+  
   render() {
-    const { pageInfo, tableSize, coupomList,visible, confirmLoading, editStatue, rowData } = this.state
+    const { couponDetailList, pageInfo, tableSize } = this.state;
     const columns = [
+      { title: '优惠券明细编码', dataIndex: 'couponCode', width: 180, align: 'center' },
       { title: '优惠券编码', dataIndex: 'couponCode', width: 180, align: 'center' },
-      { title: '优惠券名称', dataIndex: 'couponName', width: 200, align: 'center' },
+      // { title: '优惠券名称', dataIndex: 'couponName', width: 200, align: 'center' },
+      {
+        title: '优惠券类型', dataIndex: 'couponType', width: 200,
+        render: (value) => <span>{value === "CASH" ? '现金' : value === "RATE" ? '折扣' : ''}</span>,
+        align: 'center'
+      },
+      {
+        title: '创建明细时间', dataIndex: 'createdTime', width: 200,
+        render: (value) => <span>{moment(value).format('YYYY-MM-DD')}</span>,
+        align: 'center'
+      },
+      {
+        title: '是否使用', dataIndex: 'isUsed', width: 200,
+        render: (value) => <span>{value ? '是' : '否'}</span>,
+        align: 'center'
+      },
+      { title: '活动渠道', dataIndex: 'channel', width: 280, align: 'center' },
       { title: '活动名称', dataIndex: 'activityName', width: 300, align: 'center' },
       {
         title: '允许发放', dataIndex: 'allowGrant', width: 200,
@@ -124,11 +85,6 @@ export default class Index extends React.Component {
       {
         title: '是否有效', dataIndex: 'enable', width: 200,
         render: (value) => <span>{value ? '是' : '否'}</span>,
-        align: 'center'
-      },
-      {
-        title: '优惠券类型', dataIndex: 'couponType', width: 200,
-        render: (value) => <span>{value === "CASH" ? '现金' : value === "RATE" ? '折扣' : ''}</span>,
         align: 'center'
       },
       {
@@ -154,10 +110,6 @@ export default class Index extends React.Component {
         title: '有效活动期间', dataIndex: 'startTime', width: 200, align: 'center', render: (value, record) => <span>{value ? moment(value).format('YYYY-MM-DD') : ''}</span>,
 
       },
-      // { title: '优惠范围（分类）', dataIndex: 'share', width: 200, align: 'center' },
-      // { title: '优惠范围（sku）', dataIndex: 'share', width: 200 },
-      // { title: '折扣方式', dataIndex: 'share', width: 200, align: 'center' },
-      { title: '活动渠道（备注活动）', dataIndex: 'channel', width: 280, align: 'center' },
       {
         title: '操作', dataIndex: 'channel', width: 240, align: 'center',
         render: (value, record) => <div>
@@ -167,8 +119,9 @@ export default class Index extends React.Component {
         fixed: 'right'
       },
     ];
+    
     return (
-      <div className="couponSetting">
+      <div className="couponDetailed">
         <div className="search-box">
           <section className="product-manager-search">
             <div className="manager-search-item">
@@ -181,12 +134,8 @@ export default class Index extends React.Component {
             </div>
             <div className="manager-search-btn"><Button onClick={this.pageData.bind(this)} type="primary" >筛选</Button></div>
           </section>
-          <section className="sear-add">
-            <Button type="primary" onClick={this.addListData.bind(this)}>新增</Button>
-          </section>
         </div>
-
-        <Table dataSource={coupomList} columns={columns}
+        <Table dataSource={couponDetailList} columns={columns}
           scroll={{ x: 2000 }}
           pagination={{
             current: pageInfo.page,
@@ -194,17 +143,6 @@ export default class Index extends React.Component {
             onChange: this.onPageChange.bind(this)
           }} />
 
-        {/* <Modal
-          title="Title"
-          visible={visible}
-          onOk={() => {this.handleOk.bind(this)}}
-          confirmLoading={confirmLoading}
-          onCancel={() => {this.handleCancel.bind(this)}}
-        >
-          <p>ceshi</p>
-        </Modal> */}
-        {visible ? <AddCoupon handleOk={this.handleOk} handleCancel={this.handleCancel} editStatue={editStatue} rowData={rowData}></AddCoupon> : null}
-        
       </div>
     )
 

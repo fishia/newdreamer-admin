@@ -8,4 +8,12 @@ export function requestcoupomList(data) {
       params: data
   })
 }
+export function couponDelete(data) {
+  return request({
+    method: 'delete',
+    url: '/newdreamer/coupon/delete',
+    params: data,
+    version: 2
+  })
+}
 
