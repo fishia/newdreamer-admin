@@ -45,7 +45,7 @@ export default class Index extends React.Component {
       data.content.forEach(e => {
         e.key = e.id
       });
-      console.log(data.content, '数据');
+      // console.log(data.content, '数据');
       // setTableSize(data.totalElements)
       // let content = data.content.filter(item => item.volumer_Address !== "1")
       // updateSource(content)
@@ -56,8 +56,16 @@ export default class Index extends React.Component {
     })
     // console.log(this.state.searchForm);
   }
-  onPageChange() {
-
+  onPageChange = (page, pageSize) => {
+    // console.log(page, pageSize)
+    this.setState({
+      pageInfo: {
+        page: page,
+        pageSize: 10
+      }
+    }, () => {
+      this.pageData()
+    });
   }
 
   updateListInfo(record) {
@@ -148,12 +156,16 @@ export default class Index extends React.Component {
       },
       {
         title: '有效时间类型', dataIndex: 'limitTimeType', width: 200, align: 'center',
-        render: (value, record) => <span>{record.limitTimeType === "ABSOLUTE" ? `${moment(record.startTime).format('YYYY-MM-DD')} ~ ${record.endTime}` : record.limitTimeType === "COUNTDOWN" ? `${record.countdownDay}天` : ''}</span>,
+        render: (value, record) => <span>{record.limitTimeType === "ABSOLUTE" ? '时间段' : record.limitTimeType === "COUNTDOWN" ? '倒计时' : ''}</span>,
       },
       {
-        title: '有效活动期间', dataIndex: 'startTime', width: 200, align: 'center', render: (value, record) => <span>{value ? moment(value).format('YYYY-MM-DD') : ''}</span>,
-
+        title: '有效活动期间', dataIndex: 'limitTimeType', width: 200, align: 'center',
+        render: (value, record) => <span>{record.limitTimeType === "ABSOLUTE" ? `${moment(record.startTime).format('YYYY-MM-DD')} ~ ${moment(record.endTime).format('YYYY-MM-DD')}` : record.limitTimeType === "COUNTDOWN" ? `${record.countdownDay}天` : ''}</span>,
       },
+      // {
+      //   title: '有效活动期间', dataIndex: 'startTime', width: 200, align: 'center', render: (value, record) => <span>{value ? moment(value).format('YYYY-MM-DD') : ''}</span>,
+      //
+      // },
       // { title: '优惠范围（分类）', dataIndex: 'share', width: 200, align: 'center' },
       // { title: '优惠范围（sku）', dataIndex: 'share', width: 200 },
       // { title: '折扣方式', dataIndex: 'share', width: 200, align: 'center' },
@@ -162,7 +174,7 @@ export default class Index extends React.Component {
         title: '操作', dataIndex: 'channel', width: 240, align: 'center',
         render: (value, record) => <div>
           <Button type="primary" style={{ "marginRight": "20px" }} onClick={() => { this.updateListInfo(record) }}>修改</Button>
-          <Button type="primary" onClick={() => { this.updateDelData(record) }}>删除</Button>
+          {/*<Button type="primary" onClick={() => { this.updateDelData(record) }}>删除</Button>*/}
         </div>,
         fixed: 'right'
       },
@@ -191,7 +203,7 @@ export default class Index extends React.Component {
           pagination={{
             current: pageInfo.page,
             total: tableSize,
-            onChange: this.onPageChange.bind(this)
+            onChange: this.onPageChange
           }} />
 
         {/* <Modal
@@ -204,7 +216,7 @@ export default class Index extends React.Component {
           <p>ceshi</p>
         </Modal> */}
         {visible ? <AddCoupon handleOk={this.handleOk} handleCancel={this.handleCancel} editStatue={editStatue} rowData={rowData}></AddCoupon> : null}
-        
+
       </div>
     )
 

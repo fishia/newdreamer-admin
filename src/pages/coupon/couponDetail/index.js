@@ -50,13 +50,15 @@ export default class Index extends React.Component {
     })
     // console.log(this.state.searchForm);
   }
-  onPageChange() {
-
+  onPageChange = (page, pageSize) => {
+    console.log(page, pageSize)
+    this.pageData()
   }
-  
+
   render() {
     const { couponDetailList, pageInfo, tableSize } = this.state;
     const columns = [
+      //  缺失 优惠券明细编码、销售数量、作废时间、作废原因
       { title: '优惠券明细编码', dataIndex: 'couponCode', width: 180, align: 'center' },
       { title: '优惠券编码', dataIndex: 'couponCode', width: 180, align: 'center' },
       // { title: '优惠券名称', dataIndex: 'couponName', width: 200, align: 'center' },
@@ -70,56 +72,23 @@ export default class Index extends React.Component {
         render: (value) => <span>{moment(value).format('YYYY-MM-DD')}</span>,
         align: 'center'
       },
+      { title: '来源渠道', dataIndex: 'channel', width: 280, align: 'center' },
       {
         title: '是否使用', dataIndex: 'isUsed', width: 200,
         render: (value) => <span>{value ? '是' : '否'}</span>,
         align: 'center'
       },
-      { title: '活动渠道', dataIndex: 'channel', width: 280, align: 'center' },
-      { title: '活动名称', dataIndex: 'activityName', width: 300, align: 'center' },
+      { title: '订单编号', dataIndex: 'order_Id', width: 300, align: 'center' },
+      { title: '实际销售金额', dataIndex: 'total_Received_Amount', width: 300, align: 'center' },
+      { title: '优惠金额', dataIndex: 'totalDiscountAmount', width: 300, align: 'center' },
+      { title: '销售数量', dataIndex: 'totalDiscountAmount', width: 300, align: 'center' },
       {
-        title: '允许发放', dataIndex: 'allowGrant', width: 200,
+        title: '是否失效', dataIndex: 'enable', width: 200,
         render: (value) => <span>{value ? '是' : '否'}</span>,
         align: 'center'
-      },
-      {
-        title: '是否有效', dataIndex: 'enable', width: 200,
-        render: (value) => <span>{value ? '是' : '否'}</span>,
-        align: 'center'
-      },
-      {
-        title: '满减条件/满足商品数量', dataIndex: 'productNum', width: 200,
-        render: (value, record) => <span>{record.orderAmount} / {record.productNum}</span>,
-        align: 'center'
-      },
-      {
-        title: '优惠金额/折扣率', dataIndex: 'discountAmount', width: 200,
-        render: (value, record) => <span>{record.discountAmount} / {record.discountRate}</span>,
-        align: 'center'
-      },
-      {
-        title: '是否可以分享', dataIndex: 'share', width: 230,
-        render: (value, record) => <span>{value ? '是' : '否'}</span>,
-        align: 'center'
-      },
-      {
-        title: '有效时间类型', dataIndex: 'limitTimeType', width: 200, align: 'center',
-        render: (value, record) => <span>{record.limitTimeType === "ABSOLUTE" ? `${moment(record.startTime).format('YYYY-MM-DD')} ~ ${record.endTime}` : record.limitTimeType === "COUNTDOWN" ? `${record.countdownDay}天` : ''}</span>,
-      },
-      {
-        title: '有效活动期间', dataIndex: 'startTime', width: 200, align: 'center', render: (value, record) => <span>{value ? moment(value).format('YYYY-MM-DD') : ''}</span>,
-
-      },
-      {
-        title: '操作', dataIndex: 'channel', width: 240, align: 'center',
-        render: (value, record) => <div>
-          <Button type="primary" style={{ "marginRight": "20px" }} onClick={() => { this.updateListInfo(record) }}>修改</Button>
-          <Button type="primary" onClick={() => { this.updateDelData(record) }}>删除</Button>
-        </div>,
-        fixed: 'right'
-      },
+      }
     ];
-    
+
     return (
       <div className="couponDetailed">
         <div className="search-box">
@@ -140,7 +109,7 @@ export default class Index extends React.Component {
           pagination={{
             current: pageInfo.page,
             total: tableSize,
-            onChange: this.onPageChange.bind(this)
+            onChange: this.onPageChange
           }} />
 
       </div>
