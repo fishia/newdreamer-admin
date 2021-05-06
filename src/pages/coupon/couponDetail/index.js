@@ -59,7 +59,7 @@ export default class Index extends React.Component {
     const { couponDetailList, pageInfo, tableSize } = this.state;
     const columns = [
       //  缺失 优惠券明细编码、销售数量、作废时间、作废原因
-      { title: '优惠券明细编码', dataIndex: 'couponCode', width: 180, align: 'center' },
+      { title: '优惠券明细编码', dataIndex: 'detailCode', width: 180, align: 'center' },
       { title: '优惠券编码', dataIndex: 'couponCode', width: 180, align: 'center' },
       // { title: '优惠券名称', dataIndex: 'couponName', width: 200, align: 'center' },
       {

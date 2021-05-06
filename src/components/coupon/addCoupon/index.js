@@ -28,7 +28,7 @@ export default class Index extends React.Component {
     }
      this.setState({
       addInitialValues: this.props.rowData
-     }) 
+     })
     }
   }
 
@@ -40,7 +40,7 @@ export default class Index extends React.Component {
   handleCancel =() => {
     this.props.handleCancel();
   }
-  
+
   onFinish = (values) => {
     if (!this.props.editStatue) {
       //  新增
@@ -74,7 +74,7 @@ export default class Index extends React.Component {
         }
       })
     }
-    
+
     // this.props.handleOk();
   };
 
@@ -111,6 +111,9 @@ export default class Index extends React.Component {
               <Form.Item label="活动名称" name="activityName" rules={[{ required: true, message: '请输入活动名称 !' }]}>
                 <Input disabled={editStatue}/>
               </Form.Item>
+              <Form.Item label="优惠券数量" name="couponNum" rules={[{ required: true, message: '请输入优惠券数量 !' }]}>
+                  <Input disabled={editStatue}/>
+              </Form.Item>
               <Form.Item label="优惠券类型" name="couponType" rules={[{ required: true, message: '请选择优惠券类型!' }]}>
                 <Select allowClear placeholder="请选择优惠券类型" disabled={editStatue}>
                   <Option value="CASH">现金</Option>
@@ -145,12 +148,12 @@ export default class Index extends React.Component {
                 </Select>
               </Form.Item>
               <Form.Item label="活动有效期间" name="countdownDay">
-                  <Input disabled={editStatue} />
+                  <Input disabled={editStatue} /> 天
               </Form.Item>
               <Form.Item label="活动起止时间" name="times">
                 <RangePicker format={['YYYY/MM/DD', 'YYYY/MM/DD']} disabled={editStatue}/>
               </Form.Item>
-              
+
               {/* <Form.Item label="产品选择方式" name="couponName">
                   <Input />
               </Form.Item>
