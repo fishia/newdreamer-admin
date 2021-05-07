@@ -121,45 +121,45 @@ export default class Index extends React.Component {
   render() {
     const { pageInfo, tableSize, coupomList,visible, confirmLoading, editStatue, rowData } = this.state
     const columns = [
-      { title: '优惠券编码', dataIndex: 'couponCode', width: 180, align: 'center' },
-      { title: '优惠券名称', dataIndex: 'couponName', width: 200, align: 'center' },
-      { title: '活动名称', dataIndex: 'activityName', width: 300, align: 'center' },
+      { title: '优惠券编码', dataIndex: 'couponCode', width: 120, align: 'center' },
+      { title: '优惠券名称', dataIndex: 'couponName', width: 120, align: 'center' },
+      { title: '活动名称', dataIndex: 'activityName', width: 160, align: 'center' },
       {
-        title: '允许发放', dataIndex: 'allowGrant', width: 200,
+        title: '允许发放', dataIndex: 'allowGrant', width: 60,
         render: (value) => <span>{value ? '是' : '否'}</span>,
         align: 'center'
       },
       {
-        title: '是否有效', dataIndex: 'enable', width: 200,
+        title: '是否有效', dataIndex: 'enable', width: 60,
         render: (value) => <span>{value ? '是' : '否'}</span>,
         align: 'center'
       },
       {
-        title: '优惠券类型', dataIndex: 'couponType', width: 200,
+        title: '优惠券类型', dataIndex: 'couponType', width: 80,
         render: (value) => <span>{value === "CASH" ? '现金' : value === "RATE" ? '折扣' : ''}</span>,
         align: 'center'
       },
       {
-        title: '满减条件/满足商品数量', dataIndex: 'productNum', width: 200,
+        title: '满减条件/满足商品数量', dataIndex: 'productNum', width: 60,
         render: (value, record) => <span>{record.orderAmount} / {record.productNum}</span>,
         align: 'center'
       },
       {
-        title: '优惠金额/折扣率', dataIndex: 'discountAmount', width: 200,
+        title: '优惠金额/折扣率', dataIndex: 'discountAmount', width: 60,
         render: (value, record) => <span>{record.discountAmount} / {record.discountRate}</span>,
         align: 'center'
       },
       {
-        title: '是否可以分享', dataIndex: 'share', width: 230,
+        title: '是否可以分享', dataIndex: 'share', width: 60,
         render: (value, record) => <span>{value ? '是' : '否'}</span>,
         align: 'center'
       },
       {
-        title: '有效时间类型', dataIndex: 'limitTimeType', width: 200, align: 'center',
+        title: '有效时间类型', dataIndex: 'limitTimeType', width: 80, align: 'center',
         render: (value, record) => <span>{record.limitTimeType === "ABSOLUTE" ? '时间段' : record.limitTimeType === "COUNTDOWN" ? '倒计时' : ''}</span>,
       },
       {
-        title: '有效活动期间', dataIndex: 'limitTimeType', width: 200, align: 'center',
+        title: '有效活动期间', dataIndex: 'limitTimeType', width: 160, align: 'center',
         render: (value, record) => <span>{record.limitTimeType === "ABSOLUTE" ? `${moment(record.startTime).format('YYYY-MM-DD')} ~ ${moment(record.endTime).format('YYYY-MM-DD')}` : record.limitTimeType === "COUNTDOWN" ? `${record.countdownDay}天` : ''}</span>,
       },
       // {
@@ -169,9 +169,9 @@ export default class Index extends React.Component {
       // { title: '优惠范围（分类）', dataIndex: 'share', width: 200, align: 'center' },
       // { title: '优惠范围（sku）', dataIndex: 'share', width: 200 },
       // { title: '折扣方式', dataIndex: 'share', width: 200, align: 'center' },
-      { title: '活动渠道（备注活动）', dataIndex: 'channel', width: 280, align: 'center' },
+      { title: '活动渠道（备注活动）', dataIndex: 'channel', width: 160, align: 'center' },
       {
-        title: '操作', dataIndex: 'channel', width: 240, align: 'center',
+        title: '操作', dataIndex: 'channel', width: 80, align: 'center',
         render: (value, record) => <div>
           <Button type="primary" style={{ "marginRight": "20px" }} onClick={() => { this.updateListInfo(record) }}>修改</Button>
           {/*<Button type="primary" onClick={() => { this.updateDelData(record) }}>删除</Button>*/}
