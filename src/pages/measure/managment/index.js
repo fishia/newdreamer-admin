@@ -186,7 +186,7 @@ export default function ProductManager() {
             onCancel={() => setVisible(false)}
         >
             <div className="pm-edit-container">
-                {createConfig.map(col => <div className="pm-edit-item">
+                {createConfig.map((col, index) => <div className="pm-edit-item" key={index}>
                     <span className="edit-item__title">{col.title}</span>
                     {
                         col.dataIndex === 'volumer_Status' && <Select defaultValue={modalInfo[col.dataIndex]} >
