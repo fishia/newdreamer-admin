@@ -28,14 +28,19 @@ export default class Index extends React.Component {
     if (rowData.startTime && rowData.endTime) {
       let startTime = moment(rowData.startTime).format('YYYY/MM/DD');
       let endTime = moment(rowData.endTime).format('YYYY/MM/DD');
+      // 转换成组件可识别的格式
       rowData.times = [moment(startTime), moment(endTime)]
     }
+    // 转换成组件可识别的格式
+    if (rowData.startTime) {
+        rowData.startTime = moment(moment(rowData.startTime).format('YYYY/MM/DD'));
+    }
      this.setState({
-       addInitialValues: this.props.rowData,
-       couponType: this.props.rowData.couponType,
-       limitTimeType: this.props.rowData.limitTimeType
+       addInitialValues: rowData,
+       couponType: rowData.couponType,
+       limitTimeType: rowData.limitTimeType
      })
-      console.log(this.props.rowData)
+      // console.log(this.props.rowData)
     }
   }
 
@@ -64,14 +69,39 @@ export default class Index extends React.Component {
   onFinish = (values) => {
     if (!this.props.editStatue) {
       //  新增
-      let params = {...values}
-      if (values.startTime && values.endTime) {
-        values.startTime = moment(values.times[0]).format('YYYY-MM-DD');
-        values.endTime = moment(values.times[1]).format('YYYY-MM-DD');
-        // console.log('Success:', values);
-        delete params.times
+      let params = {...values};
+        console.log(params);
+      // 有效时间类型
+      if (params.limitTimeType) {
+          if(params.limitTimeType === 'ABSOLUTE') {
+              if (values.times) {
+                  params.startTime = moment(params.times[0]).format('YYYY-MM-DD');
+                  params.endTime = moment(params.times[1]).format('YYYY-MM-DD');
+                  // console.log('Success:', values);
+                  delete params.times
+              } else {
+                  message.warning('请选择活动起止时间');
+                  return false
+              }
+          } else if (params.limitTimeType === 'COUNTDOWN') {
+              if (params.startTime) {
+                  params.startTime = moment(params.startTime).format('YYYY-MM-DD');
+              } else {
+                  message.warning('请选择活动起始时间');
+                  return false
+              }
+          }
+      } else {
+          message.warning('请选择有效时间类型');
+          return false
       }
-      console.log(params)
+      // if (values.startTime && values.endTime) {
+      //     values.startTime = moment(values.times[0]).format('YYYY-MM-DD');
+      //     values.endTime = moment(values.times[1]).format('YYYY-MM-DD');
+      //     // console.log('Success:', values);
+      //     delete params.times
+      // }
+      // console.log(params);
       couponCreate(params).then(res => {
         // console.log(res)
         if (res.code === 200) {
@@ -183,13 +213,19 @@ export default class Index extends React.Component {
                 </Select>
               </Form.Item>
               {
-                limitTimeType === 'ABSOLUTE' ?
+                  limitTimeType === 'COUNTDOWN' ?
+                      <Form.Item label="活动起始时间" name="startTime">
+                          <DatePicker format='YYYY/MM/DD' disabled={editStatue} />
+                      </Form.Item> : null
+              }
+              {
+                limitTimeType === 'COUNTDOWN' ?
                   <Form.Item label="活动有效期间" name="countdownDay">
                     <Input disabled={editStatue} addonAfter="天" type="number"/>
                   </Form.Item> : null
               }
               {
-                limitTimeType === 'COUNTDOWN' ?
+                limitTimeType === 'ABSOLUTE' ?
                   <Form.Item label="活动起止时间" name="times">
                     <RangePicker format={['YYYY/MM/DD', 'YYYY/MM/DD']} disabled={editStatue}/>
                   </Form.Item> : null
