@@ -140,13 +140,13 @@ export default class Index extends React.Component {
         align: 'center'
       },
       {
-        title: '满减条件/满足商品数量', dataIndex: 'productNum', width: 60,
-        render: (value, record) => <span>{record.orderAmount} / {record.productNum}</span>,
+        title: '满足订单金额/优惠金额', dataIndex: 'productNum', width: 160,
+        render: (value, record) => <span>{record.orderAmount} / {record.discountAmount}</span>,
         align: 'center'
       },
       {
-        title: '优惠金额/折扣率', dataIndex: 'discountAmount', width: 60,
-        render: (value, record) => <span>{record.discountAmount} / {record.discountRate}</span>,
+        title: '满足商品数量/折扣率', dataIndex: 'discountAmount', width: 160,
+        render: (value, record) => <span>{record.productNum} / {record.discountRate}</span>,
         align: 'center'
       },
       {
