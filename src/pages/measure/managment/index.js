@@ -84,6 +84,7 @@ export default function ProductManager() {
             })
         }
         if (visible === 'edit') {
+            console.log(modalInfo)
             requestForMeasureEdit(modalInfo).then(res => {
                 message.info('修改成功');
                 setVisible(false);
@@ -92,6 +93,12 @@ export default function ProductManager() {
         }
 
     }, [modalInfo, pageData, visible])
+
+    // 设置弹窗中的启用停用
+    const volumerStatusChange = useCallback((key, value) => {
+        // console.log(key, value)
+        setModalInfo(info => ({ ...info, ...{ [key]: value } }));
+    }, [])
 
     const updateStatus = useCallback((record) => {
         record = { ...record };
@@ -189,7 +196,7 @@ export default function ProductManager() {
                 {createConfig.map((col, index) => <div className="pm-edit-item" key={index}>
                     <span className="edit-item__title">{col.title}</span>
                     {
-                        col.dataIndex === 'volumer_Status' && <Select defaultValue={modalInfo[col.dataIndex]} >
+                        col.dataIndex === 'volumer_Status' && <Select defaultValue={modalInfo[col.dataIndex]} onChange={e => volumerStatusChange(col.dataIndex, e)}>
                             <Select.Option value="停用">停用</Select.Option>
                             <Select.Option value="启用">启用</Select.Option>
                         </Select>
