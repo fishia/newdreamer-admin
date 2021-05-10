@@ -70,7 +70,7 @@ export default class Index extends React.Component {
     if (!this.props.editStatue) {
       //  新增
       let params = {...values};
-        console.log(params);
+      // console.log(params);
       // 有效时间类型
       if (params.limitTimeType) {
           if(params.limitTimeType === 'ABSOLUTE') {
@@ -95,13 +95,12 @@ export default class Index extends React.Component {
           message.warning('请选择有效时间类型');
           return false
       }
-      // if (values.startTime && values.endTime) {
-      //     values.startTime = moment(values.times[0]).format('YYYY-MM-DD');
-      //     values.endTime = moment(values.times[1]).format('YYYY-MM-DD');
-      //     // console.log('Success:', values);
-      //     delete params.times
-      // }
+
       // console.log(params);
+      if (0.01 <= Number(params.orderAmount) - Number(params.discountAmount)) {
+        message.warning('“满足订单金额” - “优惠金额”>=0.01');
+        return false
+      }
       couponCreate(params).then(res => {
         // console.log(res)
         if (res.code === 200) {
@@ -117,7 +116,7 @@ export default class Index extends React.Component {
         allowGrant: values.allowGrant,
         enable: values.enable,
         share: values.share
-      }
+      };
       couponUpdate(params).then(res => {
         // console.log(res)
         if (res.code === 200) {
@@ -174,13 +173,19 @@ export default class Index extends React.Component {
               </Form.Item>
               {
                 couponType === 'CASH' ?
+                  <Form.Item label="满足订单金额" name="orderAmount">
+                    <Input disabled={editStatue} type="number" />
+                  </Form.Item> : null
+              }
+              {
+                couponType === 'CASH' ?
                   <Form.Item label="优惠金额" name="discountAmount">
                     <Input disabled={editStatue} type="number"/>
                   </Form.Item> : null
               }
               {
-                couponType === 'CASH' ?
-                  <Form.Item label="满足订单金额" name="orderAmount">
+                couponType === 'RATE' ?
+                  <Form.Item label="满足商品数量" name="productNum">
                     <Input disabled={editStatue} type="number" />
                   </Form.Item> : null
               }
@@ -188,12 +193,6 @@ export default class Index extends React.Component {
                 couponType === 'RATE' ?
                   <Form.Item label="折扣率" name="discountRate">
                     <Input disabled={editStatue} placeholder="取值范围0~1" type="number"/>
-                  </Form.Item> : null
-              }
-              {
-                couponType === 'RATE' ?
-                  <Form.Item label="满足商品数量" name="productNum">
-                    <Input disabled={editStatue} type="number" />
                   </Form.Item> : null
               }
 
@@ -243,8 +242,8 @@ export default class Index extends React.Component {
                   <Input disabled={editStatue} />
               </Form.Item>
               <Form.Item {...tailLayout} style={{display: 'block', width: '100%'}}>
-                  <Button onClick={this.handleCancel}>取消</Button> &nbsp;&nbsp;&nbsp;&nbsp;
-                  <Button type="primary" htmlType="submit">确定</Button>
+                <Button type="primary" htmlType="submit">确定</Button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <Button onClick={this.handleCancel}>取消</Button>
               </Form.Item>
           </Form>
         </Modal>
