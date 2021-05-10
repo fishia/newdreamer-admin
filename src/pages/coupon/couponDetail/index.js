@@ -1,14 +1,16 @@
 import React from 'react';
-import { Button, Input, Table, Modal, message } from 'antd/lib/index';
+import {Button, Input, Table, Modal, message, Select} from 'antd/lib/index';
 import { queryAllCustomerCoupon } from '../../../api/coupon';
 import './index.less'
 import moment from 'moment'
+const { Option } = Select;
 export default class Index extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       searchForm: {
-
+        couponCode: '',
+        couponType: ''
       },
       pageInfo: {
         page: 1,
@@ -51,8 +53,42 @@ export default class Index extends React.Component {
     // console.log(this.state.searchForm);
   }
   onPageChange = (page, pageSize) => {
-    console.log(page, pageSize)
-    this.pageData()
+    // console.log(page, pageSize);
+    this.setState({
+      pageInfo: {
+        page: page,
+        pageSize: 10
+      }
+    }, () => {
+      this.pageData()
+    });
+  }
+
+  // 查询
+  searchClick = () => {
+    this.setState({
+      pageInfo: {
+        page: 1,
+        pageSize: 10
+      }
+    }, () => {
+      this.pageData()
+    });
+  }
+
+  resetClick = () => {
+    this.setState({
+      pageInfo: {
+        page: 1,
+        pageSize: 10
+      },
+      searchForm: {
+        couponCode: '',
+        couponType: ''
+      }
+    }, () => {
+      this.pageData()
+    });
   }
 
   render() {
@@ -95,13 +131,19 @@ export default class Index extends React.Component {
           <section className="product-manager-search">
             <div className="manager-search-item">
               <div className="search-item__title">优惠券编码</div>
-              <Input size="small" placeholder="请输入优惠券编码" onChange={e => this.updateSearch('couponCode', e.target.value)} />
+              <Input size="small" placeholder="请输入优惠券编码" value={this.state.searchForm.couponCode} onChange={e => this.updateSearch('couponCode', e.target.value)} />
             </div>
             <div className="manager-search-item">
               <div className="search-item__title">优惠券类型</div>
-              <Input size="small" placeholder="请输入优惠券类型" onChange={e => this.updateSearch('couponType', e.target.value)} />
+              {/*<Input size="small" placeholder="请输入优惠券类型" onChange={e => this.updateSearch('couponType', e.target.value)} />*/}
+              <Select allowClear placeholder="请选择优惠券类型" value={this.state.searchForm.couponType} onChange={e => this.updateSearch('couponType', e)}>
+                <Option value="CASH">现金</Option>
+                <Option value="RATE">折扣</Option>
+              </Select>
             </div>
-            <div className="manager-search-btn"><Button onClick={this.pageData.bind(this)} type="primary" >筛选</Button></div>
+            {/*<div className="manager-search-btn"><Button onClick={this.pageData.bind(this)} type="primary" >筛选</Button></div>*/}
+            <div className="manager-search-btn"><Button onClick={this.searchClick} type="primary" >筛选</Button></div>
+            <div className="manager-search-btn"><Button onClick={this.resetClick} type="primary" >重置</Button></div>
           </section>
         </div>
         <Table dataSource={couponDetailList} columns={columns}
