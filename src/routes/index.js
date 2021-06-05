@@ -7,6 +7,7 @@ import orderRoutes from './order';
 import productRoutes from './product';
 import distributorRoutes from './distributor';
 import couponRoutes from './coupon';
+import permissionRoutes from './permission';
 
 
 export default [{
@@ -20,7 +21,8 @@ export default [{
         ...distributionRoutes,
         ...bonusRoutes,
         ...distributorRoutes,
-        ...couponRoutes
+        ...couponRoutes,
+        ...permissionRoutes
     ]
 }
 ]
