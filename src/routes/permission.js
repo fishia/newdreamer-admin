@@ -10,8 +10,8 @@ export default [{
         name: '角色管理',
         component: require('../pages/permission/role').default
     },{
-        path: '/popup',
+        path: '/adminNotify',
         name: '弹窗提醒',
-        component: require('../pages/order/evaluate').default
+        component: require('../pages/permission/adminNotify').default
     }]
 }]

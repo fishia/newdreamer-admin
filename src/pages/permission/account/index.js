@@ -10,7 +10,8 @@ export default class Index extends React.Component {
         super(props);
         this.state = {
             searchForm: {
-
+                name: '', // 名称
+                username: '' // 账号
             },
             accountList: [],
             accountVisible: false,
@@ -27,11 +28,11 @@ export default class Index extends React.Component {
         this.queryAllRole();
     }
     pageData() {
-        // let _pageInfo = { ...this.state.pageInfo, ...this.state.searchForm };
+        let _pageInfo = { ...this.state.searchForm };
         // _pageInfo.page -= 1;
-        queryAll().then(res => {
+        queryAll(_pageInfo).then(res => {
             const { data } = res;
-            console.log(data);
+            // console.log(data);
             data.forEach(e => {
                 e.key = e.id
             });
@@ -45,22 +46,35 @@ export default class Index extends React.Component {
     queryAllRole () {
         queryAllRole().then(res =>{
             let {data} = res;
-            console.log(data)
+            // console.log(data)
             this.setState({
                 allRoleList: data
             })
         })
     }
-    searchClick () {
-
+    searchClick = () => {
+        this.pageData();
     }
 
-    resetClick () {
-
+    resetClick = () => {
+        this.setState({
+            searchForm: {
+                name: '', // 名称
+                username: '' // 账号
+            }
+        }, () => {
+            this.pageData();
+        })
     }
 
-    updateSearch () {
-
+    updateSearch (key, e) {
+        let params = { ...this.state.searchForm }
+        Object.getOwnPropertyNames(params).forEach(function (k) {
+            params[key] = e
+        })
+        this.setState({
+            searchForm: params
+        })
     }
     //  操作成功关闭弹窗
     handleOk = () => {
@@ -172,11 +186,11 @@ export default class Index extends React.Component {
                     <section className="product-manager-search">
                         <div className="manager-search-item">
                             <div className="search-item__title">账号</div>
-                            <Input size="small" placeholder="请输入账号" value={this.state.searchForm.couponCode} onChange={e => this.updateSearch('couponCode', e.target.value)} />
+                            <Input size="small" placeholder="请输入账号" value={this.state.searchForm.username} onChange={e => this.updateSearch('username', e.target.value)} />
                         </div>
                         <div className="manager-search-item">
                             <div className="search-item__title">名称</div>
-                            <Input size="small" placeholder="请输入名称" value={this.state.searchForm.couponCode} onChange={e => this.updateSearch('couponCode', e.target.value)} />
+                            <Input size="small" placeholder="请输入名称" value={this.state.searchForm.name} onChange={e => this.updateSearch('name', e.target.value)} />
                         </div>
                         {/*<div className="manager-search-btn"><Button onClick={this.pageData.bind(this)} type="primary" >筛选</Button></div>*/}
                         <div className="manager-search-btn"><Button onClick={this.searchClick} type="primary" >筛选</Button></div>
@@ -188,7 +202,7 @@ export default class Index extends React.Component {
                 </div>
                 <Table dataSource={accountList} columns={columns}/>
                 {this.state.accountVisible ? <Modal
-                    title="新增账号"
+                    title={this.state.editState === 'add' ? '新增账号' : '修改账号'}
                     visible={accountVisible}
                     onOk={this.handleOk}
                     confirmLoading={false}
@@ -203,6 +217,9 @@ export default class Index extends React.Component {
                             <Input disabled={editState === 'edit'}/>
                         </Form.Item>
                         <Form.Item label="名称" name="name">
+                            <Input/>
+                        </Form.Item>
+                        <Form.Item label="手机号" name="phone" rules={[{ required: true, message: '请输入手机号!' }]}>
                             <Input/>
                         </Form.Item>
                         { editState === 'add' ?

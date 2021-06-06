@@ -2,28 +2,30 @@ import React from 'react';
 import {Button, Input, Table, Modal, message, Select, Form, Checkbox, DatePicker} from 'antd/lib/index';
 import moment from 'moment'
 import './index.less'
-import { queryAllRole, queryAllTree, createRole, queryPermissionByRoleId, updateRole, deleteRole } from "./action";
+import { queryAllUser, queryAll, createAdminNotify, updateAdminNotify, deleteRole } from "./action";
 const { Option } = Select;
 export default class Index extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            roleList: [],
+            dataList: [],
             searchForm: {
-                roleName: ''
+                name: '',
+                phone: ''
             },
             addInitialValues: {
-                roleName: '', // 角色名称
-                remark: '' // 角色备注
+
             }, // 默认值
             roleVisible: false, // 是否打开弹窗
             allTree: [], // 所有权限 树结构
             editState: '', // add || edit
-            rowData: {} // 当前操作的行数据
+            rowData: {}, // 当前操作的行数据
+            allUserList: [] // 用户列表
         }
     }
     componentDidMount() {
         this.pageData();
+        this.queryAllUser();
     }
     searchClick = () => {
         this.pageData();
@@ -32,7 +34,8 @@ export default class Index extends React.Component {
     resetClick = () => {
         this.setState({
             searchForm: {
-                roleName: ''
+                name: '',
+                phone: ''
             }
         }, () => {
             this.pageData();
@@ -49,90 +52,86 @@ export default class Index extends React.Component {
             searchForm: params
         })
     }
+    queryAllUser () {
+        queryAllUser().then(res => {
+            // console.log(res.data)
+            this.setState({
+                allUserList: res.data
+            })
+        })
+    }
     pageData() {
         let _pageInfo = { ...this.state.searchForm };
         // _pageInfo.page -= 1;
-        queryAllRole(_pageInfo).then(res => {
+        queryAll(_pageInfo).then(res => {
             const { data } = res;
             // console.log(data);
             data.forEach(e => {
                 e.key = e.id
             });
             this.setState({
-                roleList: data
+                dataList: data
             })
         })
         // console.log(this.state.searchForm);
     }
-    // 查询所有权限 树结构
-    queryAllTree (row) {
-        queryAllTree().then(res => {
-            const { data } = res;
-            data.forEach(item => {
-                item.checked = false;
-                item.children.forEach(item01 => {
-                    item01.checked = false;
-                })
-            });
-            // 如果存在id则是点击的修改按钮
-            if (row) {
-                // 获取当前选中角色的权限
-                queryPermissionByRoleId({roleId: row.id}).then(res01 => {
-                    // console.log(data);
-                    let permission = res01.data; //
-                    let idArr = []; // 存储所有已存在的权限id
-                    permission.forEach(item => {
-                        idArr.push(item.id);
-                    });
-                    // console.log(idArr);
-                    data.forEach(item => {
-                        let check = false; // 如果子元素存在checked === false就将check设置为true否则为false
-                        item.children.forEach(item01 => {
-                            // 判断是否存在权限
-                            if (idArr.indexOf(item01.id) !== -1) {
-                                item01.checked = true
-                            }
-                            if (!item01.checked) {
-                                check = true
-                            }
-                        });
-                        // 当存在权限 并且 子元素都有权限时 设置父元素的选中效果
-                        if (idArr.indexOf(item.id) !== -1 && !check) {
-                            item.checked = true
-                        }
-                    });
-
-                    this.setState({
-                        allTree: data,
-                        addInitialValues: {
-                            roleName: row.roleName, // 角色名称
-                            remark: row.remark // 角色备注
-                        }, // 默认值
-                        rowData: row,
-                        roleVisible: true
-                    }, () =>{
-                        console.log(this.state.addInitialValues)
-                    });
-                })
-            } else {
-                this.setState({
-                    allTree: data,
-                    roleVisible: true
-                });
-            }
-        })
-    }
     // 打开新增弹窗
     openAddPopup = (state, row) => {
         // console.log(row);
-        this.setState({
-            editState: state
-        });
+        let allTree = [
+            {
+                checked: false,
+                remark: '订单弹窗',
+                children: [
+                    {
+                        checked: false,
+                        remark: '预约提醒',
+                        name: 'reservationNotify'
+                    },
+                    {
+                        checked: false,
+                        remark: '新销售单提醒',
+                        name: 'orderNotify'
+                    },
+                    {
+                        checked: false,
+                        remark: '退款申请提醒',
+                        name: 'refundNotify'
+                    }
+                ]
+            }
+        ];
         if (state === 'edit') {
-            this.queryAllTree(row);
-        } else if (state === 'add') {
-            this.queryAllTree();
+            allTree.forEach(item => {
+                let check = true;
+                item.children.forEach(item01 => {
+                    if (row.reservationNotify && item01.name === 'reservationNotify') {
+                        item01.checked = true
+                    }
+                    if (row.orderNotify && item01.name === 'orderNotify') {
+                        item01.checked = true
+                    }
+                    if (row.refundNotify && item01.name === 'refundNotify') {
+                        item01.checked = true
+                    }
+                    if (!item01.checked) {
+                        check = false
+                    }
+                });
+                item.checked = check
+            });
+            this.setState({
+                addInitialValues: {
+                    adminUserId: row.adminUserId
+                }, // 默认值
+            });
         }
+        this.setState({
+            editState: state,
+            roleVisible: true,
+            rowData: row,
+            allTree: allTree
+        });
     };
     //  操作成功关闭弹窗
     handleOk = () => {
@@ -146,44 +145,24 @@ export default class Index extends React.Component {
             editState: '',
             rowData: {},
             addInitialValues: {
-                roleName: '', // 角色名称
-                remark: '' // 角色备注
+
             }, // 默认值
         });
         this.pageData();
     };
     onFinish = (values) => {
-        // console.log(values);
-        // console.log(this.state.allTree);
-        let permissions = []; // 组装权限
+        console.log(values);
+        let params = {...values};
         this.state.allTree.forEach(item => {
-            let check = false;
             item.children.forEach(item01 => {
-                if (item01.checked) {
-                    check = true;
-                    permissions.push({
-                        id: item01.id,
-                        name: item01.name,
-                        parentId: item01.parentId,
-                        remark: item01.remark
-                    })
-                }
+                params[item01.name] = item01.checked
             });
-            // 父元素被选中 或者 子元素有被选中的都要将数据传到后台
-            if (item.checked || check) {
-                permissions.push({
-                    id: item.id,
-                    name: item.name,
-                    parentId: item.parentId,
-                    remark: item.remark
-                })
-            }
         });
-        // console.log(permissions);
-        values.permissions = permissions;
+        console.log(params)
+
         // 新增
         if (this.state.editState === 'add') {
-            createRole(values).then(res => {
+            createAdminNotify(params).then(res => {
                 // console.log(res);
                 if (res.code === 200) {
                     message.success('操作成功');
@@ -191,8 +170,8 @@ export default class Index extends React.Component {
                 }
             })
         } else if (this.state.editState === 'edit') {
-            values.id = this.state.rowData.id;
-            updateRole(values).then(res => {
+            params.id = this.state.rowData.id;
+            updateAdminNotify(params).then(res => {
                 // console.log(res);
                 if (res.code === 200) {
                     message.success('操作成功');
@@ -203,7 +182,7 @@ export default class Index extends React.Component {
 
     };
     deleteClick = (record) => {
-        deleteRole({roleId: record.id}).then(res => {
+        deleteRole({id: record.id}).then(res => {
             if (res.code === 200) {
                 message.success('删除成功！');
                 this.pageData();
@@ -251,7 +230,7 @@ export default class Index extends React.Component {
 
     render() {
 
-        const { addInitialValues, roleVisible, roleList, allTree } = this.state;
+        const { addInitialValues, roleVisible, dataList, allTree, allUserList } = this.state;
         const layout = {
             labelCol: { span: 5 },
             wrapperCol: { span: 12 },
@@ -260,15 +239,21 @@ export default class Index extends React.Component {
             wrapperCol: { offset: 10, span: 16 },
         };
         const columns = [
-            { title: '角色名称', dataIndex: 'roleName', width: 120, align: 'center' },
-            {
-                title: '创建时间', dataIndex: 'createdTime', width: 160, align: 'center',
-                render: (value, record) => <span>{moment(record.createdTime).format('YYYY-MM-DD')}</span>,
+            { title: '名称', dataIndex: 'name', width: 120, align: 'center' },
+            { title: '手机号', dataIndex: 'phone', width: 120, align: 'center' },
+            // { title: '备注', dataIndex: 'phone', width: 120, align: 'center' },
+            { title: '客户预约提醒', dataIndex: 'reservationNotify', width: 120, align: 'center',
+                render: (value, record) => <span>{value ? '是' : '否'}</span>
             },
-            { title: '备注', dataIndex: 'remark', width: 120, align: 'center' },
+            { title: '新销售订单', dataIndex: 'orderNotify', width: 120, align: 'center',
+                render: (value, record) => <span>{value ? '是' : '否'}</span>
+            },
+            { title: '退款申请提醒', dataIndex: 'refundNotify', width: 120, align: 'center',
+                render: (value, record) => <span>{value ? '是' : '否'}</span>
+            },
             {
-                title: '操作', dataIndex: 'channel', width: 80, align: 'center',
-                render: (value, record) => <div>
+                title: '操作', dataIndex: 'channel', width: 180, align: 'center',
+                render: (value, record) => <div style={{width: '180px'}}>
                     <Button type="primary" style={{ "marginRight": "20px" }}onClick={() => { this.openAddPopup('edit', record) }}>修改</Button>
                     <Button type="primary" onClick={() => { this.deleteClick(record) }}>删除</Button>
                 </div>,
@@ -276,12 +261,16 @@ export default class Index extends React.Component {
             }
         ]
         return (
-            <div className="role">
+            <div className="adminNotify">
                 <div className="search-box">
                     <section className="product-manager-search">
                         <div className="manager-search-item">
-                            <div className="search-item__title">角色名称</div>
-                            <Input size="small" placeholder="请输入角色名称" value={this.state.searchForm.roleName} onChange={e => this.updateSearch('roleName', e.target.value)} />
+                            <div className="search-item__title">名称</div>
+                            <Input size="small" placeholder="请输入角色名称" value={this.state.searchForm.name} onChange={e => this.updateSearch('name', e.target.value)} />
+                        </div>
+                        <div className="manager-search-item">
+                            <div className="search-item__title">手机号</div>
+                            <Input size="small" placeholder="请输入角色名称" value={this.state.searchForm.phone} onChange={e => this.updateSearch('phone', e.target.value)} />
                         </div>
                         <div className="manager-search-btn"><Button onClick={this.searchClick} type="primary" >筛选</Button></div>
                         <div className="manager-search-btn"><Button onClick={this.resetClick} type="primary" >重置</Button></div>
@@ -290,9 +279,9 @@ export default class Index extends React.Component {
                         <Button type="primary" onClick={() => { this.openAddPopup('add') }}>新增</Button>
                     </section>
                 </div>
-                <Table dataSource={roleList} columns={columns}/>
+                <Table dataSource={dataList} columns={columns}/>
                 {this.state.roleVisible ? <Modal
-                    title={this.state.editState === 'add' ? '新增角色权限' : '修改角色权限'}
+                    title={this.state.editState === 'add' ? '新增弹窗提醒权限' : '修改弹窗提醒权限'}
                     visible={roleVisible}
                     onOk={this.handleOk}
                     confirmLoading={false}
@@ -303,11 +292,14 @@ export default class Index extends React.Component {
                     }
                 >
                     <Form name="basic" layout="inline" initialValues={addInitialValues} onFinish={this.onFinish}>
-                        <Form.Item label="名称" name="roleName" rules={[{ required: true, message: '请输入名称!' }]}>
-                            <Input/>
-                        </Form.Item>
-                        <Form.Item label="备注" name="remark">
-                            <Input/>
+                        <Form.Item label="名称" name="adminUserId" rules={[{ required: true, message: '请选择用户!' }]}>
+                            <Select allowClear placeholder="请选择" onChange={this.isActiveChange}>
+                                { allUserList.map((item, index) => {
+                                    return (
+                                        <Option value={item.id} key={index}>{item.username}</Option>
+                                    )
+                                }) }
+                            </Select>
                         </Form.Item>
                         <Form.Item style={{display: 'block', width: '100%'}}>
                             <div className="allTree">
