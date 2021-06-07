@@ -4,7 +4,8 @@ module.exports = function (app) {
         proxy([
         '/newdreamer',
     ],{
-            "target": process.env.REACT_APP_ENV === 'production' ? "https://www.newdreamer.cn" : 'https://test.newdreamer.cn',
+            // "target": process.env.REACT_APP_ENV === 'production' ? "https://www.newdreamer.cn" : 'https://test.newdreamer.cn',
+            "target": process.env.REACT_APP_ENV === 'production' ? "https://www.hznewdreamer.cn" : 'https://test.hznewdreamer.cn',
             changeOrigin: true,
             secure: false,
             onProxyReq(proxyReq, req, res) {
