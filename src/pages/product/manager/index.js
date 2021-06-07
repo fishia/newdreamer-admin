@@ -209,7 +209,7 @@ export default function ProductManager() {
 
         <section className="product-manager-operation">
             <Upload
-            action={(process.env.REACT_APP_ENV === 'production' ? '//newdreamer.cn' : '//test.newdreamer.cn') + '/newdreamer/productInfo/importExcel'}
+            action={(process.env.REACT_APP_ENV === 'production' ? '//hznewdreamer.cn' : '//test.hznewdreamer.cn') + '/newdreamer/productInfo/importExcel'}
             // action="//newdreamer.cn/newdreamer/productInfo/importExcel"
             method="post"
             onChange={({ file, fileList }) => {

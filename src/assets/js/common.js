@@ -15,7 +15,7 @@ export function exportFile(url, data) {
     const link = document.createElement('a');
     link.target ='_blank';
     // link.href = `https://newdreamer.cn${url}?${params}`;
-    link.href = (process.env.REACT_APP_ENV === 'production' ? "//www.newdreamer.cn" : '//test.newdreamer.cn') + `${url}?${params}`;
+    link.href = (process.env.REACT_APP_ENV === 'production' ? "//www.hznewdreamer.cn" : '//test.hznewdreamer.cn') + `${url}?${params}`;
     link.click();
     return Promise.resolve();
 }
