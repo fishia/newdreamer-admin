@@ -97,9 +97,9 @@ export default class Index extends React.Component {
       }
 
       // console.log(params);
-      if (0.01 <= Number(params.orderAmount) - Number(params.discountAmount)) {
-        message.warning('“满足订单金额” - “优惠金额”>=0.01');
-        return false
+      if ((Number(params.orderAmount) - Number(params.discountAmount)).toFixed(2) < 0.01) {
+          message.warning('“满足订单金额” - “优惠金额”>=0.01');
+          return false
       }
       couponCreate(params).then(res => {
         // console.log(res)

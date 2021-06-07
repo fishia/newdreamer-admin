@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
+import {Form, Input, Button, Checkbox, message} from 'antd';
 import './index.less'
 import { requestLogin } from '../../api/login';
 export default class Login extends Component {
@@ -22,6 +22,8 @@ export default class Login extends Component {
                 // console.log(res)
                 if (res.code === 200) {
                     this.props.history.push('/');
+                } else {
+                    message.warning(res.msg);
                 }
             })
 
