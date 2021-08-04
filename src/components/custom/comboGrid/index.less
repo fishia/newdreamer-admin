@@ -1,0 +1,42 @@
+@prefix-cls: vtx-combogrid;
+
+:global {
+  .@{prefix-cls} {
+    &-popover {
+      width: 550px;
+
+      .ant-form-item {
+        margin-bottom: 12px;
+      }
+    }
+
+    &-btns {
+      line-height: 40px;
+
+      button + button {
+        margin-left: 4px;
+      }
+    }
+
+    &-main {
+      height: 400px;
+      :global {
+        .ant-table-body {
+          max-height: 310px !important;
+        }
+      }
+    }
+
+    &-dropdown {
+      padding-top: 0;
+
+      .ant-popover-arrow {
+        display: none;
+      }
+
+      .ant-pagination.mini .ant-pagination-item {
+        line-height: 24px;
+      }
+    }
+  }
+}

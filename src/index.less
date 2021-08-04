@@ -1,0 +1,208 @@
+@import (reference) './assets/styles/config';
+@import (less) './pages/measure/bonusSetting/index.less';
+
+:global {
+  html,
+  body,
+  #root {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: auto;
+    font-family: PingFangSC-Regular, PingFang SC;
+  }
+
+  img {
+    width: auto;
+    height: auto;
+    font-size: 0;
+    border: none;
+  }
+
+  #root {
+    position: relative;
+    min-width: 1280px;
+
+    :global {
+      .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected {
+        color: @themeColor;
+        border-bottom: 2px solid @themeColor;
+      }
+
+      .ant-btn-primary:not(.disabled):active {
+        background: @themeColor;
+        border-color: @themeColor;
+      }
+
+      .ant-space-item a {
+        color: @themeColor;
+      }
+    }
+  }
+
+  div,
+  ul {
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 10px;
+      background-color: hsla(0, 0%, 76%, 0.07);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      box-shadow: inset 0 0 0px rgba(0, 0, 0, 0.3);
+      background-color: rgba(193, 193, 193, 0.6);
+    }
+  }
+
+  // antd Menu 箭头样式修复
+  .ant-dropdown-menu-submenu-title:after {
+    top: 50%;
+    margin-top: -8px;
+  }
+
+  .ant-dropdown-menu-submenu-popup {
+    position: absolute !important;
+    z-index: 6;
+
+    &::before {
+      content: ' ';
+      display: inline-block;
+      position: absolute;
+      width: e('calc(100% + 2px)');
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+  }
+
+  .site-form-item-icon {
+    color: @placeColor !important;
+  }
+
+  .ant-form-item-control-input-content .ant-input-affix-wrapper {
+    border-radius: 4px;
+  }
+
+  div .ant-input,
+  .ant-select-selector,
+  .ant-picker,
+  .ant-btn,
+  .ant-alert {
+    border-radius: 4px !important;
+  }
+
+  .ant-form-item-explain.ant-form-item-explain-error {
+    line-height: 32px;
+  }
+
+  .ant-select {
+    width: 100%;
+  }
+
+  .ant-card-head-title {
+    font-size: 16px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.85);
+  }
+
+  .ant-card {
+    border-radius: 4px !important;
+
+    .ant-table.ant-table-small {
+      .ant-table-tbody > tr > td,
+      .ant-table-thead > tr > th {
+        text-align: center;
+      }
+    }
+
+    .ant-form-item {
+      &:last-child {
+        margin-bottom: 16px !important;
+      }
+    }
+  }
+
+  .ant-table-thead > tr > th,
+  .ant-table-tbody > tr > td,
+  .ant-table tfoot > tr > th,
+  .ant-table tfoot > tr > td {
+    word-wrap: break-word;
+  }
+
+  .ant-table-thead > tr > th {
+    font-weight: bold !important;
+  }
+
+  .ant-table-tbody > tr.ant-table-row:hover > td {
+    background: #ecf3fe !important;
+  }
+
+  tr.ant-table-expanded-row {
+    & > td,
+    &:hover > td,
+    .ant-table-thead > tr > th {
+      background: #fff !important;
+    }
+  }
+
+  .ant-form-inline .ant-form-item {
+    margin-bottom: 20px !important;
+
+    .ant-form-item-label {
+      width: 80px;
+    }
+
+    .ant-form-item-control {
+      width: 280px;
+    }
+  }
+
+  .ant-input-textarea {
+    width: 100%;
+  }
+
+  .ant-card-body {
+    padding: 10px !important;
+  }
+
+  /* 兼容ie11 */
+  .ant-picker {
+    height: 32px;
+    width: 100%;
+  }
+
+  .ant-table-cell-fix-left {
+    left: 0 !important;
+  }
+
+  .PL-16 {
+    padding-left: 16px !important;
+  }
+
+  .PR-35 {
+    padding-right: 35px !important;
+  }
+
+  .grey {
+    color: rgba(0, 0, 0, 0.45);
+  }
+
+  .primaryBtn {
+    color: @themeColor;
+    cursor: pointer;
+  }
+
+  .imagesList {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    .image {
+      width: 80px;
+      height: 80px;
+      margin: 5px;
+    }
+  }
+}

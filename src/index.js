@@ -1,20 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import dva from 'dva'
+import './index.less'
+import createLoading from 'dva-loading'
+import moment from 'moment'
+import 'moment/locale/zh-cn'
+moment.locale('zh-cn')
+import { createHashHistory } from 'history'
+export const history = new createHashHistory()
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-);
+// 1. Initialize
+export const app = dva(createLoading())
 
-// React.StrictMode 严格模式
-{/*<React.StrictMode>*/}
-{/*<App />*/}
-{/*</React.StrictMode>,*/}
+// 2. Plugins
+// app.use({});
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// 3. Model
+/*使用webpack api require.context遍历models所有js文件。三个参数：文件目录，是否遍历子目录，匹配规则*/
+const requireModels = require.context('./models', true, /\.js$/)
+requireModels.keys().forEach(filename => {
+  app.model(requireModels(filename).default)
+})
+// 4. Router
+app.router(require('./router').default)
+
+// 5. Start
+app.start('#root')

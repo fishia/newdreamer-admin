@@ -1,0 +1,62 @@
+@import (reference) "~@/assets/styles/config";
+
+.systemTitle{
+    width: 100%;
+    text-align: center;
+    line-height: 60px;
+    font-size: 30px;
+    background: #0B1117;
+    color: #fff;
+}
+.shade{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: #fff;
+    opacity: 0;
+    z-index: 1;
+    display: block;
+}
+.circle{
+    display: inline-block;
+    font-size: 50px;
+    vertical-align: middle;
+    position: relative;
+    top: -4px;
+    left: -3px;
+    margin-bottom: 0;
+    vertical-align: top;
+}
+.lineIcon{
+    display: inline-block;
+    font-size: 12px;
+    vertical-align: middle;
+    margin-bottom: 0;
+    margin-right: 8px;
+    min-width: 14px;
+    opacity: 1 !important;
+    font-size: 12px !important;
+}
+.hidden{
+    display: none;
+}
+.expandMenuWidth{
+    width: @expandMenuWidth;
+}
+.menuWidth{
+    width: @menuWidth;
+    /* 避免叶子节点 收起时 没配iconfont出现样式问题 */
+    .circle{
+        left: 0;
+        font-size: 60px;
+    }
+    :global{
+        .ant-menu-item{
+            span{
+                max-width: 0px;
+                display: inline-block;
+                opacity: 0;
+            }
+        }
+    }
+}

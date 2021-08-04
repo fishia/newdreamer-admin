@@ -1,0 +1,50 @@
+@headHeight: 63px;
+@menuWidth: 64px;
+@expandMenuWidth: 16%;
+@barHeight: 50px;
+@barMargin: 3px;
+@titleColor: rgba(0, 0, 0, 0.65);
+@placeColor: rgba(0, 0, 0, 0.25);
+@fontColor: rgba(0, 0, 0, 0.85);
+@themeColor: #468EFE;
+@pageInnerMargin: 20px;
+
+.pageContent {
+    margin: @pageInnerMargin;
+    border-radius: 2px;
+}
+
+.clear {
+    content: '.';
+    height: 0;
+    display: block;
+    clear: both;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Chrome/Safari/Opera */
+    -khtml-user-select: none;
+    /* Konqueror */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+    not supported by any browser */
+}
+
+.imgBase {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+}
