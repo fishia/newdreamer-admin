@@ -40,8 +40,8 @@ class BornCroudApi extends baseCrudApi {
     super(props)
   }
   //导入
-  importExcel(params) {
-    return axios.post(`${this.url}/importExcel`, { ...params })
+  importExcel() {
+    return `${this.url}/importExcel`
   }
   exportExcel(ids) {
     return exportFile(`${this.url}/exportExcel`, { ids })
@@ -135,7 +135,7 @@ export const orderInfoRemote = (url => {
     },
     //导出
     exportExcel(ids) {
-      return exportFile(`${this.url}/exportOrder`, { ids })
+      return exportFile(`${url}/exportOrder`, { ids })
     },
   }
 })('/newdreamer/backOrder')

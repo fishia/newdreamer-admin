@@ -266,6 +266,17 @@ export const childTableFields = [
       },
     },
   ],
+  [
+    '子商品图',
+    'images',
+    {
+      form: {
+        type: 'upload',
+        fileDirectorEnum: 'PRODUCT',
+        rules: [{ required: true, type: 'array' }],
+      },
+    },
+  ],
 ]
 //孙子商品
 export const grandsonTableFields = [

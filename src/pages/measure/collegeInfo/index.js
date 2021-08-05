@@ -45,7 +45,7 @@ export default props => {
           .then(({ status }) => {
             if (status) {
               addFormModal.setVisible(false)
-              myRef.current?.refresh()
+              myRef.current?.submit()
               message.success('新增成功')
             }
             return status
@@ -68,7 +68,7 @@ export default props => {
           .then(({ status }) => {
             if (status) {
               editFormModal.setVisible(false)
-              myRef.current?.refresh()
+              myRef.current?.submit()
               message.success('编辑成功')
             }
             return status

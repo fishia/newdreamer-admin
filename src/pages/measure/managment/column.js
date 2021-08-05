@@ -127,7 +127,7 @@ export const tableFields = [
         type: 'upload',
         listType: 'text',
         fileDirectorEnum: 'VOLUMER',
-        rules: [{ required: true, type: 'array' }],
+        //rules: [{ required: true, type: 'array' }],
       },
     },
   ],

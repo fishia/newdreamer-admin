@@ -180,7 +180,7 @@ export const tableFields = [
 ]
 export const parseColumns = data => ({
   ...data,
-  images: JSON.parse(data.images),
+  images: data.images ? JSON.parse(data.images) : [],
 })
 export const parseFormData = data => ({
   ...data,

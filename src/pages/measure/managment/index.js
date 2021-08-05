@@ -53,6 +53,7 @@ export default props => {
     viewFormModalProps: {
       title: `${document.title}-${title}`,
     },
+    resetKey: 'volumer_Id',
   }
   return <FormTable {...FormTableProps} ref={ref} />
 }

@@ -79,8 +79,8 @@ export default props => {
               },
             },
           }
-        record.item_Status === '未备货' && btns.push(btn)
-        record.item_Status === '未撤销' && btns.push(btn1)
+        record.item_Status === '待备货' && btns.push(btn)
+        record.item_Status === '待发货' && btns.push(btn1)
         return btns
       },
       toolbar: false,

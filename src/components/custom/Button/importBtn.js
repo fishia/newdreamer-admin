@@ -24,6 +24,7 @@ export default props => {
   if (!('templateURL' in props && 'uploadURL' in props && 'refresh' in props)) {
     console.log('exportBtn & uploadURL&refresh required')
   }
+
   // 导入
   let importProps = {
     templateURL,
@@ -39,11 +40,11 @@ export default props => {
       try {
         const res = JSON.parse(data)
         if (!res.result) {
-          message.success(res.msg)
+          message.success('导入成功')
           setVisible(false)
           refresh()
         } else {
-          message.error(res.msg)
+          message.error('导入失败')
           setVisible(false)
         }
       } catch (err) {

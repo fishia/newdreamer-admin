@@ -1,5 +1,7 @@
 import { ShowVolumeInfo, StylesAndFabricsBtn } from '@/components/custom/Button'
+import { MySelect } from '@/components/custom/select'
 import { orderInfoRemote } from '@/services/baseRemote'
+import { enumSuperset } from '@/utils/contants'
 export const tableFields = [
   [
     '收货人名称',
@@ -27,7 +29,17 @@ export const tableFields = [
   ['着装顾问', 'volumerName', { width: 100 }],
   ['备注', 'remarks', { width: 80 }],
   ['快递地址', 'receiver_Adress', { display: false }],
-  ['状态', 'order_Status', { width: 80 }],
+  [
+    '状态',
+    'order_Status',
+    {
+      width: 80,
+      filter: {
+        name: 'orderStatus',
+        elem: <MySelect datasource={enumSuperset['orderStatus']} />,
+      },
+    },
+  ],
 ]
 //子订单
 export const childrenTableFields = (customerName, orderId) => [

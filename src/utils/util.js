@@ -271,7 +271,7 @@ export const renderSearchFields = tableFields => {
         ...item[2].filter,
         span: item[2].filter.span || (item[2].filter.isunions ? 10 : 5),
         label: item[2].filter.isunions ? _.map(unionsfiltersList, o => o[0]).join('/') : item[0],
-        name: item[2].filter.isunions ? 'unions' : item[1],
+        name: item[2].filter.isunions ? 'unions' : item[2].filter.name || item[1],
         elem: item[2].filter.isunions ? (
           <UnionSelect
             list={_.map(unionsfiltersList, o => ({

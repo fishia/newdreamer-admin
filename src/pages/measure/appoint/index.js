@@ -216,21 +216,26 @@ export default function ProductManager() {
       dataIndex: 'collegeId',
       width: 150,
       render: (_, record) => record['collegeName'],
-      elem: () => (
-        <CollegeSelect
-          onChange={(v, obj) => {
-            updateModalInfo('collegeId', v)
-            updateModalInfo('collegeName', obj[0].label)
-            updateModalInfo('volumer_Id', '')
-          }}
-        />
-      ),
+      elem: props => {
+        console.log('props', props)
+        return (
+          <CollegeSelect
+            value={props.collegeId}
+            onChange={(v, obj) => {
+              updateModalInfo('collegeId', v)
+              updateModalInfo('collegeName', obj[0].label)
+              updateModalInfo('volumer_Id', '')
+              updateModalInfo('volumer_Name', '')
+            }}
+          />
+        )
+      },
     },
     {
       title: '着装顾问',
-      dataIndex: 'volumer_Name',
+      dataIndex: 'volumer_Id',
       width: 100,
-      render: (text, record) => {
+      render: (_, record) => {
         return (
           <div className="product-table-operations">
             {record.reservation_Status === '预约中' ? (
@@ -248,7 +253,7 @@ export default function ProductManager() {
                 派单
               </Button>
             ) : (
-              text
+              record['volumer_Name']
             )}
           </div>
         )
@@ -256,6 +261,7 @@ export default function ProductManager() {
       elem: props =>
         props?.collegeId ? (
           <VolumerSelect
+            value={props.volumer_Id}
             params={{ college_id: props?.collegeId }}
             onChange={(v, obj) => {
               updateModalInfo('volumer_Id', v)

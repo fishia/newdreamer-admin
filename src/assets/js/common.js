@@ -1,6 +1,7 @@
 import request from './request'
 import React from 'react'
 import { Modal } from 'antd'
+import { jsonToUrl } from '@/utils/util'
 const { confirm } = Modal
 export function exportFile(url, data) {
   let params =
@@ -17,7 +18,7 @@ export function exportFile(url, data) {
   const link = document.createElement('a')
   link.target = '_blank'
   // link.href = `https://newdreamer.cn${url}?${params}`;
-  link.href = `${url}?${params}`
+  link.href = `${url}?${jsonToUrl(params)}`
   link.click()
   return Promise.resolve()
 }

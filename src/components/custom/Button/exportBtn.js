@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'antd'
+import { Button, Menu, Dropdown } from 'antd'
 import { ExportOutlined } from '@ant-design/icons'
 import useExport from '@/hooks/useExport'
 /**
@@ -33,14 +33,27 @@ export default props => {
     parseColumns,
     columns,
   })
+  const handleMenuClick = e => {
+    switch (e.key) {
+      case 'rows':
+        exportBtn.run(selectedRowKeys)
+        break
+      case 'all':
+        exportBtn.all()
+        break
+    }
+  }
+  const menu = (
+    <Menu onClick={handleMenuClick}>
+      <Menu.Item key="rows">导出选中行</Menu.Item>
+      <Menu.Item key="all">导出全部</Menu.Item>
+    </Menu>
+  )
   return (
-    <Button
-      type={type}
-      icon={<ExportOutlined />}
-      onClick={() => exportBtn.run(selectedRowKeys)}
-      className={className}
-    >
-      {text}
-    </Button>
+    <Dropdown overlay={menu}>
+      <Button type={type} icon={<ExportOutlined />} className={className}>
+        {text}
+      </Button>
+    </Dropdown>
   )
 }

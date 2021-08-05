@@ -99,8 +99,10 @@ export default forwardRef((props, ref) => {
       onOk: params => {
         return remote
           .saveOrUpdate({
-            ...parseFormData(params),
-            id: editFormModal.formData?.id,
+            ...parseFormData({
+              ...params,
+              id: editFormModal.formData?.id,
+            }),
           })
           .then(({ status }) => {
             if (status) {

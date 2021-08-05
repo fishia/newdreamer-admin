@@ -11,8 +11,8 @@ export default props => {
     actionBtnProps: {
       showExport: true,
       showImport: true,
-      templateURL: '/resources/template/单品信息.xlsx',
-      uploadURL: singleItemRemote.importExcel.bind(singleItemRemote),
+      templateURL: '/resources/template/单品信息.xls',
+      uploadURL: singleItemRemote.importExcel(),
       downloadURL: singleItemRemote.exportExcel.bind(singleItemRemote),
     },
     initialValues: {

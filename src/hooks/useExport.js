@@ -8,7 +8,6 @@ function useExport(downloadURL, options = {}) {
     if (dataSource.length) {
       try {
         downloadURL(ids).then(status => {
-          console.log(status)
           if (status) {
             message.success('导出成功')
           }

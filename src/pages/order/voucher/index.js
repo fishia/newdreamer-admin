@@ -62,6 +62,7 @@ export default props => {
             </span>
           ),
           width: 200,
+          fixed: 'left',
           filter: {
             isunions: true, //联合类型
           },
@@ -75,14 +76,14 @@ export default props => {
       showDelete: false,
       showEdit: false,
       showCopy: false,
-      showExport: true,
-      downloadURL: orderInfoRemote.exportExcel.bind(orderInfoRemote),
+      // showExport: true,
+      // downloadURL: orderInfoRemote.exportExcel.bind(orderInfoRemote),
     },
     otherTableProps: {
       rowKey: record => record.order_Id,
       otherActionBtns: (text, record) => {
-        return [
-          {
+        let btns = [],
+          btn = {
             name: '全部备货',
             popconfirm: {
               title: '是否确认全部备货？',
@@ -103,7 +104,7 @@ export default props => {
               },
             },
           },
-          {
+          btn1 = {
             name: '全部撤销',
             popconfirm: {
               title: '是否确认全部撤销？',
@@ -124,8 +125,10 @@ export default props => {
                   .then(() => ref.current?.submit())
               },
             },
-          },
-        ]
+          }
+        record.item_Status === '待备货' && btns.push(btn)
+        record.item_Status === '待发货' && btns.push(btn1)
+        return btns
       },
     },
     renderChildren: () => <View {...viewFormModal} />,

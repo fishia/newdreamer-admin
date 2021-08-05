@@ -37,6 +37,7 @@ export default class User {
    */
   static clearUserInfo() {
     localStorage.removeItem(USER_INFO)
+    this.userInfo = {}
   }
 
   /**
