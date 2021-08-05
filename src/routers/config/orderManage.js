@@ -5,7 +5,6 @@ export default path => [
     exact: true,
     path: `/${path}/normal`,
     icon: <SkinOutlined />,
-    show: true,
     component: () => import(`@/pages/${path}/normal`),
   },
   {
@@ -13,7 +12,6 @@ export default path => [
     exact: true,
     path: `/${path}/customized`,
     icon: <ScissorOutlined />,
-    show: true,
     component: () => import(`@/pages/${path}/customized`),
   },
   {
@@ -21,7 +19,6 @@ export default path => [
     exact: true,
     path: `/${path}/personalCustomized`,
     icon: <ScissorOutlined />,
-    show: true,
     component: () => import(`@/pages/${path}/personalCustomized`),
   },
 ]

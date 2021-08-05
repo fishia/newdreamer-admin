@@ -9,7 +9,6 @@ export default [
   {
     path: '/bonus/measure',
     title: '着装顾问奖励提现',
-    show: true,
     icon: <StrikethroughOutlined />,
     component: () => RouterContainer,
     routes: [
@@ -23,8 +22,8 @@ export default [
         path: '/bonus/measure/withdraw',
         title: '提现申请',
         exact: true,
-        show: true,
         icon: <BarsOutlined />,
+        show: true,
         component: () => import('@/pages/bonus/measure/withdraw'),
       },
       {
@@ -45,7 +44,6 @@ export default [
   {
     path: '/bonus/distribution',
     title: '分销奖励提现',
-    show: true,
     icon: <StrikethroughOutlined />,
     component: () => RouterContainer,
     routes: [
@@ -55,7 +53,6 @@ export default [
         redirect: '/bonus/distribution/withdraw',
         hide: true,
       },
-      ,
       {
         path: '/bonus/distribution/withdraw',
         title: '提现申请',
@@ -72,18 +69,12 @@ export default [
         icon: <AccountBookOutlined />,
         component: () => import('@/pages/bonus/distribution/balance'),
       },
-      // ,{
-      //     path: '/withdrawDetail',
-      //     title:'提现明细',
-      //     component: () => import('@/pages/bonus/distribution/withdrawDetail')
-      // }
     ],
   },
   {
     path: '/bonus/setting',
     title: '提现金额设置',
     exact: true,
-    show: true,
     icon: <SettingOutlined />,
     component: () => import('@/pages/bonus/setting'),
   },

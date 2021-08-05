@@ -101,7 +101,7 @@ export const tableFields = [
   ],
   [
     '快递单号',
-    'orderId',
+    'shipmentId',
     {
       width: 100,
     },

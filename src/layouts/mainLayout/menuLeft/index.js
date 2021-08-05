@@ -15,9 +15,6 @@ class MenuLeft extends React.Component {
   constructor(props) {
     super(props)
     this.menuTop = null
-    // this.top = 0;
-    this.isRenderNew = true
-    this.renderMenuDoms = null
     this.openKeys = []
     this.menuNamePath = {}
     this.pageUri = {}
@@ -54,9 +51,6 @@ class MenuLeft extends React.Component {
         selectedKeys: nextProps.defaultkey || [],
       })
     }
-    if (!_isEqual(nextProps.menuList, this.props.menuList)) {
-      this.isRenderNew = true
-    }
   }
   isIE() {
     //ie?
@@ -72,7 +66,7 @@ class MenuLeft extends React.Component {
     if (permissions)
       t.setState({
         menuList: t.routeContrast(
-          t.state.menuList,
+          [...t.state.menuList],
           permissions.map(o => o.remark)
         ),
       })
@@ -80,23 +74,24 @@ class MenuLeft extends React.Component {
   // 所有路由 和 当前登录权限对比
   routeContrast(data, permissionsObj) {
     return data.map(item => {
-      if (permissionsObj[item.title]) item.show = true
-      if (item.children) {
-        this.routeContrast(item.children, permissionsObj)
+      return {
+        ...item,
+        show: item.show ? item.show : permissionsObj.indexOf(item.title) > -1,
+        children: item.children ? this.routeContrast(item.children, permissionsObj) : null,
       }
     })
   }
   renderMenu(ary) {
     let t = this,
       { role } = User.getUserInfo()
-    return (ary || []).map((item, index) => {
+    return (ary || []).map(item => {
       if (item.path === '/') {
         return t.renderMenu(item.children)
       } else if (
         item.show &&
         item.children &&
         item.children.length > 0 &&
-        !_every(item.children, { hide: true })
+        !_every(item.children, { show: false })
       ) {
         /*
           过滤菜单栏如果包含二级导航且子项不应该出现在菜单栏中需要隐藏，所以需要过滤childen是否有隐藏
@@ -115,20 +110,13 @@ class MenuLeft extends React.Component {
           </SubMenu>
         )
       }
-      if ((item.show && !item.hide) || item.author?.indexOf(role.id) > -1) {
-        //如果时平台，活动管理需修改成我的活动
-        let pageName =
-          item.path === '/activityCenter/activityManage'
-            ? role.id === 1
-              ? '制单生产'
-              : '供应商'
-            : item.title
+      if ((item.show && !item.hide && !item.children) || item.author?.indexOf(role.id) > -1) {
         t.pageUri[item.path] = { ...item }
         return (
           <Menu.Item key={item.path}>
             <Link to={item.path}>
               {item.icon ? item.icon : null}
-              <span>{pageName}</span>
+              <span>{item.title}</span>
             </Link>
           </Menu.Item>
         )
@@ -137,16 +125,13 @@ class MenuLeft extends React.Component {
   }
   render() {
     let { collapsed, openKeys, selectedKeys, menuList } = this.state
-    if (this.isRenderNew) {
-      this.isRenderNew = false
-      this.renderMenuDoms = this.renderMenu(menuList)
-    }
     if (openKeys.length > 0) {
       this.openKeys = [...openKeys]
     }
     let menuOpenkey = {
       openKeys: collapsed ? [] : this.openKeys,
     }
+    console.log(menuList)
     return (
       <div>
         <div
@@ -191,7 +176,7 @@ class MenuLeft extends React.Component {
                 })
               }}
             >
-              {this.renderMenuDoms}
+              {this.renderMenu(menuList)}
             </Menu>
           </div>
         </div>

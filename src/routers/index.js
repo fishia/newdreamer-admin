@@ -96,7 +96,6 @@ export default [
         icon: <SyncOutlined />,
         path: '/orderManage',
         routes: orderManageRoutes('orderManage'),
-        show: true,
         component: () => RouterContainer,
       },
       {
@@ -104,7 +103,6 @@ export default [
         icon: <SyncOutlined />,
         path: '/suppilerOrderManage',
         routes: orderManageRoutes('suppilerOrderManage'),
-        show: true,
         component: () => RouterContainer,
       },
       {
