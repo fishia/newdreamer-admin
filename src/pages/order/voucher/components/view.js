@@ -102,7 +102,7 @@ export default props => {
       <div className={styles.total}>
         <Statistic
           title="总金额:"
-          value={record.total_Received_Amount || 0}
+          value={record.total_Original_Price || 0}
           valueStyle={{ fontSize: '14px' }}
         />
         <Statistic

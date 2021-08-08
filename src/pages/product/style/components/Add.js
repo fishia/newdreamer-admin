@@ -75,7 +75,7 @@ function Add(props, ref) {
                             ) : (
                               <Button
                                 type="dashed"
-                                onClick={() => remove()}
+                                onClick={() => remove(name)}
                                 block
                                 type="danger"
                                 icon={<MinusCircleOutlined />}

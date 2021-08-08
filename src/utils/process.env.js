@@ -3,7 +3,7 @@ const { NODE_ENV } = process.env
 let api = ''
 if (NODE_ENV === 'development') {
   // 开发
-  api = 'http://newdreamer.mynatapp.cc/'
+  api = 'https://test.newdreamer.cn/'
 } else {
   // 生产
   api = 'https://www.hznewdreamer.cn/'

@@ -136,7 +136,7 @@ export const parseColumns = data => ({
   ...data,
   id: data.volumer_Id,
   disabled_Time: data.disabled_Time ? moment(data.disabled_Time) : undefined,
-  register_Time: data.disabled_Time ? moment(data.register_Time) : undefined,
+  register_Time: data.register_Time ? moment(data.register_Time) : undefined,
   files: data.files && JSON.parse(data.files),
 })
 export const parseFormData = data => ({

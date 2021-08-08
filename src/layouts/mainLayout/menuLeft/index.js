@@ -131,7 +131,6 @@ class MenuLeft extends React.Component {
     let menuOpenkey = {
       openKeys: collapsed ? [] : this.openKeys,
     }
-    console.log(menuList)
     return (
       <div>
         <div
