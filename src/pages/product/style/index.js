@@ -43,7 +43,7 @@ export default props => {
       onOk: params => {
         return styleRemote.saveOrUpdate({ ...parseFormData(params) }).then(({ status }) => {
           if (status) {
-            myRef.current?.refresh()
+            myRef.current?.submit()
             addFormModal.setVisible(false)
             message.success('新增成功')
           }
@@ -67,7 +67,7 @@ export default props => {
           .then(({ status }) => {
             if (status) {
               editFormModal.setVisible(false)
-              myRef.current?.refresh()
+              myRef.current?.submit()
               message.success('编辑成功')
             }
             return status
