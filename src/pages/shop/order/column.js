@@ -328,7 +328,7 @@ export const parseColumns = data => ({
   ...data,
   images: JSON.parse(data.images),
   detailImages: JSON.parse(data.detailImages),
-  subProducts: data.subProducts.map(item => ({
+  subProducts: data.subProducts?.map(item => ({
     ...item,
     single: item.single.toString(),
     images: item.images && JSON.parse(item.images),
@@ -338,7 +338,7 @@ export const parseFormData = data => ({
   ...data,
   images: JSON.stringify(data.images),
   detailImages: JSON.stringify(data.detailImages),
-  subProducts: data.subProducts.map(item => ({
+  subProducts: data.subProducts?.map(item => ({
     ...item,
     images: item.images && JSON.stringify(item.images),
   })),
@@ -346,9 +346,9 @@ export const parseFormData = data => ({
 //复制重置formData
 export const resetFormData = data => ({
   ...data,
-  subProducts: data.subProducts.map(item => ({
+  subProducts: data.subProducts?.map(item => ({
     ...item,
     id: '',
-    detailList: item.detailList.map(item => ({ ...item, id: '' })),
+    detailList: item.detailList?.map(item => ({ ...item, id: '' })),
   })),
 })
