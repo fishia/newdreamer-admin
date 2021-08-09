@@ -13,6 +13,7 @@ export default forwardRef((props, ref) => {
     initialValues: {
       enabled: 'true',
     },
+    title: '学校校区',
     columns: campusFields,
     parseColumns,
     otherTableProps: {

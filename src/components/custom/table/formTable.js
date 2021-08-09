@@ -72,7 +72,7 @@ export default forwardRef((props, ref) => {
   // 新增
   const addFormModal = useFormModal({
     modal: {
-      title: `${document.title}-新增`,
+      title: `${title}-新增`,
       width: 900,
       onOk: params => {
         return remote
@@ -94,7 +94,7 @@ export default forwardRef((props, ref) => {
   // 编辑
   const editFormModal = useFormModal({
     modal: {
-      title: `${document.title}-编辑`,
+      title: `${title}-编辑`,
       width: 900,
       onOk: params => {
         return remote
@@ -118,7 +118,7 @@ export default forwardRef((props, ref) => {
   //查看
   const viewFormModal = useFormModal({
     modal: {
-      title: `${document.title}-查看`,
+      title: `${title}-查看`,
       width: 900,
       footer: null,
       onCancel: () => {
