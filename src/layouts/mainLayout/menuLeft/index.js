@@ -7,8 +7,6 @@ import { Link } from 'dva/router'
 import _isEqual from 'lodash/isEqual'
 import _every from 'lodash/every'
 import User from '@utils/user'
-import menulogo from '@assets/images/menulogo.png'
-import ico from '@assets/images/logo.png'
 const SubMenu = Menu.SubMenu
 
 class MenuLeft extends React.Component {
@@ -142,11 +140,7 @@ class MenuLeft extends React.Component {
             className={`${themeStyles.menuTitle} ${
               collapsed ? themeStyles.enter : themeStyles.leave
             }`}
-          >
-            <div className={styles.systemTitle}>
-              <img src={collapsed ? ico : menulogo} />
-            </div>
-          </div>
+          />
           <div
             className={`${themeStyles.menuContent} ${collapsed ? themeStyles.adjust : ''}`}
             style={{ overflowX: collapsed ? 'hidden' : 'auto' }}
