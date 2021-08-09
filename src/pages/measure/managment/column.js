@@ -16,7 +16,7 @@ export const tableFields = [
     '电话',
     'volumer_Phone',
     {
-      width: 100,
+      width: 150,
       filter: {
         isunions: true, //联合类型
       },
@@ -38,7 +38,7 @@ export const tableFields = [
     '高校',
     'volumer_College',
     {
-      width: 80,
+      width: 150,
       filter: {
         isunions: true, //联合类型
       },
@@ -64,7 +64,7 @@ export const tableFields = [
     '校区',
     'volumer_Part',
     {
-      width: 80,
+      width: 100,
       form: {
         type: 'other',
         name: 'part_id',
@@ -83,7 +83,7 @@ export const tableFields = [
     'register_Time',
     {
       render: text => (text ? moment(text).format(format) : ''),
-      width: 100,
+      width: 150,
       form: {
         type: 'datePicker',
         format,
@@ -94,7 +94,7 @@ export const tableFields = [
     '停用时间',
     'disabled_Time',
     {
-      width: 100,
+      width: 150,
       render: text => (text ? moment(text).format(format) : ''),
       form: {
         type: 'datePicker',
