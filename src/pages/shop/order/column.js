@@ -270,6 +270,7 @@ export const childTableFields = [
     '子商品图',
     'images',
     {
+      display: false,
       form: {
         type: 'upload',
         fileDirectorEnum: 'PRODUCT',
@@ -326,8 +327,8 @@ export const grandsonTableFields = [
 ]
 export const parseColumns = data => ({
   ...data,
-  images: JSON.parse(data.images),
-  detailImages: JSON.parse(data.detailImages),
+  images: data.images && JSON.parse(data.images),
+  detailImages: data.detailImages && JSON.parse(data.detailImages),
   subProducts: data.subProducts?.map(item => ({
     ...item,
     single: item.single.toString(),
