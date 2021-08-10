@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { omit } from 'lodash'
 import { VtxUpload } from '@vtx/components'
 import { uploadSingleUrl, downloadUrl, uploadUrl } from '@/utils/contants'
 
@@ -14,11 +15,14 @@ const NdUpload = props => {
   } = props
   const [fileList, setFileList] = useState(files)
   const [flag, setFlag] = useState(0)
-
+  let tempProps = { ...props }
+  if (listType === 'text') {
+    tempProps = omit(props, ['viewMode'])
+  }
   return (
     <VtxUpload
       {...{
-        ...props,
+        ...tempProps,
         fileList,
         listType,
         mode,
@@ -31,9 +35,12 @@ const NdUpload = props => {
         },
         downloadUrl,
         flag,
-        viewMode,
         maxCount,
         onChange: {},
+        showUploadList: { showDownloadIcon: viewMode && listType === 'text' },
+        onDownload: file => {
+          window.open(file?.url, '_blank')
+        },
         onSuccess(file) {
           let files = [
             ...fileList,
