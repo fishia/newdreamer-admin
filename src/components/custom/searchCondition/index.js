@@ -23,7 +23,7 @@ export default forwardRef((props, ref) => {
               if (item.label) {
                 return (
                   <Col key={i} span={item.span} offset={item.offset || 0}>
-                    <Form.Item labelAlign="right" {...item}>
+                    <Form.Item labelAlign="right" {...item} label="">
                       {item.elem}
                     </Form.Item>
                   </Col>

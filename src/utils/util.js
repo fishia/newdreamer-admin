@@ -254,7 +254,7 @@ export const renderColumns = cols => {
         ...omit(other, ['filter', 'form']),
       }
     })
-    .filter(item => !item.hide)
+    .filter(item => item || (item && !item.hide))
 }
 /**
  * 表格columns带filter属性的列转换成筛选条件组件的业务逻辑处理

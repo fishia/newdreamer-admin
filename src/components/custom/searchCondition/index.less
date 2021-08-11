@@ -1,18 +1,21 @@
 .searchForm {
-  padding: 0 0 0 5px;
-  .rightBtn {
-    padding-left: 8px;
-    padding-right: 8px;
-    margin-top: 30px;
-  }
-  :global {
-    .ant-form-item-label {
-      &::after {
-        content: ':';
-      }
+    padding: 0 0 0 5px;
+
+    .rightBtn {
+        padding-left: 8px;
+        padding-right: 8px;
     }
-    .ant-form-item-control {
-      margin-right: 15px;
+
+    :global {
+        .ant-form-item-label {
+            &::after {
+                content: ':';
+            }
+        }
+
+        .ant-form-item-control {
+            margin-right: 15px;
+            width: auto !important;
+        }
     }
-  }
 }

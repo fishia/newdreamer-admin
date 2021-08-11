@@ -1,5 +1,6 @@
 @import (reference) "~@/assets/styles/config";
-@marginTop:24px;
+@marginTop: 24px;
+
 .page {
     height: 100%;
     width: 100%;
@@ -7,50 +8,50 @@
     background-repeat: no-repeat;
     position: relative;
     overflow: hidden;
-    .title {
-        color:  @titleColor;
-        font-size: 16px;
+
+    .logo {
         text-align: center;
-        font-weight: bold;
-        margin:32px 0;
-    }
-    .logo{
-        text-align: center;
-        img{
+        margin-bottom: 32px;
+
+        img {
             width: 200px;
         }
     }
+
     .panel {
-        width:500px;
-        height: 400px;
+        width: 500px;
+        height: 350px;
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%,-50%);
-        -ms-transform:translate(-50%,-50%);
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
         background-color: #fff;
         border-radius: 4px;
-        box-shadow: 0px 0px 21px 0px rgba(152,173,241,0.44);
+        box-shadow: 0px 0px 21px 0px rgba(152, 173, 241, 0.44);
         box-sizing: border-box;
         font-size: 14px;
-        padding:30px 60px 30px 60px;
-        .panel_content{
-            .rightContent{
+        padding: 30px 60px 30px 60px;
+
+        .panel_content {
+            .rightContent {
                 .clear;
                 .imgBase;
-                width:100%;
-                height:auto;
+                width: 100%;
+                height: auto;
             }
         }
     }
 }
-@media screen and (max-width: 1440px){
-    .page{
-        .title{
+
+@media screen and (max-width: 1440px) {
+    .page {
+        .title {
             margin: 24px 0;
         }
-        .footer{
-            bottom:30px;
+
+        .footer {
+            bottom: 30px;
         }
     }
 }

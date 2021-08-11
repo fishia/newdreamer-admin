@@ -25,7 +25,7 @@ function Table(props, ref) {
     deleteItems,
     actionBtnProps = {},
     children,
-    top = 65,
+    top = 35,
     title,
     actionText = '操作',
     actionWidth = 180,
