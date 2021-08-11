@@ -273,6 +273,7 @@ export const childTableFields = [
       display: false,
       form: {
         type: 'upload',
+        mode: 'single',
         fileDirectorEnum: 'PRODUCT',
         rules: [{ required: true, type: 'array' }],
       },

@@ -155,7 +155,7 @@ export default forwardRef((props, ref) => {
     },
     [editFormModal]
   )
-
+  console.log(editFormModal)
   return (
     <Table {...TableProps} ref={myRef}>
       {renderChildren ? (
@@ -171,28 +171,34 @@ export default forwardRef((props, ref) => {
         )
       ) : (
         <>
-          <Add
-            {...{
-              ...addFormModal,
-              formList: renderFormFields(columns, 'add'),
-              initialValues,
-            }}
-          />
-          <Edit
-            {...{
-              ...editFormModal,
-              formList: renderFormFields(columns, 'edit'),
-            }}
-          />
+          {addFormModal.modalProps.visible && (
+            <Add
+              {...{
+                ...addFormModal,
+                formList: renderFormFields(columns, 'add'),
+                initialValues,
+              }}
+            />
+          )}
+          {editFormModal.modalProps.visible && (
+            <Edit
+              {...{
+                ...editFormModal,
+                formList: renderFormFields(columns, 'edit'),
+              }}
+            />
+          )}
         </>
       )}
-      <View
-        {...{
-          ...viewFormModal,
-          formList: renderFormFields(columns, 'view'),
-          viewMode: true,
-        }}
-      />
+      {viewFormModal.modalProps.visible && (
+        <View
+          {...{
+            ...viewFormModal,
+            formList: renderFormFields(columns, 'view'),
+            viewMode: true,
+          }}
+        />
+      )}
     </Table>
   )
 })

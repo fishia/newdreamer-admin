@@ -306,6 +306,10 @@ export const renderFormFields = (cols, mode) => {
         name: item[1],
         label: item[0],
         ...item[2].form,
+        disabled:
+          typeof item[2].form.disabled === 'string'
+            ? item[2].form.disabled === mode
+            : item[2].form.disabled,
         type: item[2].form.type || 'input', //默认input
       }
     })

@@ -138,6 +138,7 @@ function Add(props, ref) {
   const [form] = Form.useForm()
   const { validateFields, resetFields, setFieldsValue } = form
   useEffect(() => {
+    console.log(modalProps.visible, form)
     if (!modalProps.visible && form) {
       resetFields()
     } else {

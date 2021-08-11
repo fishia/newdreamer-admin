@@ -148,7 +148,7 @@ export default function ProductManager() {
               },
               {
                 label: '着装顾问',
-                value: 'volumer_Name',
+                value: 'volumer',
               },
             ]}
             onChange={options =>
@@ -158,7 +158,13 @@ export default function ProductManager() {
         </div>
 
         <div className="manager-search-btn">
-          <Button onClick={pageData} type="primary">
+          <Button
+            onClick={() => {
+              updatePageInfo({ ...pageInfo, page: 1 })
+              setIsinit(false)
+            }}
+            type="primary"
+          >
             筛选
           </Button>
         </div>

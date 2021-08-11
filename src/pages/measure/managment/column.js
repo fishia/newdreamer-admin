@@ -87,6 +87,7 @@ export const tableFields = [
       form: {
         type: 'datePicker',
         format,
+        disabled: 'edit',
       },
     },
   ],
@@ -97,6 +98,7 @@ export const tableFields = [
       width: 150,
       render: text => (text ? moment(text).format(format) : ''),
       form: {
+        disabled: 'edit',
         type: 'datePicker',
         format,
       },

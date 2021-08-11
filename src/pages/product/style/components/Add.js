@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect } from 'react'
 import { VtxModal } from '@vtx/components'
-import { Input, Form, Row, Col, Space, Button, Card, Tooltip } from 'antd'
+import { Input, Form, Row, Col, Space, Button, Card, Tooltip, Popconfirm } from 'antd'
 import { MinusCircleOutlined, PlusOutlined, PlusSquareOutlined } from '@ant-design/icons'
 import { formItemLayout, formItemLayoutWithOutLabel } from '@/utils/contants'
 import { JKUtil } from '@/utils/util'
@@ -73,15 +73,16 @@ function Add(props, ref) {
                                 添加款式
                               </Button>
                             ) : (
-                              <Button
-                                type="dashed"
-                                onClick={() => remove(name)}
-                                block
-                                type="danger"
-                                icon={<MinusCircleOutlined />}
-                              >
-                                删除款式
-                              </Button>
+                              <Popconfirm title="确认移除吗" onConfirm={() => remove(name)}>
+                                <Button
+                                  type="dashed"
+                                  block
+                                  type="danger"
+                                  icon={<MinusCircleOutlined />}
+                                >
+                                  删除款式
+                                </Button>
+                              </Popconfirm>
                             )}
                           </Space>
                         }
@@ -178,7 +179,12 @@ function Add(props, ref) {
                                         <div className={styles.rightBtn}>
                                           {index ? (
                                             <Tooltip title="点击可移除类目">
-                                              <MinusCircleOutlined onClick={() => remove(name)} />
+                                              <Popconfirm
+                                                title="确认移除吗"
+                                                onConfirm={() => remove(name)}
+                                              >
+                                                <MinusCircleOutlined />
+                                              </Popconfirm>
                                             </Tooltip>
                                           ) : (
                                             <Tooltip title="点击可新增· 类目">

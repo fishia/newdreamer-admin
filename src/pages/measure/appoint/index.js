@@ -370,7 +370,13 @@ export default function ProductManager() {
           </Select>
         </div>
         <div className="manager-search-btn">
-          <Button onClick={pageData} type="primary">
+          <Button
+            onClick={() => {
+              updatePageInfo({ ...pageInfo, page: 1 })
+              setIsinit(false)
+            }}
+            type="primary"
+          >
             筛选
           </Button>
         </div>
