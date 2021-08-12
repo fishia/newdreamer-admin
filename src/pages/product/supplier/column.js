@@ -63,7 +63,7 @@ export const tableFields = [
         type: 'upload',
         fileDirectorEnum: 'SUPPLIER',
         mode: 'single',
-        rules: [{ required: true, type: 'array' }],
+        //rules: [{ required: true, type: 'array' }],
       },
     },
   ],

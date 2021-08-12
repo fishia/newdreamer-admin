@@ -6,7 +6,6 @@ import Edit from './Add'
 
 export default forwardRef((props, ref) => {
   const { detailList = [], onChange, single } = props
-  console.log(single)
   const [title, setTitle] = useState(false)
   const myRef = useRef()
 

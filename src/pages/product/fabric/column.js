@@ -79,7 +79,7 @@ export const tableFields = [
       form: {
         type: 'upload',
         fileDirectorEnum: 'FABRIC',
-        rules: [{ required: true, type: 'array' }],
+        //rules: [{ required: true, type: 'array' }],
       },
     },
   ],

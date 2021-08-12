@@ -182,7 +182,7 @@ export const tableFields = [
       form: {
         type: 'upload',
         fileDirectorEnum: 'SINGLEITEM',
-        rules: [{ required: true, type: 'array' }],
+        //rules: [{ required: true, type: 'array' }],
       },
     },
   ],

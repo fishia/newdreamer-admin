@@ -7,7 +7,7 @@ export default forwardRef((props, ref) => {
 
   const getlist = useCallback(async () => {
     styleRemote.listItemType().then(({ data }) => {
-      setList(data.map(item => ({ label: item, value: item })))
+      setList(data.filter(item => item).map(item => ({ label: item, value: item })))
     })
   }, [])
 

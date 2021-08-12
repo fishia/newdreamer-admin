@@ -216,7 +216,6 @@ export default function ProductManager() {
       width: 150,
       render: (_, record) => record['collegeName'],
       elem: props => {
-        console.log('props', props)
         return (
           <CollegeSelect
             value={props.collegeId}

@@ -163,12 +163,12 @@ export const tableFields = [
       width: 300,
       render: (text, record) => {
         //展示详情
-        return <ImagePreviewGroup images={text} />
+        return text && <ImagePreviewGroup images={text} />
       },
       form: {
         type: 'upload',
         fileDirectorEnum: 'PRODUCT',
-        rules: [{ required: true, type: 'array' }],
+        // rules: [{ required: true, type: 'array' }],
       },
     },
   ],
@@ -179,13 +179,13 @@ export const tableFields = [
       width: 150,
       render: (text, record) => {
         //展示详情
-        return <ImagePreviewGroup images={text} />
+        return text && <ImagePreviewGroup images={text} />
       },
       form: {
         type: 'upload',
         mode: 'single',
         fileDirectorEnum: 'PRODUCT',
-        rules: [{ required: true, type: 'array' }],
+        // rules: [{ required: true, type: 'array' }],
       },
     },
   ],
@@ -284,7 +284,7 @@ export const childTableFields = [
         type: 'upload',
         mode: 'single',
         fileDirectorEnum: 'PRODUCT',
-        rules: [{ required: true, type: 'array' }],
+        // rules: [{ required: true, type: 'array' }],
       },
     },
   ],
@@ -331,7 +331,9 @@ export const grandsonTableFields = [
     'sellingPrice',
     {
       width: 100,
-      form: {},
+      form: {
+        rules: [{ required: true }],
+      },
     },
   ],
 ]
@@ -349,10 +351,7 @@ export const parseFormData = data => ({
   ...data,
   images: JSON.stringify(data.images),
   detailImages: JSON.stringify(data.detailImages),
-  subProducts: data.subProducts?.map(item => ({
-    ...item,
-    images: item.images && JSON.stringify(item.images),
-  })),
+  subProducts: data.subProducts?.map(item => ({ ...item })),
 }) //下拉保存给id给后台
 //复制重置formData
 export const resetFormData = data => ({

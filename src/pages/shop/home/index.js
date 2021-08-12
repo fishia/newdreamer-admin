@@ -59,7 +59,6 @@ export default class ShopHome extends React.Component {
   }
 
   updateInfo = () => {
-    console.log('提交数据')
     let { notice, photos, manModules, womenModules, titles } = this.state
     requestHomeSave({
       photos: JSON.stringify(photos),

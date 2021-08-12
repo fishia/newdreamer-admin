@@ -11,10 +11,8 @@ const { getObjProperty } = JKUtil
 export default forwardRef((props, ref) => {
   const { status, statusName, classification, columns } = props
   const [title, setTitle] = useState(`${document.title}-编辑`)
-  // console.log(ref)
-  // useEffect(() => {
-  //   setTitle(`${document.title}${getObjProperty(ref.current, 'editFormModal.formData.code')}-编辑`)
-  // }, [ref])
+  status === 'COMPLETED' && columns.push(['快递单号', 'shipmentId', { width: 100 }])
+
   const FormTableProps = {
     remote: productInMakingRemote,
     ..._.omit(props, ['status', 'classification']),
