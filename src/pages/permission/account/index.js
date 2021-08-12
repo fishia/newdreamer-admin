@@ -166,7 +166,13 @@ export default class Index extends React.Component {
       { title: '账号', dataIndex: 'username', width: 80, align: 'center' },
       { title: '名称', dataIndex: 'name', width: 120, align: 'center' },
       { title: '角色', dataIndex: 'roleName', width: 120, align: 'center' },
-      { title: '账号类型', dataIndex: 'userTypeName', width: 120, align: 'center' },
+      {
+        title: '账号类型',
+        dataIndex: 'userType',
+        width: 120,
+        align: 'center',
+        render: text => enumSuperset['userType'].filter(item => item.value === text)[0]?.label,
+      },
       { title: '所属部门(或公司)', dataIndex: 'dept', width: 180, align: 'center' },
       {
         title: '最后登录时间',

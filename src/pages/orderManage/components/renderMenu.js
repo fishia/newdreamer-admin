@@ -127,7 +127,12 @@ export default props => {
     <div className={styles.normal}>
       <Tabs activeKey={current} onChange={key => setCurrent(key)} tabBarGutter={60}>
         {menuList.map(item => (
-          <TabPane tab={<Badge count={countObj[item.key]}>{item.tab}</Badge>} key={item.key}>
+          <TabPane
+            tab={
+              <Badge count={item.key === 'COMPLETED' ? 0 : countObj[item.key]}>{item.tab}</Badge>
+            }
+            key={item.key}
+          >
             <Table
               {...{
                 ...item.props,

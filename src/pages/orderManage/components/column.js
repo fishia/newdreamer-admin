@@ -29,7 +29,19 @@ export const tableFields = [
       form: {
         type: 'other',
         name: 'volumerId',
-        children: props => <VolumerSelect {...props} />,
+        children: (props, { setFieldsValue }) => (
+          <VolumerSelect
+            {...props}
+            onChange={(v, item) => {
+              if (item[0])
+                setFieldsValue({
+                  volumerId: v,
+                  phoneNumber: item[0].volumer_Phone,
+                  address: item[0].volumer_Address,
+                })
+            }}
+          />
+        ),
         rules: [{ required: true }],
       },
     },
@@ -59,7 +71,8 @@ export const tableFields = [
             onChange={(v, item) => {
               if (item[0])
                 setFieldsValue({
-                  ...item[0],
+                  articleNumber: item[0].articleNumber,
+                  supplierId: item[0].supplierId,
                   styleJson: null,
                   productType: item[0].itemType,
                   volumeId: item[0].volume_Id,

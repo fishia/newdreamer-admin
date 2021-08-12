@@ -12,7 +12,11 @@ export default forwardRef((props, ref) => {
         setList(
           data
             .filter(item => item.volumer_Name)
-            .map(({ volumer_Id, volumer_Name }) => ({ label: volumer_Name, value: volumer_Id }))
+            .map(({ volumer_Id, volumer_Name, ...res }) => ({
+              label: volumer_Name,
+              value: volumer_Id,
+              ...res,
+            }))
         )
     })
   }, [props])

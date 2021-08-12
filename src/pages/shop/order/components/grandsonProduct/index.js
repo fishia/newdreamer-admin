@@ -5,12 +5,19 @@ import Add from './Add'
 import Edit from './Add'
 
 export default forwardRef((props, ref) => {
-  const { detailList = [], onChange } = props
+  const { detailList = [], onChange, single } = props
+  console.log(single)
   const [title, setTitle] = useState(false)
   const myRef = useRef()
 
   const PureTableProps = {
     title: '孙子商品上架',
+    actionBtnProps: {
+      showAdd: single === 'true' ? (detailList.length ? false : true) : true,
+      showEdit: true,
+      showCopy: true,
+      showDelete: true,
+    },
     otherTableProps: {
       dataSource: detailList.map((item, i) => ({ ...item, key: i })),
       columns: [

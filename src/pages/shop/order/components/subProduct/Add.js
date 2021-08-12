@@ -60,6 +60,7 @@ function Add(props, ref) {
                     <Form.Item name="detailList" {...formFullItemLayout}>
                       <GrandsonProduct
                         detailList={getFieldValue('detailList')}
+                        single={getFieldValue('single')}
                         ref={myRef}
                         onChange={data => {
                           setFieldsValue({
