@@ -33,9 +33,12 @@ class Login extends Component {
             dispatch({
               type: 'layout/menuInit',
             }),
-          ]).then(() => {
+          ]).then(res => {
             if (JKUtil.getUrlParam('redirectUrl')) push(JKUtil.getUrlParam('redirectUrl'))
-            else push(homePage)
+            else
+              res[0].roleName === '供应商'
+                ? push('/suppilerOrderManage/customized')
+                : push(homePage)
           })
         } else {
           message.warning(res.msg)

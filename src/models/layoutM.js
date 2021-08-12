@@ -71,6 +71,7 @@ export default {
         const { data, status } = yield call(userRemote.getMenus)
         if (status) {
           User.login({ token: true, ...data }) //存储,permission：按钮权限
+          return { ...data.role }
         }
       }
     },

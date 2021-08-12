@@ -4,7 +4,6 @@ export default [
   {
     path: '/distribution/personal',
     title: '个人分销',
-    show: true,
     icon: <UserAddOutlined />,
     component: () => RouterContainer,
     routes: [
