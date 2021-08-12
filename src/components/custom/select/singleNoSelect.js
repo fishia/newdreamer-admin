@@ -15,22 +15,5 @@ export default forwardRef((props, ref) => {
     getlist()
   }, [getlist])
 
-  return (
-    <MySelect
-      {...props}
-      ref={ref}
-      datasource={[
-        {
-          label: '编号01',
-          name: '编号01',
-          value: 1,
-          singleItemId: 1,
-          classificationName: '西服',
-          classification: 'XIFU',
-          retailPrice: 100,
-        },
-      ]}
-      placeholder="请选择ND单品编号"
-    />
-  )
+  return <MySelect {...props} ref={ref} datasource={list} placeholder="请选择ND单品编号" />
 })
