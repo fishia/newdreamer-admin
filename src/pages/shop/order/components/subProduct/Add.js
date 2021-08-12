@@ -4,7 +4,6 @@ import { formFullItemLayout, formItemLayout } from '@/utils/contants'
 import { Form, Row, Col, Card } from 'antd'
 import { renderFormList } from '@/components/custom/modal/formModal'
 import GrandsonProduct from '../grandsonProduct'
-import { FabricSelect, ProductTypeSelect } from '@/components/custom/select'
 
 function Add(props, ref) {
   const { modalProps, formData = {}, onOk, formList, viewModal } = props

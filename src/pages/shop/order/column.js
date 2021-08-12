@@ -236,45 +236,19 @@ export const childTableFields = [
       },
     },
   ],
-  [
-    '量体数据',
-    'optionalData',
-    {
-      render: (text, record) => {
-        return <Switch checked={text} disabled />
-      },
-      width: 100,
-      form: {
-        type: 'switch',
-      },
-    },
-  ],
-  [
-    '面料选择',
-    'optionalFabric',
-    {
-      width: 100,
-      render: (_, record) => {
-        return record.fabricClassification ? record.fabricClassification : '/'
-      },
-      form: {
-        type: 'switch',
-      },
-    },
-  ],
-  [
-    '款式选择',
-    'optionalStyle',
-    {
-      width: 100,
-      render: (_, record) => {
-        return record.styleType ? record.styleType : '/'
-      },
-      form: {
-        type: 'switch',
-      },
-    },
-  ],
+  // [
+  //   '量体数据',
+  //   'optionalData',
+  //   {
+  //     render: (text, record) => {
+  //       return <Switch checked={text} disabled />
+  //     },
+  //     width: 100,
+  //     form: {
+  //       type: 'switch',
+  //     },
+  //   },
+  // ],
   [
     '子商品图',
     'images',
@@ -303,7 +277,7 @@ export const grandsonTableFields = [
     '产品类型',
     'classificationName',
     {
-      width: 100,
+      width: 120,
       form: { disabled: true, rules: [{ required: true }] },
     },
   ],
@@ -336,6 +310,32 @@ export const grandsonTableFields = [
       },
     },
   ],
+  // [
+  //   '面料选择',
+  //   'optionalFabric',
+  //   {
+  //     width: 100,
+  //     render: (_, record) => {
+  //       return record.fabricClassification ? record.fabricClassification : '/'
+  //     },
+  //     form: {
+  //       type: 'switch',
+  //     },
+  //   },
+  // ],
+  // [
+  //   '款式选择',
+  //   'optionalStyle',
+  //   {
+  //     width: 100,
+  //     render: (_, record) => {
+  //       return record.styleType ? record.styleType : '/'
+  //     },
+  //     form: {
+  //       type: 'switch',
+  //     },
+  //   },
+  // ],
 ]
 export const parseColumns = data => ({
   ...data,

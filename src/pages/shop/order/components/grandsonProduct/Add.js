@@ -3,7 +3,7 @@ import { VtxModal } from '@vtx/components'
 import { formItemLayout } from '@/utils/contants'
 import { Form, Row, Col, Input } from 'antd'
 import { renderFormList } from '@/components/custom/modal/formModal'
-import { SingleNoSelect } from '@/components/custom/select'
+import { SingleNoSelect, FabricSelect, ProductTypeSelect } from '@/components/custom/select'
 
 function Add(props, ref) {
   const { modalProps, formData = {}, onOk, formList, viewModal } = props
@@ -46,6 +46,28 @@ function Add(props, ref) {
             </Form.Item>
           </Col>
           {renderFormList(formData, formList, viewModal)}
+          <Col span={12}>
+            <Form.Item noStyle {...formItemLayout} shouldUpdate>
+              {({ getFieldValue }) =>
+                getFieldValue('classificationName') === '个性化定制' ? (
+                  <Form.Item name="fabricClassification" label="面料类型">
+                    <FabricSelect {...props} />
+                  </Form.Item>
+                ) : null
+              }
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item noStyle {...formItemLayout} shouldUpdate>
+              {({ getFieldValue }) =>
+                getFieldValue('classificationName') === '个性化定制' ? (
+                  <Form.Item name="styleType" label="款式类型">
+                    <ProductTypeSelect {...props} />
+                  </Form.Item>
+                ) : null
+              }
+            </Form.Item>
+          </Col>
         </Row>
       </Form>
     </VtxModal>
