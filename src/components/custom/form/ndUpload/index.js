@@ -42,14 +42,25 @@ const NdUpload = props => {
           window.open(file?.url, '_blank')
         },
         onSuccess(file) {
-          let files = [
-            ...fileList,
-            {
-              id: mode === 'single' ? file && file.response : file && file.response[0],
-              name: file.name,
-              type: file.type,
-            },
-          ]
+          let files = []
+          if (mode === 'single') {
+            files = [
+              {
+                id: file && file.response,
+                name: file.name,
+                type: file.type,
+              },
+            ]
+          } else {
+            files = [
+              ...fileList,
+              {
+                id: file && file.response[0],
+                name: file.name,
+                type: file.type,
+              },
+            ]
+          }
           setFileList(files)
           onChange(files)
           setFlag(flag + 1)

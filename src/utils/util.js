@@ -277,6 +277,7 @@ export const renderSearchFields = tableFields => {
             list={_.map(unionsfiltersList, o => ({
               label: o[0],
               value: o[1],
+              elem: o[2].filter.elem || undefined,
             }))}
           />
         ) : item[2].filter.elem ? (

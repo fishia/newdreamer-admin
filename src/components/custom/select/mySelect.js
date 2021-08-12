@@ -16,7 +16,7 @@ const MySelect = forwardRef((props, ref) => {
   } = props
   const all = showAll ? [{ label: '不限', value: '' }] : []
   const changeHandler = (value, option) => {
-    let obj = datasource.filter(item => item.value === value)
+    let obj = datasource.filter(item => item.value === (props.labelInValue ? value.key : value))
     onChange(value, obj)
     onChangeData(option ? datasource[option.key] : {})
   }

@@ -28,15 +28,24 @@ export const tableFields = [
   ],
   [
     '产品分类',
-    'classificationName',
+    'classification',
     {
       width: 100,
+      render: (_, record) => record.classificationName,
       filter: {
         isunions: true,
+        elem: ({ onChange, style }) => (
+          <MySelect
+            datasource={enumSuperset['productType']}
+            onChange={v => {
+              onChange({ classification: v })
+            }}
+            style={style}
+          />
+        ),
       },
       form: {
         type: 'other',
-        name: 'classification',
         children: props => <MySelect datasource={enumSuperset['productType']} {...props} />,
       },
     },
@@ -148,7 +157,7 @@ export const tableFields = [
     },
   ],
   [
-    '商品主题',
+    '商品主图',
     'images',
     {
       width: 300,

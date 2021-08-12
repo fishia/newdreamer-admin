@@ -134,13 +134,14 @@ function Add(props, ref) {
     formList,
     initialValues = {},
     viewMode = false,
+    setFormData,
   } = props
   const [form] = Form.useForm()
   const { validateFields, resetFields, setFieldsValue } = form
   useEffect(() => {
-    console.log(modalProps.visible, form)
     if (!modalProps.visible && form) {
       resetFields()
+      setFormData(null)
     } else {
       setFieldsValue({ ...formData })
     }
@@ -150,7 +151,6 @@ function Add(props, ref) {
     let fieldsValue = await validateFields()
     confirm && confirm(fieldsValue)
   }
-
   return (
     <VtxModal {...modalProps} onOk={onOk} moveable maximize okText="确定" cancelText="取消">
       <Form ref={ref} form={form} {...formItemLayout} initialValues={{ ...initialValues }}>

@@ -74,6 +74,10 @@ export default forwardRef((props, ref) => {
     modal: {
       title: `${title}-新增`,
       width: 900,
+      onCancel: () => {
+        addFormModal.setVisible(false)
+        addFormModal.setFormData({})
+      },
       onOk: params => {
         return remote
           .saveOrUpdate({
@@ -155,7 +159,6 @@ export default forwardRef((props, ref) => {
     },
     [editFormModal]
   )
-  console.log(editFormModal)
   return (
     <Table {...TableProps} ref={myRef}>
       {renderChildren ? (

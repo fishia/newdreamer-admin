@@ -8,6 +8,7 @@ export default forwardRef((props, ref) => {
   const [keyword, setkeyword] = useState(list[0].value)
   const [value, setValue] = useState(undefined)
   const [label, setLabel] = useState(list[0].label)
+  const [rightElem, setRightElem] = useState({})
   useEffect(() => {
     /* 查询表单清空初始化时，初始化组件默认值 */
     if (!props.value) {
@@ -40,14 +41,17 @@ export default forwardRef((props, ref) => {
         datasource={list}
         style={{ marginRight: '15px', width: '50%' }}
         labelInValue
-        onChange={v => {
+        onChange={(v, o) => {
           setkeyword(v.key)
           setLabel(v.label)
           setValue('')
           onChange({ [v.key]: '' })
+          o[0].elem ? setRightElem(o[0]) : setRightElem({})
         }}
       />
-      {renderInput({ width: '50%' })}
+      {rightElem.elem
+        ? rightElem.elem({ setValue, onChange, style: { width: '50%' } })
+        : renderInput({ width: '50%' })}
     </div>
   )
 })

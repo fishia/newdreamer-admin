@@ -36,8 +36,7 @@ export default function ProductManager() {
 
   const updateSearch = useCallback((key, value) => {
     updatePageInfo(search => {
-      search[key] = value
-      return { [key]: value, page: search.page, size: search.size }
+      return { ...search, [key]: value, page: search.page, size: search.size }
     })
   }, [])
 
