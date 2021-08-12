@@ -33,6 +33,8 @@ function Add(props, ref) {
                   setFieldsValue({
                     collegeId: obj[0].value,
                     collegeName: obj[0].label,
+                    volumer_Id: '',
+                    volumer_Name: '',
                   })
                 }}
               />
@@ -49,7 +51,7 @@ function Add(props, ref) {
                 getFieldValue('collegeId') ? (
                   <Form.Item name="volumer_Id" label="着装顾问">
                     <VolumerSelect
-                      parentId={getFieldValue('collegeId')}
+                      params={{ college_id: getFieldValue('collegeId') }}
                       onChange={(_, obj) => {
                         setFieldsValue({
                           volumer_Id: obj[0].value,
