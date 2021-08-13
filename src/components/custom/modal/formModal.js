@@ -110,7 +110,7 @@ export const renderFormList = (formData, list, viewMode, form) => (
         obj = Object.assign(obj, {
           span: 24,
           ...formFullItemLayout,
-          files: formData[item.name] || [], //用来做编辑或查看
+          files: formData ? formData[item.name] || [] : [], //用来做编辑或查看
           viewMode,
         })
       }

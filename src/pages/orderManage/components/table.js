@@ -62,8 +62,8 @@ export default forwardRef((props, ref) => {
     parseFormData: data => parseFormData({ ...data, status, classification }),
     renderChildren: (addProps, editProps) => (
       <>
-        <Add {...{ ...addProps, classification }} />
-        <Edit {...{ ...editProps, classification }} />
+        {addProps.modalProps.visible && <Add {...{ ...addProps, classification }} />}
+        {editProps.modalProps.visible && <Edit {...{ ...editProps, classification }} />}
       </>
     ),
   }

@@ -97,7 +97,9 @@ export default props => {
       >
         款式及面料
       </a>
-      <Add {...{ ...addFormModal, viewMode }} formList={renderFormFields(columns)} />
+      {addFormModal.modalProps.visible && (
+        <Add {...{ ...addFormModal, viewMode }} formList={renderFormFields(columns)} />
+      )}
     </Space>
   )
 }

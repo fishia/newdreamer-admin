@@ -32,7 +32,7 @@ export default props => {
       >
         量体信息
       </a>
-      <VolumeModal {...VolumeModalProps} />
+      {visible && <VolumeModal {...VolumeModalProps} />}
     </Space>
   )
 }

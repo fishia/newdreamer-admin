@@ -14,6 +14,7 @@ function Add(props, ref) {
   useEffect(() => {
     if (!modalProps.visible && form) {
       resetFields()
+      props.setFormData(null)
     } else {
       setFieldsValue({ ...formData })
     }

@@ -35,6 +35,7 @@ function Add(props, ref) {
                   {...{
                     allowClear: true,
                     placeholder: `请输入面料来料`,
+                    disabled: viewModal,
                   }}
                 />
               </Form.Item>
@@ -43,7 +44,7 @@ function Add(props, ref) {
           {['TAILOR_MADE_PRODUCT', 'CUSTOMIZED_PRODUCT'].indexOf(classification) > -1 && (
             <Col span={12}>
               <Form.Item name="packing" label="洗唛包装">
-                <MySelect datasource={enumSuperset['washingLabelPackaging']} />
+                <MySelect datasource={enumSuperset['washingLabelPackaging']} disabled={viewModal} />
               </Form.Item>
             </Col>
           )}

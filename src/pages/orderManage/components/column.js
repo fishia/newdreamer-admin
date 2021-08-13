@@ -131,7 +131,9 @@ export const tableFields = [
       width: 150,
       form: {
         type: 'other',
-        children: () => <TextArea placeholder="请输入备注" showCount maxLength={100} />,
+        children: props => (
+          <TextArea {...props} placeholder="请输入备注" showCount maxLength={100} />
+        ),
       },
     },
   ],
@@ -174,7 +176,7 @@ export const tableFields = [
         type: 'other',
         name: 'orderSource',
         rules: [{ required: true }],
-        children: props => <MySelect datasource={enumSuperset['orderSource']} />,
+        children: props => <MySelect {...props} datasource={enumSuperset['orderSource']} />,
       },
     },
   ],
