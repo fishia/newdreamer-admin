@@ -89,8 +89,8 @@ export default function VolumeModal({
   title,
   showCustomized,
 }) {
-  const [_info, updateInfo] = useState(info) //净尺寸
-  const [_sizeInfo, updateSizeInfo] = useState(sizeInfo || {}) //成衣尺寸
+  const [_info, updateInfo] = useState() //净尺寸
+  const [_sizeInfo, updateSizeInfo] = useState() //成衣尺寸
   const updateForm = useCallback((key, value) => {
     updateInfo(obj => ({ ...obj, ...{ [key]: value } }))
   }, [])
@@ -106,8 +106,8 @@ export default function VolumeModal({
 
   useEffect(() => {
     if (info) {
-      updateInfo(info)
-      updateSizeInfo(sizeInfo)
+      updateInfo(info || {})
+      updateSizeInfo(sizeInfo || {})
     }
   }, [info, sizeInfo])
   if (!_info) return null
