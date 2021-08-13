@@ -14,35 +14,7 @@ import { styleRemote } from '@/services/baseRemote'
 export default props => {
   const { title, record, remote, viewMode = true, onChange, formData } = props
   const [dynamicCols, setDynamicCols] = useState([]) //动态列
-  useEffect(() => {
-    styleRemote.list({ ...formData }).then(({ status, data }) => {
-      if (status) {
-        if (Array.isArray(data) && data.length) {
-          setDynamicCols(
-            data[0].optionDTOS.map(item => [
-              item.typeName,
-              item.id,
-              {
-                form: {
-                  type: 'other',
-                  rules: [{ required: true }],
-                  children: props => (
-                    <MySelect
-                      datasource={item.imagesDTOList.map(item => ({
-                        value: item.id,
-                        label: item.optionName,
-                      }))}
-                      {...props}
-                    />
-                  ),
-                },
-              },
-            ])
-          )
-        }
-      }
-    })
-  }, [])
+
   const columns = [
     ...dynamicCols,
     ['刺绣内容', 'embroideryContent', { form: {} }],
@@ -84,6 +56,38 @@ export default props => {
       ...obj,
     },
   })
+  useEffect(() => {
+    //打开弹窗才调接口
+    if (addFormModal.modalProps.visible)
+      styleRemote.list({ ...formData }).then(({ status, data }) => {
+        if (status) {
+          if (Array.isArray(data) && data.length) {
+            setDynamicCols(
+              data[0].optionDTOS.map(item => [
+                item.typeName,
+                item.id,
+                {
+                  form: {
+                    type: 'other',
+                    rules: [{ required: true }],
+                    children: props => (
+                      <MySelect
+                        datasource={item.imagesDTOList.map(item => ({
+                          value: item.id,
+                          label: item.optionName,
+                        }))}
+                        {...props}
+                      />
+                    ),
+                  },
+                },
+              ])
+            )
+          }
+        }
+      })
+  }, [addFormModal.modalProps.visible])
+
   return (
     <Space>
       <a
@@ -98,7 +102,10 @@ export default props => {
         款式及面料
       </a>
       {addFormModal.modalProps.visible && (
-        <Add {...{ ...addFormModal, viewMode }} formList={renderFormFields(columns)} />
+        <Add
+          {...{ ...addFormModal, viewMode }}
+          formList={renderFormFields(columns, viewMode ? 'view' : 'add')}
+        />
       )}
     </Space>
   )

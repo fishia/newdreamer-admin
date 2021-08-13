@@ -13,10 +13,8 @@ export default props => {
   const [info, setInfo] = useState(null)
   const [sizeInfo, setSizeInfo] = useState({})
   useEffect(() => {
-    console.log(sizeDTO)
     setSizeInfo(sizeDTO)
   }, [sizeDTO])
-  console.log(sizeInfo)
   // 量体信息
   const VolumeModalProps = {
     title: `量体信息${title ? `-${title}` : ''}`,
