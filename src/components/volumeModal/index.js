@@ -106,9 +106,10 @@ export default function VolumeModal({
 
   useEffect(() => {
     if (info) {
-      updateInfo(obj => ({ ...(obj || {}), ...(info || {}) }))
+      updateInfo(info)
+      updateSizeInfo(sizeInfo)
     }
-  }, [info])
+  }, [info, sizeInfo])
   if (!_info) return null
   return (
     <Modal
