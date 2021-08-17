@@ -29,7 +29,7 @@ function Table(props, ref) {
     addFormModalProps,
     editFormModalProps,
     viewFormModalProps,
-    parseFormData,
+    parseFormData = item => item,
     onChange,
     initialValues,
     title,

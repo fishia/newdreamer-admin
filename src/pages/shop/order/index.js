@@ -16,14 +16,14 @@ export default props => {
     columns: [
       [
         '上线商品编号',
-        'barcode',
+        'code',
         {
           width: 150,
           render: (text, record) => {
             return (
               <span
                 onClick={() => {
-                  setTitle(record.barcode)
+                  setTitle(record.code)
                   ref.current?.viewFormModal.setFormData({
                     ...record,
                   })

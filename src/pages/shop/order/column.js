@@ -349,9 +349,12 @@ export const parseColumns = data => ({
 })
 export const parseFormData = data => ({
   ...data,
-  images: JSON.stringify(data.images),
-  detailImages: JSON.stringify(data.detailImages),
-  subProducts: data.subProducts?.map(item => ({ ...item })),
+  images: data.images && JSON.stringify(data.images),
+  detailImages: data.detailImages && JSON.stringify(data.detailImages),
+  subProducts: data.subProducts?.map(item => ({
+    ...item,
+    images: item.images && JSON.stringify(item.images),
+  })),
 }) //下拉保存给id给后台
 //复制重置formData
 export const resetFormData = data => ({

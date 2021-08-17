@@ -45,7 +45,6 @@ export default forwardRef((props, ref) => {
       ],
       scroll: { x: 800 },
     },
-    parseFormData,
     viewFormModalProps: {
       title: `子商品上架${title ? `-${title}` : ''}`,
     },
