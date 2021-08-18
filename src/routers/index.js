@@ -118,7 +118,6 @@ export default [
         icon: <ClusterOutlined />,
         path: '/distribution',
         routes: distributionRoutes,
-        show: true,
         component: () => RouterContainer,
       },
       {
