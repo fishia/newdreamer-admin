@@ -1,12 +1,16 @@
 import React, { useRef, useState } from 'react'
-import { message } from 'antd'
+import { message, Tabs } from 'antd'
 import { orderInfoRemote } from '@/services/baseRemote'
 import FormTable from '@/components/custom/table/formTable'
 import { tableFields, parseColumns } from './column'
 import View from './components/view'
+import styles from '@/pages/orderManage/components/index.less'
+import { enumSuperset } from '@/utils/contants'
+const TabPane = Tabs.TabPane
 
 export default props => {
   const ref = useRef()
+  const [orderStatus, setOrderStatus] = useState('TO_BE_PREPARED')
   const [record, setRecord] = useState({})
   const [visible, setVisible] = useState(false)
   // 详情
@@ -31,6 +35,7 @@ export default props => {
         page: current - 1,
         size: pageSize,
         ...formData,
+        orderStatus,
       }
       return orderInfoRemote.page(params).then(({ data, status }) => {
         if (status) {
@@ -134,5 +139,15 @@ export default props => {
     renderChildren: () => <View {...viewFormModal} />,
   }
 
-  return <FormTable {...FormTableProps} ref={ref} />
+  return (
+    <div className={styles.normal}>
+      <Tabs activeKey={orderStatus} onChange={key => setOrderStatus(key)} tabBarGutter={60}>
+        {enumSuperset['orderStatus'].map(item => (
+          <TabPane key={item.value} tab={item.label}>
+            <FormTable {...FormTableProps} ref={ref} />
+          </TabPane>
+        ))}
+      </Tabs>
+    </div>
+  )
 }

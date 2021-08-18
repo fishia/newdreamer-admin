@@ -1,13 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import './index.less'
-import { Button, Table, Modal, Input, message, Radio, Select } from 'antd'
+import { Button, Table, Modal, Input, message, Tabs } from 'antd'
 import {
   requestAppointList,
   requestForAppointCreate,
   requestForAppointEdit,
   requestForAppointUpdateStatus,
   requestForAppointExport,
-  requestForVolumerList,
   requestForAppointCancel,
   requestOrderDetail,
   requestFindSizeInfoByOrder,
@@ -16,6 +15,7 @@ import VolumeModal from '@/components/volumeModal'
 import { UnionSelect, VolumerSelect, CollegeSelect } from '@/components/custom/select'
 import DispatchModal from './dispatchModal'
 import useFormModal from '@/hooks/useFormModal'
+const TabPane = Tabs.TabPane
 
 export default function ProductManager() {
   const [isInit, setIsinit] = useState(false)
@@ -25,6 +25,7 @@ export default function ProductManager() {
     name: '',
     phone: '',
     college: '',
+    reservation_Status: '预约中',
   })
   const [tableSize, setTableSize] = useState(0)
   const [dataSource, updateSource] = useState(null)
@@ -330,80 +331,81 @@ export default function ProductManager() {
 
   return (
     <div className="product-manager">
-      <section className="product-manager-search">
-        <div className="manager-search-item">
-          <UnionSelect
-            list={[
-              {
-                label: '客户名称',
-                value: 'name',
-              },
-              {
-                label: '着装顾问',
-                value: 'volumer_Name',
-              },
-              {
-                label: '客户电话',
-                value: 'phone',
-              },
-            ]}
-            onChange={options =>
-              updateSearch(Object.keys(options)[0], options[Object.keys(options)[0]])
-            }
-          />
-        </div>
-        <div className="manager-search-item">
-          <div className="search-item__title">状态</div>
-          <Select
-            style={{ width: 200 }}
-            defaultValue=""
-            onChange={value => updateSearch('reservation_Status', value)}
-          >
-            <Select.Option value="">全部</Select.Option>
-            <Select.Option value="预约中">预约中</Select.Option>
-            <Select.Option value="派单中">派单中</Select.Option>
-            <Select.Option value="已接单">已接单</Select.Option>
-            <Select.Option value="已量体">已量体</Select.Option>
-            <Select.Option value="已取消">已取消</Select.Option>
-          </Select>
-        </div>
-        <div className="manager-search-btn">
-          <Button
-            onClick={() => {
-              updatePageInfo({ ...pageInfo, page: 1 })
-              setIsinit(false)
-            }}
-            type="primary"
-          >
-            筛选
-          </Button>
-        </div>
-      </section>
-      <section className="product-manager-operation">
-        <Button onClick={export_data} type="primary">
-          数据导出
-        </Button>
-        {/* <Button onClick={create} type="primary">新增</Button> */}
-      </section>
-      <section className="product-manager-table">
-        <Table
-          rowKey="order_Id"
-          rowSelection={{
-            type: 'checkbox',
-            onChange: (selectedRowKeys, selectedRows) => {
-              setChooseItems((selectedRowKeys + '').split(',').filter(item => item))
-            },
-          }}
-          dataSource={dataSource}
-          columns={columns}
-          pagination={{
-            current: pageInfo.page,
-            total: tableSize,
-            onChange: onPageChange,
-          }}
-          scorll={{ x: 1000 }}
-        />
-      </section>
+      <Tabs
+        activeKey={pageInfo.reservation_Status}
+        onChange={key => {
+          updatePageInfo({ ...pageInfo, reservation_Status: key, page: 1 })
+          setIsinit(false)
+        }}
+        tabBarGutter={60}
+      >
+        {['预约中', '派单中', '已接单', '已量体', '已取消'].map(item => (
+          <TabPane key={item} tab={item}>
+            <div>
+              <section className="product-manager-search">
+                <div className="manager-search-item">
+                  <UnionSelect
+                    list={[
+                      {
+                        label: '客户名称',
+                        value: 'name',
+                      },
+                      {
+                        label: '着装顾问',
+                        value: 'volumer_Name',
+                      },
+                      {
+                        label: '客户电话',
+                        value: 'phone',
+                      },
+                    ]}
+                    onChange={options =>
+                      updateSearch(Object.keys(options)[0], options[Object.keys(options)[0]])
+                    }
+                  />
+                </div>
+                <div className="manager-search-btn">
+                  <Button
+                    onClick={() => {
+                      updatePageInfo({ ...pageInfo, page: 1 })
+                      setIsinit(false)
+                    }}
+                    type="primary"
+                  >
+                    筛选
+                  </Button>
+                </div>
+              </section>
+              <section className="product-manager-operation">
+                <Button onClick={export_data} type="primary">
+                  数据导出
+                </Button>
+                {/* <Button onClick={create} type="primary">新增</Button> */}
+              </section>
+              <section className="product-manager-table">
+                <Table
+                  rowKey="order_Id"
+                  rowSelection={{
+                    type: 'checkbox',
+                    onChange: (selectedRowKeys, selectedRows) => {
+                      setChooseItems((selectedRowKeys + '').split(',').filter(item => item))
+                    },
+                  }}
+                  dataSource={dataSource}
+                  columns={columns}
+                  pagination={{
+                    current: pageInfo.page,
+                    total: tableSize,
+                    onChange: onPageChange,
+                  }}
+                  scorll={{ x: 1000 }}
+                />
+              </section>
+            </div>
+          </TabPane>
+        ))}
+      </Tabs>
+
       {modalInfo && (
         <Modal
           title="预约信息编辑"
