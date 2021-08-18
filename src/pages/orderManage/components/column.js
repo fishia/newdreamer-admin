@@ -1,7 +1,8 @@
 import { Input } from 'antd'
 import moment from 'moment'
 import { enumSuperset } from '@/utils/contants'
-import { VolumerSelect, SupplierSelect, MySelect, SingleNoSelect } from '@/components/custom/select'
+import { SupplierSelect, MySelect, SingleNoSelect } from '@/components/custom/select'
+import { ReceiverAutoCompolete } from '@/components/custom/autoComplete'
 const { TextArea } = Input
 
 export const tableFields = [
@@ -29,19 +30,24 @@ export const tableFields = [
       form: {
         type: 'other',
         name: 'volumerId',
-        children: (props, { setFieldsValue }) => (
-          <VolumerSelect
-            {...props}
-            onChange={(v, item) => {
-              if (item[0])
-                setFieldsValue({
-                  volumerId: v,
-                  phoneNumber: item[0].volumer_Phone,
-                  address: item[0].volumer_Address,
-                })
-            }}
-          />
-        ),
+        children: (props, { setFieldsValue, getFieldValue }) => {
+          console.log(getFieldValue('volumerId'))
+          return (
+            <ReceiverAutoCompolete
+              {...props}
+              value={getFieldValue('volumerName')}
+              onChange={(v, value, label) => {
+                if (v)
+                  setFieldsValue({
+                    volumerId: value,
+                    volumerName: label,
+                    phoneNumber: v.volumer_Phone,
+                    address: v.volumer_Address,
+                  })
+              }}
+            />
+          )
+        },
         rules: [{ required: true }],
       },
     },
@@ -58,7 +64,7 @@ export const tableFields = [
     },
   ],
   [
-    'ND单号编号',
+    'ND单品编号',
     'singleItemCode',
     {
       width: 120,

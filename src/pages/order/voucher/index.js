@@ -66,7 +66,7 @@ export default props => {
               {text}
             </span>
           ),
-          width: 200,
+          width: 260,
           fixed: 'left',
           filter: {
             isunions: true, //联合类型
@@ -131,8 +131,8 @@ export default props => {
               },
             },
           }
-        record.item_Status === '待备货' && btns.push(btn)
-        record.item_Status === '待发货' && btns.push(btn1)
+        record.order_Status === '待备货' && btns.push(btn)
+        record.order_Status === '待发货' && btns.push(btn1)
         return btns
       },
     },

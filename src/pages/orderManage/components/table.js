@@ -1,4 +1,4 @@
-import React, { useState, useEffect, forwardRef } from 'react'
+import React, { useState, forwardRef } from 'react'
 import _ from 'lodash'
 import { productInMakingRemote } from '@/services/baseRemote'
 import FormTable from '@/components/custom/table/formTable'
@@ -6,12 +6,10 @@ import { parseColumns, parseFormData } from './column'
 import Add from './Add'
 import Edit from './Add'
 import { JKUtil } from '@/utils/util'
-const { getObjProperty } = JKUtil
 
 export default forwardRef((props, ref) => {
   const { status, statusName, classification, columns } = props
   const [title, setTitle] = useState(`${document.title}-编辑`)
-  status === 'COMPLETED' && columns.push(['快递单号', 'shipmentId', { width: 100 }])
 
   const FormTableProps = {
     remote: productInMakingRemote,
@@ -50,6 +48,7 @@ export default forwardRef((props, ref) => {
         },
       ],
       ...columns,
+      status === 'COMPLETED' && ['快递单号', 'shipmentId', { width: 100 }],
     ],
     editFormModalProps: {
       title,

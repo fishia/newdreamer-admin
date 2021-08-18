@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback, useEffect } from 'react'
+import React, { useRef, useState, useCallback, useEffect, useMemo } from 'react'
 import _ from 'lodash'
 import styles from './index.less'
 import { Tabs, Badge, message } from 'antd'
@@ -29,6 +29,7 @@ export default props => {
   useEffect(() => {
     getCount()
   }, [getCount])
+
   const menuList = [
     {
       tab: '待制作',

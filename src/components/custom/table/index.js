@@ -149,11 +149,20 @@ function Table(props, ref) {
     <React.Fragment>
       <Page title={title}>
         {searchFields.length ? <SearchCondition {...SearchConditionProps} ref={myref} /> : null}
-        <Content top={searchFields.length ? top : 0}>
+        <Content
+          top={
+            searchFields.length
+              ? showAdd || showDelete || showExport || showImport
+                ? top
+                : -10
+              : 0
+          }
+        >
           <TableWrap>
             <VtxDatagrid
               rowKey={record => record.id || record.key}
               indexColumn={false}
+              toolbarTilte=""
               {...tableProps}
               {...{
                 ...otherTableProps,
