@@ -20,7 +20,7 @@ export default React.forwardRef((props, ref) => {
             }))
         )
     })
-  }, [props])
+  }, [])
 
   React.useEffect(() => {
     searchReciverSearch()

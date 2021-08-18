@@ -75,12 +75,13 @@ export const renderFormItem = (item, form) => {
       return item.shouldUpdate ? (
         <Form.Item
           noStyle
-          shouldUpdate={(prevValues, currentValues) =>
-            prevValues[item.desp] !== currentValues[item.desp]
-          }
+          shouldUpdate={(prevValues, currentValues) => {
+            if (item.desp) return prevValues[item.desp] !== currentValues[item.desp]
+            else return true
+          }}
         >
           {({ getFieldValue }) =>
-            getFieldValue(item.desp) ? (
+            getFieldValue(item.desp) || !item.desp ? (
               <Form.Item name={item.name} label={item.label}>
                 {item.children(
                   {

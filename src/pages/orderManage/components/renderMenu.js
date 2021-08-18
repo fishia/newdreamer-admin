@@ -134,15 +134,17 @@ export default props => {
             }
             key={item.key}
           >
-            <Table
-              {...{
-                ...item.props,
-                ...props,
-                status: item.key,
-                statusName: item.tab,
-              }}
-              ref={myRef}
-            />
+            {item.key === current ? (
+              <Table
+                {...{
+                  ...item.props,
+                  ...props,
+                  status: item.key,
+                  statusName: item.tab,
+                }}
+                ref={myRef}
+              />
+            ) : null}
           </TabPane>
         ))}
       </Tabs>

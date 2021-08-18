@@ -38,7 +38,9 @@ class Login extends Component {
             else
               res[0].roleName === '供应商'
                 ? push('/suppilerOrderManage/customized')
-                : push(homePage)
+                : res[0].roleName === '超级管理员'
+                ? push(homePage)
+                : push('/homePage')
           })
         } else {
           message.warning(res.msg)

@@ -44,6 +44,11 @@ export default [
         redirect: '/nd/home',
       },
       {
+        title: 'New Dreamer',
+        path: '/homePage',
+        component: () => import('@/pages/homePage'),
+      },
+      {
         title: '线上店铺',
         icon: <ShopOutlined />,
         path: '/nd',

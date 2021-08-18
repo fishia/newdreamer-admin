@@ -29,9 +29,11 @@ export const tableFields = [
       },
       form: {
         type: 'other',
-        name: 'volumerId',
+        name: 'volumerName',
+        shouldUpdate: true,
+        children: ({ disabled, desp }) => <CollegePartSelect parentId={desp} disabled={disabled} />,
         children: (props, { setFieldsValue, getFieldValue }) => {
-          console.log(getFieldValue('volumerId'))
+          console.log(getFieldValue('volumerName'))
           return (
             <ReceiverAutoCompolete
               {...props}
@@ -197,6 +199,14 @@ export const tableFields = [
   [
     '产品类型',
     'productType',
+    {
+      display: false,
+      form: { hidden: true },
+    },
+  ],
+  [
+    '收货人',
+    'volumerId',
     {
       display: false,
       form: { hidden: true },
