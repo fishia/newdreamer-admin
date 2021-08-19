@@ -107,7 +107,7 @@ export default props => {
         />
         <Statistic
           title="折扣:"
-          value={record.total_Received_Amount || 0 - record.total_Received_Amount || 0}
+          value={record.totalDiscountAmount || 0}
           valueStyle={{ fontSize: '14px' }}
         />
         <Statistic
