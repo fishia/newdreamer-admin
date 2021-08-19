@@ -169,7 +169,7 @@ export default props => {
                   ...item.props,
                   ...props,
                   status: item.key,
-                  statusName: item.tab,
+                  addFormModal,
                 }}
                 ref={myRef}
               />
