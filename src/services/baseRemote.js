@@ -137,5 +137,9 @@ export const orderInfoRemote = (url => {
     exportExcel(ids) {
       return exportFile(`${url}/exportOrder`, { ids })
     },
+    //状态数量统计
+    orderStatusCount() {
+      return axios.get(`${url}/orderStatusCount`)
+    },
   }
 })('/newdreamer/backOrder')

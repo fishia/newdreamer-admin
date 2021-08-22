@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react'
-import { message, Tabs } from 'antd'
+import React, { useRef, useState, useEffect } from 'react'
+import { message, Tabs, Badge } from 'antd'
 import { orderInfoRemote } from '@/services/baseRemote'
 import FormTable from '@/components/custom/table/formTable'
 import { tableFields, parseColumns } from './column'
@@ -13,6 +13,15 @@ export default props => {
   const [orderStatus, setOrderStatus] = useState('TO_BE_PREPARED')
   const [record, setRecord] = useState({})
   const [visible, setVisible] = useState(false)
+  const [statusCountObj, setStatusCountObj] = useState({})
+
+  useEffect(() => {
+    orderInfoRemote.orderStatusCount().then(({ status, data }) => {
+      if (status) {
+        setStatusCountObj(data)
+      }
+    })
+  }, [])
   // 详情
   const viewFormModal = {
     modalProps: {
@@ -143,7 +152,18 @@ export default props => {
     <div className={styles.normal}>
       <Tabs activeKey={orderStatus} onChange={key => setOrderStatus(key)} tabBarGutter={60}>
         {enumSuperset['orderStatus'].map(item => (
-          <TabPane key={item.value} tab={item.label}>
+          <TabPane
+            key={item.value}
+            tab={
+              <Badge
+                count={
+                  ['待备货', '待发货'].indexOf(item.label) > -1 ? statusCountObj[item.value] : 0
+                }
+              >
+                {item.label}
+              </Badge>
+            }
+          >
             <FormTable {...FormTableProps} ref={ref} />
           </TabPane>
         ))}

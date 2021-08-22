@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import './index.less'
-import { Button, Table, Modal, Input, message, Tabs } from 'antd'
+import { Button, Table, Modal, Input, message, Tabs, Badge } from 'antd'
 import {
   requestAppointList,
   requestForAppointCreate,
@@ -10,6 +10,7 @@ import {
   requestForAppointCancel,
   requestOrderDetail,
   requestFindSizeInfoByOrder,
+  reservationStatusCount,
 } from './action'
 import VolumeModal from '@/components/volumeModal'
 import { UnionSelect, VolumerSelect, CollegeSelect } from '@/components/custom/select'
@@ -34,6 +35,7 @@ export default function ProductManager() {
   const [chooseItems, setChooseItems] = useState(null)
   const [VolumeModalInfo, setVolumeModalInfo] = useState(null)
   const [VolumeModalVisible, setVolumeModalVisible] = useState(false)
+  const [statusCountObj, setStatusCountObj] = useState({})
 
   const updateSearch = useCallback((key, value) => {
     updatePageInfo(search => {
@@ -159,6 +161,14 @@ export default function ProductManager() {
     pageData()
     setIsinit(true)
   }, [isInit, pageData])
+
+  useEffect(() => {
+    reservationStatusCount().then(data => {
+      if (data && data.success) {
+        setStatusCountObj(data.data)
+      }
+    })
+  }, [])
 
   const [modalMap] = useState([
     {
@@ -340,7 +350,14 @@ export default function ProductManager() {
         tabBarGutter={60}
       >
         {['预约中', '派单中', '已接单', '已量体', '已取消'].map(item => (
-          <TabPane key={item} tab={item}>
+          <TabPane
+            key={item}
+            tab={
+              <Badge count={['预约中', '派单中'].indexOf(item) > -1 ? statusCountObj[item] : 0}>
+                {item}
+              </Badge>
+            }
+          >
             <div>
               <section className="product-manager-search">
                 <div className="manager-search-item">

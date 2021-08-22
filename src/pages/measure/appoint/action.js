@@ -80,6 +80,13 @@ export function requestFindSizeInfoByOrder(data) {
   })
 }
 
+//预约状态统计
+export function reservationStatusCount() {
+  return request({
+    method: 'get',
+    url: '/newdreamer/backVolumer/reservationStatusCount',
+  })
+}
 export function requestForAppointDelete(data) {
   // TODO: 预约单删除
   // return request({
