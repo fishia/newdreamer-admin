@@ -105,8 +105,10 @@ export default function VolumeModal({
   const [_editable, setEditable] = useState(editable)
 
   useEffect(() => {
-    if (info) {
+    if (JSON.stringify(info) !== '{}') {
       updateInfo(info || {})
+    }
+    if (JSON.stringify(sizeInfo) !== '{}') {
       updateSizeInfo(sizeInfo || {})
     }
   }, [info, sizeInfo])
@@ -165,8 +167,8 @@ export default function VolumeModal({
           <div className="modal-size-container">
             <div className="modal-size-title">净尺寸</div>
             <div className="modal-size-content">
-              {pureSize.map(size => (
-                <div className="modal-size-item">
+              {pureSize.map((size, i) => (
+                <div className="modal-size-item" key={i}>
                   <div className="size-item__title">{size.title}</div>
                   {_editable ? (
                     <Input
@@ -185,8 +187,8 @@ export default function VolumeModal({
             <div className="modal-size-container">
               <div className="modal-size-title">成衣尺寸</div>
               <div className="modal-size-content">
-                {pureSize.map(size => (
-                  <div className="modal-size-item">
+                {pureSize.map((size, i) => (
+                  <div className="modal-size-item" key={i}>
                     <div className="size-item__title">{size.title}</div>
                     {_editable ? (
                       <Input
@@ -205,10 +207,10 @@ export default function VolumeModal({
           <div className="modal-size-container modal-size-container--figure">
             <div className="modal-size-title">体型</div>
             <div className="modal-size-content">
-              {Figure.map(size => (
-                <div>
+              {Figure.map((size, i) => (
+                <div key={i}>
                   {size.children.map((child, index) => (
-                    <React.Fragment>
+                    <React.Fragment key={index}>
                       <div
                         className={`modal-size-item  modal-size-item--${index > 0 ? 'hidden' : ''}`}
                       >

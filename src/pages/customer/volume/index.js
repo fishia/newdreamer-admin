@@ -192,12 +192,14 @@ export default function ProductManager() {
           }}
         />
       </section>
-      <VolumeModal
-        showModal={visible}
-        info={modalInfo}
-        submit={modalSubmit}
-        cancel={() => setVisible(false)}
-      />
+      {visible && (
+        <VolumeModal
+          showModal={visible}
+          info={modalInfo}
+          submit={modalSubmit}
+          cancel={() => setVisible(false)}
+        />
+      )}
     </div>
   )
 }
