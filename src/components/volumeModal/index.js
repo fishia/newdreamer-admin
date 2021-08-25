@@ -80,7 +80,7 @@ const Figure = [
 
 export default function VolumeModal({
   info,
-  sizeInfo = {},
+  sizeInfo,
   editable,
   submit,
   cancel,
@@ -236,52 +236,52 @@ export default function VolumeModal({
           <div className="modal-figure-images">
             <div className="figure-images-title">体型图</div>
             <div className="figure-images-content">
-              {info.body_Shape_Front && (
+              {_info.body_Shape_Front && (
                 <div className="line">
                   <img
                     onClick={() => {
-                      previewImage(info.body_Shape_Front)
+                      previewImage(_info.body_Shape_Front)
                     }}
                     alt="figure"
                     className="figure-image-item"
-                    src={info.body_Shape_Front}
+                    src={_info.body_Shape_Front}
                   />
-                  {/*<Image src={info.body_Shape_Front}/>*/}
+                  {/*<Image src={_info.body_Shape_Front}/>*/}
                   <p>正面照</p>
                 </div>
               )}
-              {info.body_Shape_Side && (
+              {_info.body_Shape_Side && (
                 <div className="line">
                   <img
                     onClick={() => {
-                      previewImage(info.body_Shape_Side)
+                      previewImage(_info.body_Shape_Side)
                     }}
                     alt="figure"
                     className="figure-image-item"
-                    src={info.body_Shape_Side}
+                    src={_info.body_Shape_Side}
                   />
                   <p>侧面照</p>
                 </div>
               )}
-              {info.body_Shape_Back && (
+              {_info.body_Shape_Back && (
                 <div className="line">
                   <img
                     onClick={() => {
-                      previewImage(info.body_Shape_Back)
+                      previewImage(_info.body_Shape_Back)
                     }}
                     alt="figure"
                     className="figure-image-item"
-                    src={info.body_Shape_Back}
+                    src={_info.body_Shape_Back}
                   />
                   <p>背面照</p>
                 </div>
               )}
-              {/*{info.body_Shape_Remark && <div>量体备注: {info.body_Shape_Remark}</div>}*/}
+              {/*{_info.body_Shape_Remark && <div>量体备注: {_info.body_Shape_Remark}</div>}*/}
             </div>
             <div className="figure-images-content">
-              {info.body_Shape_Remark && (
+              {_info.body_Shape_Remark && (
                 <div>
-                  量体备注: <div className="remark">{info.body_Shape_Remark}</div>
+                  量体备注: <div className="remark">{_info.body_Shape_Remark}</div>
                 </div>
               )}
             </div>
