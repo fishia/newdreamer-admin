@@ -137,21 +137,6 @@ export default function ProductManager() {
     [pageData, pageInfo]
   )
 
-  const updateStatus = useCallback(
-    item => {
-      requestForAppointUpdateStatus(item).then(res => {
-        if (res.success) {
-          message.info('修改成功')
-          setVisible(false)
-          refreshTable()
-        } else {
-          message.error(res.msg)
-        }
-      })
-    },
-    [pageData]
-  )
-
   const closeModalInfo = useCallback(() => {
     setVisible(false)
     setModalInfo(null)
@@ -216,7 +201,7 @@ export default function ProductManager() {
   ])
 
   // TODO 修改有问题
-  const [columns, updateColumns] = useState([
+  const columns = [
     { title: '预约编号', dataIndex: 'code', width: 100 },
     { title: '客户名称', dataIndex: 'name', width: 100 },
     { title: '客户电话', dataIndex: 'phone', width: 100 },
@@ -301,7 +286,10 @@ export default function ProductManager() {
                       requestForAppointCancel({
                         Customer_Wechat_Id: record.customer_Wechat_Id,
                         reservation_Id: record.reservation_Id,
-                      }).then(pageData)
+                      }).then(() => {
+                        getCount()
+                        refreshTable()
+                      })
                     },
                     onCancel() {
                       console.log('Cancel')
@@ -322,7 +310,7 @@ export default function ProductManager() {
         </div>
       ),
     },
-  ])
+  ]
   //派单
   const DispatchModalProps = useFormModal({
     modal: {
@@ -343,6 +331,7 @@ export default function ProductManager() {
       },
     },
   })
+
   return (
     <div className="product-manager">
       <Tabs

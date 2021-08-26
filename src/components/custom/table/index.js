@@ -148,7 +148,17 @@ function Table(props, ref) {
   return (
     <React.Fragment>
       <Page title={title}>
-        {searchFields.length ? <SearchCondition {...SearchConditionProps} ref={myref} /> : null}
+        {searchFields.length ? (
+          <SearchCondition
+            {...SearchConditionProps}
+            ref={myref}
+            style={
+              showAdd || showDelete || showExport || showImport
+                ? null
+                : { width: 'calc(100% - 200px)' }
+            }
+          />
+        ) : null}
         <Content
           top={
             searchFields.length

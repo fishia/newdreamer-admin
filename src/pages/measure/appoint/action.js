@@ -21,7 +21,7 @@ export function requestForAppointEdit(data) {
   // TODO: 预约单修改接口
   return request({
     method: 'post',
-    url: '/newdreamer/volumer',
+    url: '/newdreamer/backVolumer/updateReservation',
     data: data,
     type: 'json',
   })
