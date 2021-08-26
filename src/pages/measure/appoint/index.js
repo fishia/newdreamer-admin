@@ -260,7 +260,7 @@ export default function ProductManager() {
         props?.collegeId ? (
           <VolumerSelect
             value={props.volumer_Id}
-            params={{ college_id: props?.collegeId }}
+            params={{ college_id: props?.collegeId, volumer_Status: true }}
             onChange={(v, obj) => {
               updateModalInfo('volumer_Id', v)
               updateModalInfo('volumer_Name', obj[0].label)

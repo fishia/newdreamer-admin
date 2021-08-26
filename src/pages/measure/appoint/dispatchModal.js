@@ -52,7 +52,7 @@ function Add(props, ref) {
                 getFieldValue('collegeId') ? (
                   <Form.Item name="volumer_Id" label="着装顾问">
                     <VolumerSelect
-                      params={{ college_id: getFieldValue('collegeId') }}
+                      params={{ college_id: getFieldValue('collegeId'), volumer_Status: true }}
                       onChange={(_, obj) => {
                         setFieldsValue({
                           volumer_Id: obj[0].value,
