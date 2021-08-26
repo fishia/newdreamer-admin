@@ -43,7 +43,7 @@ export default props => {
                       setSubOrder(
                         u(
                           {
-                            [i]: { ...data[0], item_Status: '已备货' },
+                            [i]: { ...data[0], itemStatusName: '已备货' },
                           },
                           subOrder
                         )
@@ -69,7 +69,7 @@ export default props => {
                       setSubOrder(
                         u(
                           {
-                            [i]: { ...data[0], item_Status: '已撤销' },
+                            [i]: { ...data[0], itemStatusName: '已撤销' },
                           },
                           subOrder
                         )
@@ -79,8 +79,8 @@ export default props => {
               },
             },
           }
-        record.item_Status === '待备货' && btns.push(btn)
-        record.item_Status === '待发货' && btns.push(btn1)
+        record.itemStatusName === '待备货' && btns.push(btn)
+        record.itemStatusName === '待发货' && btns.push(btn1)
         return btns
       },
       toolbar: false,

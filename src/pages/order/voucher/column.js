@@ -115,7 +115,7 @@ export const childrenTableFields = (customerName, orderId) => [
   ],
   [
     '子订单状态',
-    'item_Status',
+    'itemStatusName',
     {
       width: 150,
     },
@@ -133,7 +133,7 @@ export const childrenTableFields = (customerName, orderId) => [
     {
       width: 150,
       render: (text, record) => {
-        return (
+        return text ? (
           <StylesAndFabricsBtn
             record={text && JSON.parse(text)}
             viewMode={false}
@@ -141,7 +141,7 @@ export const childrenTableFields = (customerName, orderId) => [
             formData={{ productType: record.itemType, id: record.item_Id }}
             title={`${customerName}-${orderId}-${record.item_Id}`}
           />
-        )
+        ) : null
       },
     },
   ],
