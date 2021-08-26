@@ -14,11 +14,11 @@ function getBase64(file) {
 }
 
 const PicturesWall = props => {
-  const { maxCount = 9, viewMode, fileDirectorEnum, listType = 'picture-card' } = props
+  const { maxCount = 9, viewMode, fileDirectorEnum, listType = 'picture-card', photos = [] } = props
   const [previewVisible, setPreviewVisible] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
-  const [fileList, setFileList] = useState([])
+  const [fileList, setFileList] = useState(photos)
 
   const handleCancel = () => {
     setPreviewVisible(false)

@@ -1,5 +1,4 @@
 import { Switch } from 'antd'
-import { VtxImage } from '@vtx/components'
 import { enumSuperset } from '@/utils/contants'
 import { MySelect } from '@/components/custom/select'
 import ImagePreviewGroup from '@/components/custom/ImagePreviewGroup'
@@ -23,7 +22,10 @@ export const tableFields = [
     'productType',
     {
       width: 150,
-      form: {},
+      form: {
+        type: 'other',
+        children: props => <MySelect datasource={enumSuperset['GoodsClassification']} {...props} />,
+      },
     },
   ],
   [

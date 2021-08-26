@@ -220,12 +220,11 @@ export const JKUtil = {
     }
     return tempObj
   },
-  //获取是否有按钮权限，目前后端还未实现，所以前端模拟，判断code是否包含当前用户属性，包含则认为有权限
-  getBtnAuth(code) {
-    return (
-      User.getUserInfo().permission.indexOf(code) > -1 ||
-      code.split('_').indexOf(User.getUserInfo().group) > -1
-    )
+  toFixed(num, s) {
+    var times = Math.pow(10, s)
+    var des = num * times + 0.5
+    des = parseInt(des, 10) / times
+    return des + ''
   },
 }
 

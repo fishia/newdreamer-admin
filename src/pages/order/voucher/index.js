@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useCallback } from 'react'
 import { message, Tabs, Badge } from 'antd'
 import { orderInfoRemote } from '@/services/baseRemote'
 import FormTable from '@/components/custom/table/formTable'
@@ -15,13 +15,16 @@ export default props => {
   const [visible, setVisible] = useState(false)
   const [statusCountObj, setStatusCountObj] = useState({})
 
-  useEffect(() => {
+  const getCount = useCallback(() => {
     orderInfoRemote.orderStatusCount().then(({ status, data }) => {
       if (status) {
         setStatusCountObj(data)
       }
     })
   }, [])
+  useEffect(() => {
+    getCount()
+  }, [getCount])
   // 详情
   const viewFormModal = {
     modalProps: {
@@ -112,6 +115,7 @@ export default props => {
                   .then(({ status }) => {
                     if (status) {
                       message.success('已全部备货')
+                      getCount()
                       ref.current?.submit()
                     }
                   })
@@ -133,6 +137,7 @@ export default props => {
                   .then(({ status }) => {
                     if (status) {
                       message.success('已全部撤销')
+                      getCount()
                       ref.current?.submit()
                     }
                   })
@@ -164,7 +169,7 @@ export default props => {
               </Badge>
             }
           >
-            <FormTable {...FormTableProps} ref={ref} />
+            {item.value === orderStatus ? <FormTable {...FormTableProps} ref={ref} /> : null}
           </TabPane>
         ))}
       </Tabs>

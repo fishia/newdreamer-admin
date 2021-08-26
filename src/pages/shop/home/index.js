@@ -3,6 +3,7 @@ import { Upload, Button, Input } from 'antd'
 import './index.less'
 import { requestHomeConfig, requestHomeSave } from './action'
 import { dealOssImageUrl } from '../../../assets/js/common'
+import ImagePreviewGroup from '@/components/custom/ImagePreviewGroup'
 const { TextArea } = Input
 
 const manConfig = [
@@ -85,12 +86,7 @@ export default class ShopHome extends React.Component {
               <div className="home-photos-item" key={index}>
                 <div className="home-photos-image">
                   {photos[index] ? (
-                    <img
-                      className="photos-image__item"
-                      width="100%"
-                      alt="photos"
-                      src={photos[index]}
-                    />
+                    <ImagePreviewGroup images={[photos[index]]} aspectFit={false} style={null} />
                   ) : (
                     <span>+</span>
                   )}

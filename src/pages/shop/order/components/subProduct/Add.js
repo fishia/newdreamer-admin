@@ -4,6 +4,7 @@ import { formFullItemLayout, formItemLayout } from '@/utils/contants'
 import { Form, Row, Col, Card } from 'antd'
 import { renderFormList } from '@/components/custom/modal/formModal'
 import GrandsonProduct from '../grandsonProduct'
+import { JKUtil } from '@/utils/util'
 
 function Add(props, ref) {
   const { modalProps, formData = {}, onOk, formList, viewModal } = props
@@ -65,13 +66,16 @@ function Add(props, ref) {
                         onChange={data => {
                           setFieldsValue({
                             detailList: data,
-                            retailPriceTotal: data.reduce(
-                              (total, item) => total + parseFloat(item.retailPrice),
-                              0
+                            retailPriceTotal: JKUtil.toFixed(
+                              data.reduce((total, item) => total + parseFloat(item.retailPrice), 0),
+                              2
                             ),
-                            sellingPriceTotal: data.reduce(
-                              (total, item) => total + parseFloat(item.sellingPrice),
-                              0
+                            sellingPriceTotal: JKUtil.toFixed(
+                              data.reduce(
+                                (total, item) => total + parseFloat(item.sellingPrice),
+                                0
+                              ),
+                              2
                             ),
                           })
                         }}

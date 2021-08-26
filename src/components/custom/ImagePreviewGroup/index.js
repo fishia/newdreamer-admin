@@ -2,17 +2,22 @@ import { VtxImage } from '@vtx/components'
 import { downloadUrl } from '@/utils/contants'
 
 export default props => {
-  const { images = [], onIndexChange } = props
+  const {
+    images = [],
+    onIndexChange,
+    aspectFit = true,
+    style = { width: '80px', height: '80px' },
+  } = props
   return (
     <VtxImage.PreviewGroup onIndexChange={onIndexChange}>
       <div className="imagesList">
         {images.map((item, i) => (
-          <div className="image" key={i}>
+          <div className="image" key={i} style={style}>
             <VtxImage
-              src={`${downloadUrl}/${item.id}`}
+              src={item.id ? `${downloadUrl}/${item.id}` : item}
               alt={item.name}
               preview={item.preview || true}
-              aspectFit
+              aspectFit={aspectFit}
             />
           </div>
         ))}

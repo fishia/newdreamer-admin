@@ -94,6 +94,7 @@ export default function ProductManager() {
   }, [pageInfo])
   const refreshTable = () => {
     updatePageInfo({
+      ...pageInfo,
       page: 1,
       size: 10,
     })
@@ -162,13 +163,16 @@ export default function ProductManager() {
     setIsinit(true)
   }, [isInit, pageData])
 
-  useEffect(() => {
+  const getCount = useCallback(() => {
     reservationStatusCount().then(data => {
       if (data && data.success) {
         setStatusCountObj(data.data)
       }
     })
   }, [])
+  useEffect(() => {
+    getCount()
+  }, [getCount])
 
   const [modalMap] = useState([
     {
@@ -331,6 +335,7 @@ export default function ProductManager() {
         }).then(({ success }) => {
           if (success) {
             message.success('派单成功')
+            getCount()
             refreshTable()
           }
           return success
@@ -338,7 +343,6 @@ export default function ProductManager() {
       },
     },
   })
-
   return (
     <div className="product-manager">
       <Tabs
@@ -358,67 +362,69 @@ export default function ProductManager() {
               </Badge>
             }
           >
-            <div>
-              <section className="product-manager-search">
-                <div className="manager-search-item">
-                  <UnionSelect
-                    list={[
-                      {
-                        label: '客户名称',
-                        value: 'name',
-                      },
-                      {
-                        label: '着装顾问',
-                        value: 'volumer_Name',
-                      },
-                      {
-                        label: '客户电话',
-                        value: 'phone',
-                      },
-                    ]}
-                    onChange={options =>
-                      updateSearch(Object.keys(options)[0], options[Object.keys(options)[0]])
-                    }
-                  />
-                </div>
-                <div className="manager-search-btn">
-                  <Button
-                    onClick={() => {
-                      updatePageInfo({ ...pageInfo, page: 1 })
-                      setIsinit(false)
-                    }}
-                    type="primary"
-                  >
-                    筛选
+            {item === pageInfo.reservation_Status ? (
+              <div>
+                <section className="product-manager-search">
+                  <div className="manager-search-item">
+                    <UnionSelect
+                      list={[
+                        {
+                          label: '客户名称',
+                          value: 'name',
+                        },
+                        {
+                          label: '着装顾问',
+                          value: 'volumer_Name',
+                        },
+                        {
+                          label: '客户电话',
+                          value: 'phone',
+                        },
+                      ]}
+                      onChange={options =>
+                        updateSearch(Object.keys(options)[0], options[Object.keys(options)[0]])
+                      }
+                    />
+                  </div>
+                  <div className="manager-search-btn">
+                    <Button
+                      onClick={() => {
+                        updatePageInfo({ ...pageInfo, page: 1 })
+                        setIsinit(false)
+                      }}
+                      type="primary"
+                    >
+                      筛选
+                    </Button>
+                  </div>
+                </section>
+                <section className="product-manager-operation">
+                  <Button onClick={export_data} type="primary">
+                    数据导出
                   </Button>
-                </div>
-              </section>
-              <section className="product-manager-operation">
-                <Button onClick={export_data} type="primary">
-                  数据导出
-                </Button>
-                {/* <Button onClick={create} type="primary">新增</Button> */}
-              </section>
-              <section className="product-manager-table">
-                <Table
-                  rowKey="order_Id"
-                  rowSelection={{
-                    type: 'checkbox',
-                    onChange: (selectedRowKeys, selectedRows) => {
-                      setChooseItems((selectedRowKeys + '').split(',').filter(item => item))
-                    },
-                  }}
-                  dataSource={dataSource}
-                  columns={columns}
-                  pagination={{
-                    current: pageInfo.page,
-                    total: tableSize,
-                    onChange: onPageChange,
-                  }}
-                  scorll={{ x: 1000 }}
-                />
-              </section>
-            </div>
+                  {/* <Button onClick={create} type="primary">新增</Button> */}
+                </section>
+                <section className="product-manager-table">
+                  <Table
+                    rowKey="order_Id"
+                    rowSelection={{
+                      type: 'checkbox',
+                      onChange: (selectedRowKeys, selectedRows) => {
+                        setChooseItems((selectedRowKeys + '').split(',').filter(item => item))
+                      },
+                    }}
+                    dataSource={dataSource}
+                    columns={columns}
+                    pagination={{
+                      current: pageInfo.page,
+                      total: tableSize,
+                      onChange: onPageChange,
+                    }}
+                    scorll={{ x: 1000 }}
+                  />
+                </section>
+              </div>
+            ) : null}
           </TabPane>
         ))}
       </Tabs>
