@@ -9,7 +9,7 @@ const TabPane = Tabs.TabPane
 
 export default props => {
   const [current, setCurrent] = useState('TO_BE_CONFIRMED')
-  const [mode, setMode] = useState() //修改\填写订单号
+  const [mode, setMode] = useState() //修改\填写运单号
   const [countObj, setCountObj] = useState({
     TO_BE_CONFIRMED: 0,
     TO_BE_DELIVERED: 0,
@@ -34,7 +34,7 @@ export default props => {
   // 填写订单号
   const addFormModal = useFormModal({
     modal: {
-      title: `订单号-${mode === 'add' ? '新增' : '修改'}`,
+      title: `运单号-${mode === 'add' ? '新增' : '修改'}`,
       width: 450,
       onOk: params => {
         return productInMakingRemote
@@ -48,7 +48,7 @@ export default props => {
               addFormModal.setVisible(false)
               myRef.current?.submit()
               getCount()
-              message.success(`${mode === 'add' ? '新增' : '修改'}订单号成功`)
+              message.success(`${mode === 'add' ? '新增' : '修改'}运单号成功`)
             }
             return status
           })

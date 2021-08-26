@@ -27,11 +27,11 @@ function Add(props, ref) {
       <Form form={form} {...formItemLayout} initialValues={{ ...formData }}>
         <Row>
           <Col span={22}>
-            <Form.Item name="shipmentId" label="订单号" rules={[{ required: true }]}>
+            <Form.Item name="shipmentId" label="运单号" rules={[{ required: true }]}>
               <Input
                 {...{
                   allowClear: true,
-                  placeholder: `请填写订单号`,
+                  placeholder: `请填写运单号`,
                 }}
               />
             </Form.Item>
