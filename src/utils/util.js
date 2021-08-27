@@ -235,6 +235,7 @@ export const JKUtil = {
  */
 export const renderColumns = cols => {
   return cols
+    .filter(item => item)
     .map(item => {
       let other = {}
       if (!!item[2] && isObject(item[2])) {
@@ -253,7 +254,7 @@ export const renderColumns = cols => {
         ...omit(other, ['filter', 'form']),
       }
     })
-    .filter(item => item || (item && !item.hide))
+    .filter(item => item && !item.hide)
 }
 /**
  * 表格columns带filter属性的列转换成筛选条件组件的业务逻辑处理

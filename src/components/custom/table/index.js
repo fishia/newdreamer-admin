@@ -145,6 +145,7 @@ function Table(props, ref) {
     }),
     [record]
   )
+
   return (
     <React.Fragment>
       <Page title={title}>

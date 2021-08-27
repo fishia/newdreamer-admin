@@ -48,7 +48,7 @@ export default forwardRef((props, ref) => {
         },
       ],
       ...columns,
-      status === 'COMPLETED' && ['快递单号', 'shipmentId', { width: 100 }],
+      status === 'COMPLETED' ? ['快递单号', 'shipmentId', { width: 100 }] : '',
     ],
     editFormModalProps: {
       title,
