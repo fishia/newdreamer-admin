@@ -95,6 +95,8 @@ export default class ShopHome extends React.Component {
                   <Upload
                     action="/newdreamer/file/upload?FileDirectorEnum=PRODUCT"
                     method="post"
+                    maxCount={1}
+                    showUploadList={false}
                     data={file => {
                       return {
                         fileDirectorEnum: 'INDEX',

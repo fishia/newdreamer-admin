@@ -48,6 +48,7 @@ export const enumSuperset = {
   gender: [
     { value: '男', label: '男' },
     { value: '女', label: '女' },
+    { value: '不限', label: '不限' },
   ],
   productType: [
     { value: 'FINISHED_PRODUCT', label: '成衣商品' },
