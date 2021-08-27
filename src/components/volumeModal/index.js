@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { Modal, Radio, Button, Input } from 'antd'
+import { Modal, Radio, Button, Input, Checkbox } from 'antd'
 import { previewImage } from '../../assets/js/common'
 import './index.less'
 
@@ -91,8 +91,8 @@ export default function VolumeModal({
 }) {
   const [_info, updateInfo] = useState({}) //净尺寸
   const [_sizeInfo, updateSizeInfo] = useState({}) //成衣尺寸
-  const updateForm = useCallback((key, value) => {
-    updateInfo(obj => ({ ...obj, ...{ [key]: value } }))
+  const updateForm = useCallback((key, value, mode) => {
+    updateInfo(obj => ({ ...obj, ...{ [key]: mode === 'check' ? value.join(',') : value } }))
   }, [])
   //编辑成衣尺寸
   const updateSizeInfoForm = obj => {
@@ -173,7 +173,7 @@ export default function VolumeModal({
                   {_editable ? (
                     <Input
                       value={_info[size.key] || ''}
-                      placeholder={`请输入${size.title}`}
+                      placeholder={`${size.title}`}
                       onChange={e => updateForm(size.key, e.target.value)}
                     />
                   ) : (
@@ -193,7 +193,7 @@ export default function VolumeModal({
                     {_editable ? (
                       <Input
                         value={_sizeInfo[size.key] || ''}
-                        placeholder={`请输入${size.title}`}
+                        placeholder={`${size.title}`}
                         onChange={e => updateSizeInfoForm({ [size.key]: e.target.value })}
                       />
                     ) : (
@@ -220,11 +220,27 @@ export default function VolumeModal({
                       <div className="modal-size-item">
                         <div className="size-item__title">{child.title}</div>
                         <div className="size-item__value">
-                          <Radio
-                            onChange={() => updateForm(size.key, child.key)}
-                            checked={_info[size.key] === child.key}
-                            disabled={!_editable}
-                          />
+                          {size.title !== '肩型' ? (
+                            <Radio
+                              onChange={() => updateForm(size.key, child.key)}
+                              checked={_info[size.key] === child.key}
+                              disabled={!_editable}
+                            />
+                          ) : (
+                            <Checkbox
+                              onChange={e =>
+                                updateForm(
+                                  size.key,
+                                  e.target.checked
+                                    ? _info[size.key].split(',').concat(child.title)
+                                    : _info[size.key].split(',').filter(i => i !== child.title),
+                                  'check'
+                                )
+                              }
+                              checked={_info[size.key]?.indexOf(child.key) > -1}
+                              disabled={!_editable}
+                            />
+                          )}
                         </div>
                       </div>
                     </React.Fragment>
