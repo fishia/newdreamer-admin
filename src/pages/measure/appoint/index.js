@@ -206,7 +206,7 @@ export default function ProductManager() {
     { title: '客户名称', dataIndex: 'name', width: 100 },
     { title: '客户电话', dataIndex: 'phone', width: 100 },
     { title: '性别', dataIndex: 'gender', width: 60 },
-    { title: '提交时间', dataIndex: 'create_Time', width: 100 },
+    { title: '提交时间', dataIndex: 'createTime', width: 100 },
     { title: '预约量体时间', dataIndex: 'time', width: 150 },
     { title: '预约地点', dataIndex: 'address', width: 150 },
     { title: '状态', dataIndex: 'reservation_Status', width: 100 },

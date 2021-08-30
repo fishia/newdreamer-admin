@@ -19,6 +19,7 @@ export default props => {
     ...dynamicCols,
     ['刺绣内容', 'embroideryContent', { form: {} }],
     ['面料编号', 'code', { form: {} }],
+    ['版型', 'pattern', { form: {} }],
   ]
   let obj = {
     title: `款式及面料信息${title ? `-${title}` : ''}`,

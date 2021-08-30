@@ -30,7 +30,7 @@ function Add(props, ref) {
         <Row>
           {classification === 'CUSTOMIZED_PRODUCT' && (
             <Col span={12}>
-              <Form.Item name="code" label="面料来料">
+              <Form.Item name="incomingMaterial" label="面料来料">
                 <Input
                   {...{
                     allowClear: true,
