@@ -55,7 +55,7 @@ export const childrenTableFields = (customerName, orderId) => [
     '单品名称',
     'name',
     {
-      width: 100,
+      width: 200,
     },
   ],
   [
@@ -69,7 +69,7 @@ export const childrenTableFields = (customerName, orderId) => [
     '产品类型',
     'classificationName',
     {
-      width: 100,
+      width: 120,
     },
   ],
   [
@@ -136,8 +136,6 @@ export const childrenTableFields = (customerName, orderId) => [
         return text ? (
           <StylesAndFabricsBtn
             record={text && JSON.parse(text)}
-            viewMode={false}
-            remote={orderInfoRemote}
             formData={{ productType: record.itemType, id: record.item_Id }}
             title={`${customerName}-${orderId}-${record.item_Id}`}
           />

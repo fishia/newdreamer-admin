@@ -43,7 +43,7 @@ export default props => {
                       setSubOrder(
                         u(
                           {
-                            [i]: { ...data[0], itemStatusName: '已备货' },
+                            [i]: { ...data[0] },
                           },
                           subOrder
                         )
@@ -69,7 +69,7 @@ export default props => {
                       setSubOrder(
                         u(
                           {
-                            [i]: { ...data[0], itemStatusName: '已撤销' },
+                            [i]: { ...data[0] },
                           },
                           subOrder
                         )

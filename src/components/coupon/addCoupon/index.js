@@ -142,7 +142,7 @@ export default class Index extends React.Component {
     return (
       <div className="addCoupon">
         <Modal
-          title="新增优惠券"
+          title={`优惠券${editStatue ? '修改' : '新增'}`}
           visible={true}
           onOk={this.handleOk}
           confirmLoading={false}

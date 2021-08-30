@@ -4,16 +4,16 @@ import { VolumerSelect, SupplierSelect, MySelect } from '@/components/custom/sel
 const { TextArea } = Input
 
 export const tableFields = [
-  [
-    '客户名称',
-    'customerName',
-    {
-      width: 100,
-      filter: {
-        isunions: true,
-      },
-    },
-  ],
+  // [
+  //   '客户名称',
+  //   'customerName',
+  //   {
+  //     width: 100,
+  //     filter: {
+  //       isunions: true,
+  //     },
+  //   },
+  // ],
   [
     '供应商货号',
     'articleNumber',
@@ -67,7 +67,7 @@ export const tableFields = [
   ],
   [
     '收货人',
-    'volumerName',
+    'receiverName',
     {
       width: 80,
       filter: {

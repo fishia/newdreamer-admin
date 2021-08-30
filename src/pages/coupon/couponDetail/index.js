@@ -153,11 +153,11 @@ export default class Index extends React.Component {
           <section className="product-manager-search">
             {/*<div className="manager-search-item">*/}
             {/*  <div className="search-item__title">优惠券编码</div>*/}
-            {/*  <Input size="small" placeholder="请输入优惠券编码" value={this.state.searchForm.couponCode} onChange={e => this.updateSearch('couponCode', e.target.value)} />*/}
+            {/*  <Input  placeholder="请输入优惠券编码" value={this.state.searchForm.couponCode} onChange={e => this.updateSearch('couponCode', e.target.value)} />*/}
             {/*</div>*/}
             {/*<div className="manager-search-item">*/}
             {/*  <div className="search-item__title">优惠券类型</div>*/}
-            {/*  /!*<Input size="small" placeholder="请输入优惠券类型" onChange={e => this.updateSearch('couponType', e.target.value)} />*!/*/}
+            {/*  /!*<Input  placeholder="请输入优惠券类型" onChange={e => this.updateSearch('couponType', e.target.value)} />*!/*/}
             {/*  <Select allowClear placeholder="请选择优惠券类型" value={this.state.searchForm.couponType} onChange={e => this.updateSearch('couponType', e)}>*/}
             {/*    <Option value="CASH">现金</Option>*/}
             {/*    <Option value="RATE">折扣</Option>*/}
@@ -166,7 +166,6 @@ export default class Index extends React.Component {
             <div className="manager-search-item">
               <div className="search-item__title">优惠券明细</div>
               <Input
-                size="small"
                 placeholder="请输入优惠券明细编码"
                 onChange={e => this.updateSearch('detailCode', e.target.value)}
               />
@@ -174,7 +173,6 @@ export default class Index extends React.Component {
             <div className="manager-search-item">
               <div className="search-item__title">来源渠道</div>
               <Input
-                size="small"
                 placeholder="请输入来源渠道"
                 onChange={e => this.updateSearch('channel', e.target.value)}
               />
@@ -183,6 +181,7 @@ export default class Index extends React.Component {
               <div className="search-item__title">是否使用</div>
               <Select
                 allowClear
+                style={{ width: 177 }}
                 placeholder="请选择是否使用"
                 value={this.state.searchForm.isUsed}
                 onChange={e => this.updateSearch('isUsed', e)}
@@ -194,7 +193,6 @@ export default class Index extends React.Component {
             <div className="manager-search-item">
               <div className="search-item__title">活动名称</div>
               <Input
-                size="small"
                 placeholder="请输入活动名称"
                 onChange={e => this.updateSearch('activityName', e.target.value)}
               />

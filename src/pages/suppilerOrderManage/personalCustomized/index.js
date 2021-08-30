@@ -5,13 +5,12 @@ import { tableFields } from '../components/column'
 
 export default props => {
   let columns = [...tableFields]
-  columns.splice(3, 1, [
+  columns.splice(2, 1, [
     '成衣尺寸',
     'volumeId',
     {
       width: 100,
       render: (text, record) => {
-        console.log(text)
         return (
           <ShowVolumeInfo
             {...{
@@ -24,13 +23,19 @@ export default props => {
       },
     },
   ])
-  columns.splice(4, 0, [
+  columns.splice(3, 0, [
     '款式及面料',
     'styleJson',
     {
       width: 150,
       render: (_, record) => {
-        return <StylesAndFabricsBtn record={record.styleJson} title={record.code} />
+        return (
+          <StylesAndFabricsBtn
+            record={record.styleJson}
+            title={record.code}
+            formData={{ productType: record.productType }}
+          />
+        )
       },
     },
   ])

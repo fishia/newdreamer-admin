@@ -217,7 +217,7 @@ export const tableFields = [
 export const parseColumns = data => ({
   ...data,
   expectedUsingTime: data.expectedUsingTime ? moment(data.expectedUsingTime) : undefined,
-  latestSendTime: data.expectedUsingTime ? moment(data.latestSendTime) : undefined,
+  latestSendTime: data.latestSendTime ? moment(data.latestSendTime) : undefined,
   styleJson: data.styleJson && JSON.parse(data.styleJson),
 })
 

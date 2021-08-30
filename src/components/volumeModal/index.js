@@ -7,7 +7,7 @@ const customerInfo = [
   { title: '客户', key: 'customer_Name' },
   { title: '电话', key: 'customer_Phone' },
   { title: '量体时间', key: 'volume_Time' },
-  { title: '着装顾问', key: 'volumer_Name' },
+  { title: '着装顾问', key: 'volumer_Name', disabled: true },
   { title: '性别', key: 'customer_Gender' },
   { title: '身高CM', key: 'height' },
   { title: '体重', key: 'weight' },
@@ -92,7 +92,7 @@ export default function VolumeModal({
   const [_info, updateInfo] = useState({}) //净尺寸
   const [_sizeInfo, updateSizeInfo] = useState({}) //成衣尺寸
   const updateForm = useCallback((key, value, mode) => {
-    updateInfo(obj => ({ ...obj, ...{ [key]: mode === 'check' ? value.join(',') : value } }))
+    updateInfo(obj => ({ ...obj, ...{ [key]: mode === 'check' ? value.join(' ') : value } }))
   }, [])
   //编辑成衣尺寸
   const updateSizeInfoForm = obj => {
@@ -154,6 +154,7 @@ export default function VolumeModal({
                 <Input
                   value={_info[cust.key] || ''}
                   placeholder={`请输入${cust.title}`}
+                  disabled={cust.disabled}
                   onChange={e => updateForm(cust.key, e.target.value)}
                 />
               ) : (
@@ -232,8 +233,8 @@ export default function VolumeModal({
                                 updateForm(
                                   size.key,
                                   e.target.checked
-                                    ? _info[size.key].split(',').concat(child.title)
-                                    : _info[size.key].split(',').filter(i => i !== child.title),
+                                    ? _info[size.key].split(' ').concat(child.title)
+                                    : _info[size.key].split(' ').filter(i => i !== child.title),
                                   'check'
                                 )
                               }

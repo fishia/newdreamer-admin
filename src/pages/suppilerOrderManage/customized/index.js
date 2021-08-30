@@ -4,7 +4,7 @@ import { tableFields } from '../components/column'
 
 export default props => {
   let columns = [...tableFields]
-  columns.splice(7, 0, [
+  columns.splice(3, 0, [
     '规格修改',
     'sizeChange',
     {
