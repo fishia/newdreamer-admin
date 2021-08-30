@@ -298,7 +298,7 @@ export default function VolumeModal({
             <div className="figure-images-content">
               {_info.body_Shape_Remark && (
                 <div>
-                  量体备注: <div className="remark">{_info.body_Shape_Remark}</div>
+                  量体备注: <div className="remark">{_info.volume_Data_Remark}</div>
                 </div>
               )}
             </div>

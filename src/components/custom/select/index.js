@@ -5,6 +5,7 @@ import ProductTypeSelect from './productTypeSelect'
 import VolumerSelect from './volumerSelect'
 import CollegeSelect from './collegeSelect'
 import CollegePartSelect from './collegePartSelect' //校区
+import FabricTypeSelect from './fabricTypeSelect'
 import FabricSelect from './fabricSelect'
 import SingleNoSelect from './singleNoSelect'
 export {
@@ -13,6 +14,7 @@ export {
   ProductTypeSelect,
   VolumerSelect,
   CollegeSelect,
+  FabricTypeSelect,
   FabricSelect,
   SingleNoSelect,
   CollegePartSelect,
