@@ -193,6 +193,9 @@ export const tableFields = [
     'orderId',
     {
       width: 80,
+      filter: {
+        isunions: true,
+      },
       form: { rules: [{ required: true }] },
     },
   ],

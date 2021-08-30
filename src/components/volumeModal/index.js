@@ -296,9 +296,32 @@ export default function VolumeModal({
               {/*{_info.body_Shape_Remark && <div>量体备注: {_info.body_Shape_Remark}</div>}*/}
             </div>
             <div className="figure-images-content">
+              {_info.volume_Data_Remark && (
+                <div>
+                  量体备注:{' '}
+                  {_editable ? (
+                    <Input
+                      value={_info.volume_Data_Remark || ''}
+                      onChange={e => updateForm('volume_Data_Remark', e.target.value)}
+                    />
+                  ) : (
+                    <div className="item__value">{_info.volume_Data_Remark}</div>
+                  )}
+                </div>
+              )}
+            </div>
+            <div className="figure-images-content">
               {_info.body_Shape_Remark && (
                 <div>
-                  量体备注: <div className="remark">{_info.volume_Data_Remark}</div>
+                  体型备注:{' '}
+                  {_editable ? (
+                    <Input
+                      value={_info.body_Shape_Remark || ''}
+                      onChange={e => updateForm('body_Shape_Remark', e.target.value)}
+                    />
+                  ) : (
+                    <div className="item__value">{_info.body_Shape_Remark}</div>
+                  )}
                 </div>
               )}
             </div>

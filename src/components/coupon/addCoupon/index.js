@@ -218,7 +218,7 @@ export default class Index extends React.Component {
               </Form.Item>
             ) : null}
 
-            <Form.Item label="着装顾问是否可以发放" name="allowGrant" valuePropName="checked">
+            <Form.Item label="顾问是否可以发放" name="allowGrant" valuePropName="checked">
               <Checkbox />
             </Form.Item>
             <Form.Item label="是否有效" name="enable" valuePropName="checked">
