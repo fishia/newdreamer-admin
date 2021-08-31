@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Input, Table, Modal, message, Select } from 'antd/lib/index'
+import { Button, Input, Table, Select } from 'antd'
 import { queryAllCustomerCoupon } from '../../../api/coupon'
 import './index.less'
 import moment from 'moment'

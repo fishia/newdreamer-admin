@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Input, Table, Modal, message, Select } from 'antd/lib/index'
+import { Button, Input, Table, Modal, message, Select } from 'antd'
 import { requestcoupomList, couponDelete } from './action'
 import moment from 'moment'
 import './index.less'
@@ -331,16 +331,6 @@ export default class Index extends React.Component {
             onChange: this.onPageChange,
           }}
         />
-
-        {/* <Modal
-          title="Title"
-          visible={visible}
-          onOk={() => {this.handleOk.bind(this)}}
-          confirmLoading={confirmLoading}
-          onCancel={() => {this.handleCancel.bind(this)}}
-        >
-          <p>ceshi</p>
-        </Modal> */}
         {visible ? (
           <AddCoupon
             handleOk={this.handleOk}

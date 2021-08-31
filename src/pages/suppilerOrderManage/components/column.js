@@ -67,7 +67,7 @@ export const tableFields = [
   ],
   [
     '收货人',
-    'receiverName',
+    'customerName',
     {
       width: 80,
       filter: {

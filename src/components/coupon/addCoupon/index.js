@@ -1,8 +1,9 @@
 import React from 'react'
-import { Form, Input, Button, Modal, Select, Checkbox, DatePicker, message } from 'antd/lib/index'
+import { Form, Input, Button, Modal, Select, Checkbox, DatePicker, message } from 'antd'
 import './index.less'
 import moment from 'moment'
 import { couponCreate, couponUpdate } from '../../../api/coupon'
+import _isEqual from 'lodash/isEqual'
 const { Option } = Select
 const { RangePicker } = DatePicker
 export default class Index extends React.Component {
@@ -20,10 +21,8 @@ export default class Index extends React.Component {
       limitTimeType: 'ABSOLUTE', // 有效时间类型
     }
   }
-  componentDidMount() {
-    // console.log(this.props)
-    //  通过点击修改按钮打开弹窗  设置默认数据
-    if (this.props.editStatue) {
+  componentWillMount() {
+    if (this.props.rowData) {
       let rowData = this.props.rowData
       if (rowData.startTime && rowData.endTime) {
         let startTime = moment(rowData.startTime).format('YYYY/MM/DD')
@@ -40,7 +39,6 @@ export default class Index extends React.Component {
         couponType: rowData.couponType,
         limitTimeType: rowData.limitTimeType,
       })
-      // console.log(this.props.rowData)
     }
   }
 
@@ -132,10 +130,6 @@ export default class Index extends React.Component {
   render() {
     const { addInitialValues, couponType, limitTimeType } = this.state
     const editStatue = this.props.editStatue // 是否为修改操作
-    const layout = {
-      labelCol: { span: 5 },
-      wrapperCol: { span: 12 },
-    }
     const tailLayout = {
       wrapperCol: { offset: 10, span: 16 },
     }
@@ -218,7 +212,7 @@ export default class Index extends React.Component {
               </Form.Item>
             ) : null}
 
-            <Form.Item label="顾问是否可以发放" name="allowGrant" valuePropName="checked">
+            <Form.Item label="着装顾问是否可以发放" name="allowGrant" valuePropName="checked">
               <Checkbox />
             </Form.Item>
             <Form.Item label="是否有效" name="enable" valuePropName="checked">
