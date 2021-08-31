@@ -14,6 +14,7 @@ import { styleRemote } from '@/services/baseRemote'
 export default props => {
   const { title, record, remote, viewMode = true, onChange, formData } = props
   const [dynamicCols, setDynamicCols] = useState([]) //动态列
+  const [detail, setDetail] = useState(record) //动态列
 
   const columns = [
     ...dynamicCols,
@@ -31,10 +32,11 @@ export default props => {
             item_Id: formData.id,
             styleJson: JSON.stringify(params),
           })
-          .then(({ status }) => {
+          .then(({ status, data }) => {
             if (status) {
+              setDetail({ ...JSON.parse(data.styleJson) })
               addFormModal.setVisible(false)
-              message.success('新增款式及面料成功')
+              message.success('编辑款式及面料成功')
             }
           })
       } else {
@@ -94,7 +96,7 @@ export default props => {
       <a
         onClick={() => {
           addFormModal.setFormData({
-            ...record,
+            ...detail,
           })
           addFormModal.setVisible(true)
         }}

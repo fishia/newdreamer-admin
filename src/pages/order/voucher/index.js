@@ -34,6 +34,7 @@ export default props => {
       footer: null,
       onCancel: () => {
         setVisible(false)
+        getCount()
         ref.current?.submit()
       },
     },

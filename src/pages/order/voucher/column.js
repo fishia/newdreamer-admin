@@ -135,6 +135,8 @@ export const childrenTableFields = (customerName, orderId) => [
       render: (text, record) => {
         return text ? (
           <StylesAndFabricsBtn
+            viewMode={false}
+            remote={orderInfoRemote}
             record={text && JSON.parse(text)}
             formData={{ productType: record.itemType, id: record.item_Id }}
             title={`${customerName}-${orderId}-${record.item_Id}`}

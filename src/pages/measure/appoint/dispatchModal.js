@@ -7,13 +7,14 @@ import { CollegeSelect, VolumerSelect } from '@/components/custom/select'
 function Add(props, ref) {
   const { modalProps, formData = {}, confirm } = props
   const [form] = Form.useForm()
-  const { validateFields, resetFields, getFieldValue, setFieldsValue } = form
+  const { validateFields, resetFields, setFieldsValue } = form
 
   useEffect(() => {
     if (!modalProps.visible && form) {
       resetFields()
       props.setFormData(null)
     } else {
+      console.log(formData)
       setFieldsValue({ ...formData })
     }
   }, [modalProps.visible])
