@@ -73,7 +73,7 @@ export const userRemote = (function (url) {
 //供应商管理
 export const supplierRemote = new baseCrudApi('/newdreamer/supplier')
 //面料管理
-export const fabricRemote = new baseCrudApi('/newdreamer/fabric')
+export const fabricRemote = new BornCroudApi('/newdreamer/fabric')
 //款式管理
 export const styleRemote = new baseCrudApi('/newdreamer/style')
 //单品管理

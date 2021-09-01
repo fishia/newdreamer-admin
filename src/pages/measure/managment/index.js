@@ -12,8 +12,11 @@ export default props => {
       volumer_Status: 'true',
     },
     actionBtnProps: {
-      // showExport: true,
-      // downloadURL: volumerRemote.exportExcel.bind(volumerRemote),
+      showExport: true,
+      showImport: true,
+      templateURL: '/resources/template/单品信息.xls',
+      uploadURL: volumerRemote.importExcel(),
+      downloadURL: volumerRemote.exportExcel.bind(volumerRemote),
     },
     columns: [
       [

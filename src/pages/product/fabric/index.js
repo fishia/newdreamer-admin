@@ -8,6 +8,13 @@ export default props => {
   const [title, setTitle] = useState(false)
   const FormTableProps = {
     remote: fabricRemote,
+    actionBtnProps: {
+      showExport: true,
+      showImport: true,
+      templateURL: '/resources/template/面料信息.xls',
+      uploadURL: fabricRemote.importExcel(),
+      downloadURL: fabricRemote.exportExcel.bind(fabricRemote),
+    },
     initialValues: {
       enabled: 'true',
     },
