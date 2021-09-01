@@ -172,6 +172,7 @@ export const tableFields = [
     'address',
     {
       width: 100,
+      autoHide: true,
       form: {},
     },
   ],
@@ -192,7 +193,7 @@ export const tableFields = [
     '订单号',
     'orderId',
     {
-      width: 80,
+      width: 200,
       filter: {
         isunions: true,
       },

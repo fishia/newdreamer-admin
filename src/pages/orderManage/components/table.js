@@ -19,7 +19,7 @@ export default forwardRef((props, ref) => {
         '制作单号',
         'code',
         {
-          width: 100,
+          width: 180,
           render: (text, record) => {
             //制单生产看详情，供应商不能
             return (
@@ -53,7 +53,7 @@ export default forwardRef((props, ref) => {
             '快递单号',
             'shipmentId',
             {
-              width: 100,
+              width: 180,
               filter: {
                 isunions: true,
               },

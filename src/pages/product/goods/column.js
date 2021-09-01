@@ -64,6 +64,7 @@ export const tableFields = [
     'size',
     {
       width: 100,
+      autoHide: true,
       form: {},
     },
   ],
@@ -99,6 +100,7 @@ export const tableFields = [
     'ingredient',
     {
       width: 60,
+      autoHide: true,
       form: {},
     },
   ],

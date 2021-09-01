@@ -145,7 +145,72 @@ function Table(props, ref) {
     }),
     [record]
   )
-
+  let Cols = renderColumns([
+    ...columns,
+    [
+      actionText,
+      'action',
+      {
+        width: actionWidth,
+        fixed: 'right',
+        display: showAdd || showDelete || showCopy || showOtherBtns,
+        renderButtons(text, record, index) {
+          let btns = [
+            {
+              name: '编辑',
+              onClick() {
+                editFormModal.setFormData({
+                  ...record,
+                })
+                editFormModal.setVisible(true)
+                setRecord(record)
+              },
+              visible: showEdit,
+            },
+            {
+              name: '删除',
+              popconfirm: {
+                title: '是否确认删除？',
+                confirm() {
+                  deleteRows.run([record.id])
+                },
+              },
+              visible: showDelete,
+            },
+            {
+              name: '复制',
+              onClick() {
+                let obj =
+                  typeof resetFormData === 'function'
+                    ? props.resetFormData({
+                        ...record,
+                        [resetKey]: undefined,
+                        id: undefined,
+                      })
+                    : {
+                        ...record,
+                        [resetKey]: undefined,
+                        id: undefined,
+                      }
+                addFormModal.setFormData({
+                  ...obj,
+                })
+                addFormModal.setVisible(true)
+                setRecord({
+                  ...obj,
+                })
+              },
+              visible: showCopy,
+            },
+          ]
+          if (showOtherBtns)
+            btns = btns.concat(otherTableProps.otherActionBtns(text, record, index))
+          return btns
+        },
+        renderButtonsVisibleNum: 4, //最多展示4个
+      },
+    ],
+  ])
   return (
     <React.Fragment>
       <Page title={title}>
@@ -179,72 +244,10 @@ function Table(props, ref) {
                 ...otherTableProps,
                 rowSelection: !(showDelete || showExport) ? null : tableProps.rowSelection,
               }}
-              columns={renderColumns([
-                ...columns,
-                [
-                  actionText,
-                  'action',
-                  {
-                    width: actionWidth,
-                    fixed: 'right',
-                    display: showAdd || showDelete || showCopy || showOtherBtns,
-                    renderButtons(text, record, index) {
-                      let btns = [
-                        {
-                          name: '编辑',
-                          onClick() {
-                            editFormModal.setFormData({
-                              ...record,
-                            })
-                            editFormModal.setVisible(true)
-                            setRecord(record)
-                          },
-                          visible: showEdit,
-                        },
-                        {
-                          name: '删除',
-                          popconfirm: {
-                            title: '是否确认删除？',
-                            confirm() {
-                              deleteRows.run([record.id])
-                            },
-                          },
-                          visible: showDelete,
-                        },
-                        {
-                          name: '复制',
-                          onClick() {
-                            let obj =
-                              typeof resetFormData === 'function'
-                                ? props.resetFormData({
-                                    ...record,
-                                    [resetKey]: undefined,
-                                    id: undefined,
-                                  })
-                                : {
-                                    ...record,
-                                    [resetKey]: undefined,
-                                    id: undefined,
-                                  }
-                            addFormModal.setFormData({
-                              ...obj,
-                            })
-                            addFormModal.setVisible(true)
-                            setRecord({
-                              ...obj,
-                            })
-                          },
-                          visible: showCopy,
-                        },
-                      ]
-                      if (showOtherBtns)
-                        btns = btns.concat(otherTableProps.otherActionBtns(text, record, index))
-                      return btns
-                    },
-                    renderButtonsVisibleNum: 4, //最多展示4个
-                  },
-                ],
-              ])}
+              columns={Cols}
+              defaultVisibleColumnKeys={Cols.filter(item => !item.autoHide).map(
+                item => item.dataIndex || item.key
+              )}
               onRefresh={refresh}
               buttonGroup={<ActionBtns {...ActionBtnsProps} />}
             />
