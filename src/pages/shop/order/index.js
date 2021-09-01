@@ -39,10 +39,7 @@ export default props => {
           filter: {
             isunions: true,
           },
-          form: {
-            disabled: true,
-            hide: 'add',
-          },
+          form: {},
         },
       ],
       ...tableFields,
