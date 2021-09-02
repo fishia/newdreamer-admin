@@ -15,7 +15,6 @@ export function exportFile(url, data) {
           return Result
         }, '')
       : ''
-  console.log(`${url}?${params}`)
   const link = document.createElement('a')
   link.target = '_blank'
   link.href = `${url}?${params}`

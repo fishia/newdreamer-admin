@@ -39,12 +39,12 @@ export default props => {
     afterUpload(data) {
       try {
         const res = JSON.parse(data)
-        if (!res.result) {
+        if (res.success) {
           message.success('导入成功')
           setVisible(false)
           refresh()
         } else {
-          message.error('导入失败')
+          message.error(`导入失败:${res.msg}`)
           setVisible(false)
         }
       } catch (err) {
