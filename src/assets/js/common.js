@@ -6,17 +6,18 @@ export function exportFile(url, data) {
   let params =
     data && typeof data === 'object'
       ? Object.entries(data).reduce((Result, [key, value], index) => {
-          if (index === 0) {
-            Result += `ids=${value}`
-          } else {
-            Result += `&ids=${value}`
-          }
+          if (value)
+            if (index === 0) {
+              Result += `ids=${value}`
+            } else {
+              Result += `&ids=${value}`
+            }
           return Result
         }, '')
       : ''
+  console.log(`${url}?${params}`)
   const link = document.createElement('a')
   link.target = '_blank'
-  // link.href = `https://newdreamer.cn${url}?${params}`;
   link.href = `${url}?${params}`
   link.click()
   return Promise.resolve()
