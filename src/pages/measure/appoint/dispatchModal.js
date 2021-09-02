@@ -14,7 +14,6 @@ function Add(props, ref) {
       resetFields()
       props.setFormData(null)
     } else {
-      console.log(formData)
       setFieldsValue({ ...formData })
     }
   }, [modalProps.visible])

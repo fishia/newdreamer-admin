@@ -41,6 +41,7 @@ function Add(props, ref) {
                     setFieldsValue({
                       ...item[0],
                       barcode: item[0].label,
+                      sellingPrice: item[0].retailPrice,
                     })
                 }}
               />
