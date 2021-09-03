@@ -8,6 +8,7 @@ import CollegePartSelect from './collegePartSelect' //校区
 import FabricTypeSelect from './fabricTypeSelect'
 import FabricSelect from './fabricSelect'
 import SingleNoSelect from './singleNoSelect'
+import StyleSelect from './styleSelect'
 export {
   UnionSelect,
   SupplierSelect,
@@ -18,5 +19,6 @@ export {
   FabricSelect,
   SingleNoSelect,
   CollegePartSelect,
+  StyleSelect,
   MySelect,
 }

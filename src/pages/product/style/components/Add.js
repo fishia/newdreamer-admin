@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect } from 'react'
 import { VtxModal } from '@vtx/components'
-import { Input, Form, Row, Col, Space, Button, Card, Tooltip, Popconfirm } from 'antd'
+import { Input, Form, Row, Col, Space, Button, Card, Tooltip, Popconfirm, Switch } from 'antd'
 import { MinusCircleOutlined, PlusOutlined, PlusSquareOutlined } from '@ant-design/icons'
 import { formItemLayout, formItemLayoutWithOutLabel } from '@/utils/contants'
 import { JKUtil } from '@/utils/util'
@@ -44,6 +44,26 @@ function Add(props, ref) {
           <Col span={12}>
             <Form.Item name="productType" label="适用商品类型" rules={[{ required: true }]}>
               <ProductTypeSelect />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              name="urgent"
+              label="是否设置刺绣内容"
+              valuePropName="checked"
+              disabled={viewModal}
+            >
+              <Switch />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              name="urgent"
+              label="是否设置版型"
+              valuePropName="checked"
+              disabled={viewModal}
+            >
+              <Switch />
             </Form.Item>
           </Col>
           <Col span={24}>

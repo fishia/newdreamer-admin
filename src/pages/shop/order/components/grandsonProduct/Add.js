@@ -7,7 +7,7 @@ import {
   SingleNoSelect,
   FabricTypeSelect,
   FabricSelect,
-  ProductTypeSelect,
+  StyleSelect,
 } from '@/components/custom/select'
 
 function Add(props, ref) {
@@ -69,7 +69,7 @@ function Add(props, ref) {
               {({ getFieldValue }) =>
                 getFieldValue('classificationName') === '个性化定制' ? (
                   <Form.Item name="styleType" label="适用款式">
-                    <ProductTypeSelect {...props} />
+                    <StyleSelect {...props} />
                   </Form.Item>
                 ) : null
               }

@@ -11,7 +11,7 @@ export default props => {
       '供应商编号',
       'code',
       {
-        width: 120,
+        width: 200,
         fixed: 'left',
         render: (text, record) => {
           //弹出详情
