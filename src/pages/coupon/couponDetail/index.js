@@ -39,12 +39,11 @@ export default class Index extends React.Component {
     let _pageInfo = { ...this.state.pageInfo, ...this.state.searchForm }
     _pageInfo.page -= 1
     queryAllCustomerCoupon(_pageInfo).then(res => {
-      if (!data) return
       const { data } = res
+      if (!data) return
       data.content.forEach(e => {
         e.key = e.id
       })
-      console.log(data.content, '数据')
       // setTableSize(data.totalElements)
       // let content = data.content.filter(item => item.volumer_Address !== "1")
       // updateSource(content)
