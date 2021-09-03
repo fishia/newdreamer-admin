@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import './index.less'
-import { Button, Table, message } from 'antd'
+import { Button, Table, message, DatePicker } from 'antd'
 import {
   requestCustomeVolumeList,
   requestCustomeVolumeExport,
@@ -61,16 +61,10 @@ export default function ProductManager() {
     })
   }, [pageInfo])
 
-  const onPageChange = useCallback(
-    page => {
-      if (page !== pageInfo.page) {
-        pageInfo.page = page
-        updatePageInfo({ ...pageInfo })
-        pageData()
-      }
-    },
-    [pageData, pageInfo]
-  )
+  const onPageChange = (page, pageSize) => {
+    updatePageInfo({ ...pageInfo, page, size: pageSize })
+    setIsinit(false)
+  }
 
   const modalSubmit = useCallback(
     newInfo => {
@@ -189,6 +183,7 @@ export default function ProductManager() {
             current: pageInfo.page,
             total: tableSize,
             onChange: onPageChange,
+            showQuickJumper: true,
           }}
         />
       </section>

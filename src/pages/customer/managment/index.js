@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import './index.less'
+import '../volume/index.less'
 import { Button, Table, Modal, Input, Upload, message, DatePicker } from 'antd'
 import { requestOrderList, requestOrderExport } from './action'
 import { UnionSelect } from '@/components/custom/select'
@@ -52,16 +52,10 @@ export default function ProductManager() {
     })
   }, [pageInfo])
 
-  const onPageChange = useCallback(
-    page => {
-      if (page !== pageInfo.page) {
-        pageInfo.page = page
-        updatePageInfo({ ...pageInfo })
-        pageData()
-      }
-    },
-    [pageData, pageInfo]
-  )
+  const onPageChange = (page, pageSize) => {
+    updatePageInfo({ ...pageInfo, page, size: pageSize })
+    setIsinit(false)
+  }
 
   useEffect(() => {
     if (isInit) return
@@ -136,6 +130,7 @@ export default function ProductManager() {
             current: pageInfo.page,
             total: tableSize,
             onChange: onPageChange,
+            showQuickJumper: true,
           }}
         />
       </section>
