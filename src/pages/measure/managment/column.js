@@ -76,8 +76,8 @@ export const tableFields = [
     },
   ],
   ['专业', 'volumer_Major', { width: 80, autoHide: true, form: {} }],
-  ['收货地址', 'volumer_Address', { width: 150, form: {} }],
-  ['身份证号', 'identification_Number', { width: 200, form: {} }],
+  ['收货地址', 'volumer_Address', { width: 150, autoHide: true, form: {} }],
+  ['身份证号', 'identification_Number', { width: 200, autoHide: true, form: {} }],
   [
     '注册时间',
     'register_Time',

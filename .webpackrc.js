@@ -13,13 +13,6 @@ export default {
       target: ENV.target,
       changeOrigin: true,
     },
-    // '/mock/newdreamer': {
-    //   target: 'http://mock.geedos.com/mock/5ffff774e04018595a60b4a8/easypush',
-    //   changeOrigin: true,
-    //   headers: {
-    //     mockUserId: '5ffff5a9e04018595a60b49f',
-    //   },
-    // },
   },
   extraBabelPlugins: [
     ['import', { libraryName: 'antd', libraryDirectory: 'lib', style: 'css' }, 'antd'],

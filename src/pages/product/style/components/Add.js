@@ -51,12 +51,12 @@ function Add(props, ref) {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="embroideryInput" label="是否设置刺绣内容" valuePropName="checked">
+            <Form.Item name="embroideryInput" label="显示刺绣内容" valuePropName="checked">
               <Switch />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="patternInput" label="是否设置版型" valuePropName="checked">
+            <Form.Item name="patternInput" label="显示版型" valuePropName="checked">
               <Switch />
             </Form.Item>
           </Col>

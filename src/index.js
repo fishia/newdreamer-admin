@@ -4,11 +4,12 @@ import createLoading from 'dva-loading'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
 moment.locale('zh-cn')
+import DevicePixelRatio from './utils/devicePixelRatio'
 import { createHashHistory } from 'history'
 export const history = new createHashHistory()
 
 // 1. Initialize
-export const app = dva(createLoading())
+export const app = dva(createLoading(), new DevicePixelRatio().init())
 
 // 2. Plugins
 // app.use({});

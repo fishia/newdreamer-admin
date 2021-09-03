@@ -6,7 +6,7 @@ export default props => {
     images = [],
     onIndexChange,
     aspectFit = true,
-    style = { width: '80px', height: '80px' },
+    style = { width: '60px', height: '60px' },
   } = props
   return (
     <VtxImage.PreviewGroup onIndexChange={onIndexChange}>

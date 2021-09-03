@@ -8,7 +8,7 @@ export const tableFields = [
     '上线商品名称',
     'name',
     {
-      width: 150,
+      width: 180,
       filter: {
         isunions: true,
       },
