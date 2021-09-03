@@ -29,7 +29,11 @@ function Add(props, ref) {
 
   return (
     <VtxModal {...modalProps} onOk={onOk} moveable maximize okText="确定" cancelText="取消">
-      <Form form={form} {...formItemLayout}>
+      <Form
+        form={form}
+        {...formItemLayout}
+        initialValues={{ embroideryInput: true, patternInput: true }}
+      >
         <Row>
           <Col span={12}>
             <Form.Item name="name" label="名称" rules={[{ required: true }]}>
@@ -47,22 +51,12 @@ function Add(props, ref) {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item
-              name="urgent"
-              label="是否设置刺绣内容"
-              valuePropName="checked"
-              disabled={viewModal}
-            >
+            <Form.Item name="embroideryInput" label="是否设置刺绣内容" valuePropName="checked">
               <Switch />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item
-              name="urgent"
-              label="是否设置版型"
-              valuePropName="checked"
-              disabled={viewModal}
-            >
+            <Form.Item name="patternInput" label="是否设置版型" valuePropName="checked">
               <Switch />
             </Form.Item>
           </Col>

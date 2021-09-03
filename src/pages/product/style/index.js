@@ -39,7 +39,7 @@ export default props => {
   const addFormModal = useFormModal({
     modal: {
       title: `${document.title}-新增`,
-      width: 900,
+      width: 1000,
       onOk: params => {
         return styleRemote.saveOrUpdate({ ...parseFormData(params) }).then(({ status }) => {
           if (status) {

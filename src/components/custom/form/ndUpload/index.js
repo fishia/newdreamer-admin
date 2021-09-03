@@ -26,6 +26,7 @@ const NdUpload = props => {
         fileList,
         listType,
         mode,
+        multiple: true,
         action: mode === 'single' ? uploadSingleUrl(fileDirectorEnum) : uploadUrl(fileDirectorEnum),
         data: file => {
           return {
@@ -42,6 +43,7 @@ const NdUpload = props => {
           window.open(file?.url, '_blank')
         },
         onSuccess(file) {
+          console.log(file)
           let files = []
           if (mode === 'single') {
             files = [
