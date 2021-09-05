@@ -8,18 +8,32 @@
       margin-bottom: 20px;
     }
   }
+  .linkUrl {
+    display: flex;
+    margin-bottom: 10px;
+    &_content {
+      width: auto;
+    }
+  }
   .home-section {
     margin-bottom: 50px;
   }
   .home-photos-content {
     display: flex;
     align-items: flex-start;
+    justify-content: space-around;
     .home-photos-item {
       margin-right: 40px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      position: relative;
+    }
+    .home-photos-btn {
+      position: absolute;
+      right: -87px;
+      top: 31px;
     }
     .home-photos-image {
       height: 70 * 1.3px;

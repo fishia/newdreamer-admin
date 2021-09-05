@@ -1,9 +1,11 @@
 import React from 'react'
-import { Button, Input, Table, Modal, message, Select } from 'antd'
+import { Button, Input, Table, Modal, message, Select, Tooltip } from 'antd'
 import { requestcoupomList, couponDelete } from './action'
 import moment from 'moment'
 import './index.less'
 import AddCoupon from '../../../components/coupon/addCoupon/index'
+import QRCODE from '@/components/custom/qrcode'
+import { getQrcode } from '@/services/baseRemote'
 const { Option } = Select
 export default class Index extends React.Component {
   constructor(props) {
@@ -23,6 +25,7 @@ export default class Index extends React.Component {
       confirmLoading: false,
       rowData: {}, // 行数据
       editStatue: false, // 点击修改时设置为true
+      qrcodeUrl: '',
     }
   }
   componentDidMount() {
@@ -158,8 +161,7 @@ export default class Index extends React.Component {
   }
 
   render() {
-    const { pageInfo, tableSize, coupomList, visible, confirmLoading, editStatue, rowData } =
-      this.state
+    const { pageInfo, tableSize, coupomList, visible, editStatue, rowData, qrcodeUrl } = this.state
     const columns = [
       { title: '优惠券编码', dataIndex: 'couponCode', width: 120, align: 'center' },
       { title: '优惠券名称', dataIndex: 'couponName', width: 120, align: 'center' },
@@ -167,14 +169,14 @@ export default class Index extends React.Component {
       {
         title: '允许发放',
         dataIndex: 'allowGrant',
-        width: 60,
+        width: 100,
         render: value => <span>{value ? '是' : '否'}</span>,
         align: 'center',
       },
       {
         title: '是否有效',
         dataIndex: 'enable',
-        width: 60,
+        width: 100,
         render: value => <span>{value ? '是' : '否'}</span>,
         align: 'center',
       },
@@ -210,7 +212,7 @@ export default class Index extends React.Component {
       {
         title: '是否可以分享',
         dataIndex: 'share',
-        width: 60,
+        width: 160,
         render: (value, record) => <span>{value ? '是' : '否'}</span>,
         align: 'center',
       },
@@ -257,9 +259,9 @@ export default class Index extends React.Component {
       {
         title: '操作',
         dataIndex: 'channel',
-        width: 80,
+        width: 200,
         align: 'center',
-        render: (value, record) => (
+        render: (value, record, index) => (
           <div>
             <Button
               type="primary"
@@ -270,7 +272,30 @@ export default class Index extends React.Component {
             >
               修改
             </Button>
-            {/*<Button type="primary" onClick={() => { this.updateDelData(record) }}>删除</Button>*/}
+            <Tooltip
+              title={qrcodeUrl ? <QRCODE url={qrcodeUrl} /> : '二维码生成中...'}
+              trigger="click"
+              key={index}
+            >
+              <Button
+                type="primary"
+                onClick={() => {
+                  //获取二维码
+                  getQrcode({
+                    scene: record.id,
+                    width: 120,
+                    path: '/pages/my/coupon/receiveCoupon/receiveCoupon',
+                  }).then(res => {
+                    if (res.data)
+                      this.setState({
+                        qrcodeUrl: `data:image/png;base64,${res.data}`,
+                      })
+                  })
+                }}
+              >
+                生成二维码
+              </Button>
+            </Tooltip>
           </div>
         ),
         fixed: 'right',

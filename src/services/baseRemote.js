@@ -1,6 +1,7 @@
 import { axios } from '../axios'
 import { jsonToUrl } from '@utils/util'
 import { exportFile } from '@/assets/js/common'
+import request from '@/assets/js/request'
 //基础crud接口类
 class baseCrudApi {
   constructor(url) {
@@ -143,3 +144,8 @@ export const orderInfoRemote = (url => {
     },
   }
 })('/newdreamer/backOrder')
+
+//获取二维码
+export const getQrcode = params => {
+  return request(`/api/QRcode/get?${jsonToUrl(params)}`, '')
+}

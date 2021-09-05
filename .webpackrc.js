@@ -13,6 +13,10 @@ export default {
       target: ENV.target,
       changeOrigin: true,
     },
+    '/api/': {
+      target: ENV.target,
+      changeOrigin: true,
+    },
   },
   extraBabelPlugins: [
     ['import', { libraryName: 'antd', libraryDirectory: 'lib', style: 'css' }, 'antd'],

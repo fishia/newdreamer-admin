@@ -1,9 +1,10 @@
 import React from 'react'
-import { Upload, Button, Input } from 'antd'
+import { Upload, Button, Input, message } from 'antd'
 import './index.less'
 import { requestHomeConfig, requestHomeSave } from './action'
 import { dealOssImageUrl } from '../../../assets/js/common'
 import ImagePreviewGroup from '@/components/custom/ImagePreviewGroup'
+import { UploadOutlined } from '@ant-design/icons'
 const { TextArea } = Input
 
 const manConfig = [
@@ -37,6 +38,7 @@ export default class ShopHome extends React.Component {
     noticeCount: 2,
     manCount: 4,
     notice: [],
+    windowPhotos: [],
     editable: '',
     manModules: {},
     womenModules: {},
@@ -51,30 +53,101 @@ export default class ShopHome extends React.Component {
       if (res) {
         let photos = res.photos ? JSON.parse(res.photos) : []
         let notice = res.notice ? JSON.parse(res.notice) : []
+        let windowPhotos = res.windowPhotos ? JSON.parse(res.windowPhotos) : []
         let manModules = res.manModules ? JSON.parse(res.manModules) : {}
         let womenModules = res.womenModules ? JSON.parse(res.womenModules) : {}
         let titles = res.titles ? JSON.parse(res.titles) : {}
-        this.setState({ photos, notice, editable: '', womenModules, manModules, titles })
+        this.setState({
+          photos,
+          notice,
+          windowPhotos,
+          editable: '',
+          womenModules,
+          manModules,
+          titles,
+        })
       }
     })
   }
 
   updateInfo = () => {
-    let { notice, photos, manModules, womenModules, titles } = this.state
+    let { notice, photos, windowPhotos, manModules, womenModules, titles } = this.state
     requestHomeSave({
       photos: JSON.stringify(photos),
       notice: JSON.stringify(notice),
+      windowPhotos: JSON.stringify(windowPhotos),
       manModules: JSON.stringify(manModules),
       womenModules: JSON.stringify(womenModules),
       titles: JSON.stringify(titles),
-    }).then(this.PageData)
+    }).then(() => {
+      message.success('保存成功')
+      this.PageData()
+    })
   }
 
-  // EVALUATION("evaluation","评价图片目录"),
-  // INDEX("index","首页图片目录"),
-  // PRODUCT("product","商品图片目录"),
-  // VOLUME("volume","量体数据图片目录"),
-  // FABRIC("fabric","面料图片目录");
+  renderPhotoItem = (key, i) => {
+    let photos = this.state[key] || []
+    return (
+      <div className="home-photos-item">
+        <div className="home-photos-image">
+          {photos[i] && photos[i].image_url ? (
+            <ImagePreviewGroup images={[photos[i].image_url]} aspectFit={false} style={null} />
+          ) : (
+            <span>+</span>
+          )}
+        </div>
+        <div className="home-photos-btn">
+          <Upload
+            action="/newdreamer/file/upload?FileDirectorEnum=PRODUCT"
+            method="post"
+            maxCount={1}
+            showUploadList={false}
+            data={file => {
+              return {
+                fileDirectorEnum: 'INDEX',
+                files: file,
+              }
+            }}
+            onChange={({ file, fileList }) => {
+              if (file.response) {
+                let _photos = [...photos]
+                if (!_photos[i]) _photos[i] = {}
+                _photos[i].image_url = dealOssImageUrl(file.response[0])
+                if (_photos[i].image_url) this.setState({ [key]: _photos })
+              }
+            }}
+          >
+            <Button icon={<UploadOutlined />}>
+              {photos[i] && photos[i].image_url ? '替换' : '上传'}
+            </Button>
+          </Upload>
+        </div>
+        <div className="linkUrl">
+          <div className="linkUrl_title">链接：</div>
+          <div className="linkUrl_content">
+            <Input
+              placeholder="请输入跳转链接"
+              value={photos[i]?.link_url}
+              onChange={e => {
+                let _photos = [...photos]
+                if (!_photos[i]) _photos[i] = {}
+                _photos[i].link_url = e.target.value
+                if (_photos[i].link_url) this.setState({ [key]: _photos })
+              }}
+            />
+          </div>
+        </div>
+        <Button
+          type="primary"
+          onClick={() => {
+            this.updateInfo()
+          }}
+        >
+          保存
+        </Button>
+      </div>
+    )
+  }
   render() {
     let { photos, photosCount, notice, noticeCount, editable, titles } = this.state
     return (
@@ -82,43 +155,15 @@ export default class ShopHome extends React.Component {
         <section className="home-section">
           <div className="home-section__title">顶部滚动图</div>
           <div className="home-photos-content">
-            {Array.from({ length: photosCount }).map((item, index) => (
-              <div className="home-photos-item" key={index}>
-                <div className="home-photos-image">
-                  {photos[index] ? (
-                    <ImagePreviewGroup images={[photos[index]]} aspectFit={false} style={null} />
-                  ) : (
-                    <span>+</span>
-                  )}
-                </div>
-                <div className="home-photos-btn">
-                  <Upload
-                    action="/newdreamer/file/upload?FileDirectorEnum=PRODUCT"
-                    method="post"
-                    maxCount={1}
-                    showUploadList={false}
-                    data={file => {
-                      return {
-                        fileDirectorEnum: 'INDEX',
-                        files: file,
-                      }
-                    }}
-                    onChange={({ file, fileList }) => {
-                      if (file.response) {
-                        let _photos = [...photos]
-                        _photos[index] = dealOssImageUrl(file.response[0])
-                        this.setState({ photos: _photos }, this.updateInfo)
-                      }
-                    }}
-                  >
-                    <Button type="primary">{photos[index] ? '替换' : '上传'}</Button>
-                  </Upload>
-                </div>
-              </div>
-            ))}
+            {Array.from({ length: photosCount }).map((_, i) => this.renderPhotoItem('photos', i))}
           </div>
         </section>
-
+        <section className="home-section">
+          <div className="home-section__title">首页弹窗图</div>
+          <div className="home-photos-content" style={{ justifyContent: 'flex-start' }}>
+            {this.renderPhotoItem('windowPhotos', 0)}
+          </div>
+        </section>
         <section className="home-section">
           <div className="home-section__title">小喇叭</div>
           {Array.from({ length: noticeCount }).map((item, index) => (
