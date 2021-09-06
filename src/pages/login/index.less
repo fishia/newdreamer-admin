@@ -1,32 +1,52 @@
-.login{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url("../../assets/images/login_bg.jpg") no-repeat;
-  -webkit-background-size: 100% 100%;
-  background-size: 100% 100%;
-  .login-box{
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    width: 500px;
-    height: 300px;
-    background: rgba(0, 0, 0, .5);
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    padding-top: 50px;
-    h2{
-      text-align: center;
-      color: #fff;
-    }
-    .ant-form-item-label > label{
-      color: #fff;
-    }
-  }
+.formWrapper{
+	width: 80%;
+	height: 100%;
+	margin: 0 auto;
+	.panel{
+		height:50%;
+		.forget {
+			color:#468EFE;
+			float: right;
+			cursor: pointer;
+			padding-left: 10px;
+		}
+		.formTitle{
+			text-align: center;		   
+			font-size: 16px;
+		    font-family: PingFangSC-Regular, PingFang SC;
+		    font-weight: 400;
+		    color: rgba(0, 0, 0, 0.65);
+		    line-height: 24px;
+		    font-weight: bold;
+		}
+		.tips{
+			position: absolute;
+			font-size:12px;
+			line-height: 18px;
+			padding-left: 11px;
+			&::before{
+				content: '';
+				width: 4px;
+				height: 4px;
+				background: #468EFE;
+				border-radius: 100%;
+				position: absolute;
+				top: 8px;
+				left:0;
+			}
+		}
+		:global{
+			.ant-btn{
+				width: 100%;
+				height: 40px;
+				font-size: 16px;
+			}
+			.ant-form-item-explain, .ant-form-item-extra{
+				min-height: 2px;
+			}
+			.ant-form-item-control-input-content .ant-input-affix-wrapper{
+				padding:8px 11px;
+			}
+		}
+	}
 }

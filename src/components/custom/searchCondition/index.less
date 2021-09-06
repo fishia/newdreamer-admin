@@ -1,0 +1,23 @@
+.searchForm {
+    padding: 0 0 0 5px;
+    position: relative;
+    z-index: 1;
+
+    .rightBtn {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    :global {
+        .ant-form-item-label {
+            &::after {
+                content: ':';
+            }
+        }
+
+        .ant-form-item-control {
+            margin-right: 15px;
+            width: auto !important;
+        }
+    }
+}

@@ -1,0 +1,20 @@
+@import (reference) "~@/assets/styles/config";
+
+@arrowWidth: @barHeight;
+@homeWidth: @barHeight;
+@buttonWidth: 100px;
+
+.bar{
+    position: relative;
+    width:100%;
+    height: @barHeight;
+    line-height: @barHeight;
+    padding: 0 30px;
+    font-size: 14px;
+    span{
+      color: rgba(0, 0, 0, 0.45);
+    }
+    .highlight{
+        color: @titleColor!important;
+    }
+}

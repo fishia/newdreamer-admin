@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>New Dreamer</title>
+    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+  </head>
+  <script>
+    const e = window.onerror
+    window.onerror = function (err) {
+      var errList = [
+        'ResizeObserver loop completed with undelivered notifications.',
+        'ResizeObserver loop limit exceeded',
+      ]
+      if (errList.indexOf(err) > -1) {
+        console.log('Ignored: ' + errList[errList.indexOf(err)])
+        return false
+      } else {
+        return e(...arguments)
+      }
+    }
+  </script>
+  <body>
+    <div id="root"></div>
+
+    <script src="./resources/js/gtmd-ie.min.js"></script>
+    <script src="./resources/js/polyfill.min.js"></script>
+  </body>
+</html>

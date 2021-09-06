@@ -1,0 +1,170 @@
+@import (reference) "~@/assets/styles/config";
+
+.theme(
+    /*整体背景色*/
+    @bg-color: #001529;
+    /*下拉菜单的正常字体颜色*/
+    @submenu-color: #CECECE;
+    // 下拉菜单展开字体颜色
+    @submenu-open-color-active: #CECECE;
+    /*节点字颜色*/
+    @menu-item-color: #CECECE;
+    /*节点字选中颜色*/
+    @menu-item-color-select: rgba(255, 255, 255, 1);
+    /*菜单高度*/
+    @menu-item-line-height: 50px;
+    /* 节点字选中左侧柱状条背景颜色 */
+    @menu-item-left-bg-color-select: #468EFE;
+    // 头部文字默认颜色
+    @head-text-color: rgba(0, 0, 0, 0.7);
+    //菜单文字大小
+    @menu-item-size: 14px;
+
+) {
+    .head_text {
+        color: @head-text-color;
+    }
+
+    .normal_omit {
+        background-color: @bg-color;
+        transition: width .24s;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        overflow: hidden;
+        padding-top: @headHeight;
+        z-index: 2;
+        -webkit-touch-callout: none;
+        /* iOS Safari */
+        -webkit-user-select: none;
+        /* Chrome/Safari/Opera */
+        -khtml-user-select: none;
+        /* Konqueror */
+        -moz-user-select: none;
+        /* Firefox */
+        -ms-user-select: none;
+        /* Internet Explorer/Edge */
+        user-select: none;
+
+        /* Non-prefixed version, currently
+        not supported by any browser */
+        .menuTitle {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            text-align: center;
+            line-height: @headHeight - 1px;
+            height: @headHeight - 1px;
+            background-color: @bg-color;
+        }
+
+        .leave {
+            background: url('@assets/images/menulogo.png') no-repeat center top #173c5e;
+            background-size: contain;
+
+            i {
+                font-size: 20px;
+                color: #fff;
+                position: absolute;
+                top: 14px;
+                right: 2px;
+                cursor: pointer;
+            }
+        }
+
+        .enter {
+            img {
+                width: 50%;
+                height: 50%;
+                vertical-align: middle;
+            }
+
+            i {
+                font-size: 20px;
+                color: #fff;
+                vertical-align: middle;
+                cursor: pointer;
+            }
+        }
+
+        .menuContent {
+            height: 100%;
+            transition-property: all;
+            transition-duration: .24s;
+            /*三角箭头的颜色*/
+            scrollbar-arrow-color: #FFF;
+            /*滚动条滑块按钮的颜色*/
+            scrollbar-face-color: #404040;
+            /*滚动条整体颜色*/
+            scrollbar-highlight-color: #404040;
+            /*滚动条阴影*/
+            scrollbar-shadow-color: #999;
+            /*滚动条轨道颜色*/
+            scrollbar-track-color: #404040;
+
+            &::-webkit-scrollbar {
+                width: 5px;
+                background-color: hsla(0, 0%, 76%, 0.07);
+            }
+
+            &::-webkit-scrollbar-thumb {
+                border-radius: 3px;
+                -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, .3);
+                background-color: rgba(193, 193, 193, .5);
+            }
+
+        }
+
+        /*矫正收起时,icon对齐*/
+        .adjust {
+            :global {
+                .ant-menu-submenu-title {
+                    padding: 0 22px !important;
+                }
+            }
+        }
+
+        :global {
+            .ant-menu-dark .ant-menu-inline.ant-menu-sub {
+                // background: transparent;
+                background: @bg-color;
+            }
+
+            .ant-menu-item {
+                color: @menu-item-color  !important;
+                font-size: @menu-item-size;
+            }
+
+            .ant-menu-submenu-title {
+                height: @menu-item-line-height  !important;
+                line-height: @menu-item-line-height  !important;
+                font-size: @menu-item-size;
+            }
+
+            .ant-menu-item-selected {
+                color: @menu-item-color-select  !important;
+                background-color: @menu-item-left-bg-color-select  !important;
+            }
+
+            .ant-menu-submenu-title,
+            .ant-menu-sub {
+                color: @submenu-color  !important;
+            }
+
+            .ant-menu-submenu-open {
+
+                &>.ant-menu-submenu-title,
+                &>.ant-menu-sub {
+                    color: @submenu-open-color-active  !important;
+                    background: #1E1E2D;
+                }
+            }
+        }
+    }
+}
+
+.themeA {
+    .theme()
+}
