@@ -282,7 +282,7 @@ export default class Index extends React.Component {
                 onClick={() => {
                   //获取二维码
                   getQrcode({
-                    scene: record.id,
+                    scene: record.couponCode,
                     width: 120,
                     path: '/pages/my/coupon/receiveCoupon/receiveCoupon',
                   }).then(res => {
