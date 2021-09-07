@@ -1,4 +1,11 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react'
+import React, {
+  useState,
+  useRef,
+  useCallback,
+  useEffect,
+  forwardRef,
+  useImperativeHandle,
+} from 'react'
 import _ from 'lodash'
 import styles from '@/pages/orderManage/components/index.less'
 import { Tabs, Badge, message } from 'antd'
@@ -7,7 +14,7 @@ import Table from './table'
 import { productInMakingRemote } from '@/services/baseRemote'
 const TabPane = Tabs.TabPane
 
-export default props => {
+export default forwardRef((props, ref) => {
   const [current, setCurrent] = useState('TO_BE_CONFIRMED')
   const [mode, setMode] = useState() //修改\填写运单号
   const [countObj, setCountObj] = useState({
@@ -16,7 +23,13 @@ export default props => {
     COMPLETED: 0,
   })
   const myRef = useRef()
-
+  useImperativeHandle(
+    ref,
+    () => {
+      return { status: current }
+    },
+    [current]
+  )
   const getCount = useCallback(() => {
     productInMakingRemote
       .countStatus({ classification: props.classification })
@@ -179,4 +192,4 @@ export default props => {
       </Tabs>
     </div>
   )
-}
+})

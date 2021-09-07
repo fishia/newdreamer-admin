@@ -1,19 +1,6 @@
-import { Input } from 'antd'
-import { enumSuperset } from '@/utils/contants'
-import { VolumerSelect, SupplierSelect, MySelect } from '@/components/custom/select'
-const { TextArea } = Input
+import { SupplierSelect } from '@/components/custom/select'
 
-export const tableFields = [
-  // [
-  //   '客户名称',
-  //   'customerName',
-  //   {
-  //     width: 100,
-  //     filter: {
-  //       isunions: true,
-  //     },
-  //   },
-  // ],
+export const tableFields = status => [
   [
     '供应商货号',
     'articleNumber',
@@ -26,6 +13,7 @@ export const tableFields = [
     'supplierName',
     {
       width: 150,
+      autoHide: status === 'TO_BE_DELIVERED',
       filter: {
         isunions: true,
       },
@@ -70,6 +58,7 @@ export const tableFields = [
     'customerName',
     {
       width: 80,
+      autoHide: status === 'TO_BE_CONFIRMED',
       filter: {
         isunions: true,
       },
@@ -80,6 +69,7 @@ export const tableFields = [
     'phoneNumber',
     {
       width: 120,
+      autoHide: status === 'TO_BE_CONFIRMED',
       filter: {
         isunions: true,
       },
@@ -90,6 +80,7 @@ export const tableFields = [
     'address',
     {
       width: 100,
+      autoHide: status === 'TO_BE_CONFIRMED',
     },
   ],
   [
@@ -104,6 +95,7 @@ export const tableFields = [
     'shipmentId',
     {
       width: 100,
+      autoHide: status === 'TO_BE_DELIVERED',
     },
   ],
 ]

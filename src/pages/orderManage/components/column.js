@@ -11,6 +11,7 @@ export const tableFields = [
     'customerName',
     {
       width: 100,
+      autoHide: true,
       filter: {
         isunions: true,
       },
@@ -150,6 +151,7 @@ export const tableFields = [
     'expectedUsingTime',
     {
       width: 150,
+      autoHide: true,
       render: text => (text ? moment(text).format('YYYY-MM-DD') : ''),
       form: {
         type: 'datePicker',
@@ -161,6 +163,7 @@ export const tableFields = [
     'latestSendTime',
     {
       width: 150,
+      autoHide: true,
       render: text => (text ? moment(text).format('YYYY-MM-DD') : ''),
       form: {
         type: 'datePicker',
