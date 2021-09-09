@@ -18,17 +18,20 @@ export const tableFields = [
     },
   ],
   [
-    '可预约',
+    '有效',
     'enabled',
     {
       render: (text, record) => {
         return <Switch checked={text} disabled />
       },
-      filter: {
-        elem: <MySelect datasource={enumSuperset['enabled']} />,
-      },
-      form: {
-        type: 'switch',
+    },
+  ],
+  [
+    '可预约',
+    'reservationAvailable',
+    {
+      render: (text, record) => {
+        return <Switch checked={text} disabled />
       },
     },
   ],
@@ -48,14 +51,28 @@ export const campusFields = [
     '校区地址',
     'address',
     {
+      width: 250,
+      ellipsis: true,
       form: {
         rules: [{ required: true }],
       },
     },
   ],
   [
-    '可预约',
+    '有效',
     'enabled',
+    {
+      render: (text, record) => {
+        return <Switch checked={text} disabled />
+      },
+      form: {
+        type: 'switch',
+      },
+    },
+  ],
+  [
+    '可预约',
+    'reservationAvailable',
     {
       render: (text, record) => {
         return <Switch checked={text} disabled />

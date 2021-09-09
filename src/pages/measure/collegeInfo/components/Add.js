@@ -53,6 +53,11 @@ function Add(props, ref) {
               <Switch />
             </Form.Item>
           </Col>
+          <Col span={12}>
+            <Form.Item name="reservationAvailable" label="可预约" valuePropName="checked">
+              <Switch />
+            </Form.Item>
+          </Col>
           <Col span={24}>
             <Form.Item
               noStyle

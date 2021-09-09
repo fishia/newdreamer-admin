@@ -18,6 +18,7 @@ export default forwardRef((props, ref) => {
     parseColumns,
     otherTableProps: {
       pagination: false,
+      scroll: {},
     },
     parseFormData: data => ({ ...data, parentId }),
     getTableData: () => {
