@@ -5,7 +5,7 @@ import { tableFields } from '../components/column'
 
 export default props => {
   let myref = useRef()
-  const [columns, setColumns] = []
+  const [columns, setColumns] = useState([])
   setTimeout(() => {
     if (myref.current) {
       let cols = [...tableFields(myref.current.status)]

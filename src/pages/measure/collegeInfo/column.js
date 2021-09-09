@@ -7,7 +7,6 @@ export const tableFields = [
     '高校编号',
     'code',
     {
-      filter: {},
       form: {},
     },
   ],
@@ -19,7 +18,7 @@ export const tableFields = [
     },
   ],
   [
-    '有效',
+    '可预约',
     'enabled',
     {
       render: (text, record) => {
@@ -55,7 +54,7 @@ export const campusFields = [
     },
   ],
   [
-    '有效',
+    '可预约',
     'enabled',
     {
       render: (text, record) => {

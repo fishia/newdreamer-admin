@@ -6,7 +6,8 @@ import useFormModal from '@/hooks/useFormModal'
 import Table from '@/components/custom/table'
 import Add from './components/Add'
 import Edit from './components/Add'
-import { tableFields, parseColumns } from './column'
+import { tableFields } from './column'
+import { renderSearchFields } from '@/utils/util'
 
 export default props => {
   const myRef = useRef()
@@ -78,6 +79,8 @@ export default props => {
   })
 
   const TableProps = {
+    initialValues: { enabled: 'true' },
+    searchFields: [...renderSearchFields(columns)],
     actionBtnProps,
     otherTableProps: {
       columns,
