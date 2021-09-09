@@ -87,6 +87,14 @@ export default props => {
     editFormModal,
     title: '款式管理',
     actionText: '款式细节',
+    resetFormData: item => ({
+      ...item,
+      optionDTOS: item.optionDTOS.map(o => ({
+        ...o,
+        id: '',
+        imagesDTOList: o.imagesDTOList.map(k => ({ ...k, id: '' })),
+      })),
+    }),
   }
   return (
     <Table {...TableProps} ref={myRef}>
