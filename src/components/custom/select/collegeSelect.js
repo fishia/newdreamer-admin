@@ -6,7 +6,7 @@ export default forwardRef((props, ref) => {
   const [list, setList] = useState([])
 
   const getlist = useCallback(async () => {
-    collegeInfoRemote.list().then(({ data }) => {
+    collegeInfoRemote.list({ enabled: true }).then(({ data }) => {
       setList(
         data
           .filter(item => item.college)
