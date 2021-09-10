@@ -176,7 +176,8 @@ function Add(props, ref) {
                                             <NdUpload
                                               {...{
                                                 files:
-                                                  (formData['optionDTOS'] &&
+                                                  (formData &&
+                                                    formData['optionDTOS'] &&
                                                     JKUtil.getObjProperty(
                                                       JKUtil.getObjProperty(
                                                         formData['optionDTOS'][i],
