@@ -7,7 +7,7 @@ export default forwardRef((props, ref) => {
 
   const getlist = useCallback(async () => {
     styleRemote.list().then(({ data }) => {
-      setList(data.map(({ id, name }) => ({ label: name, value: id.toString() })))
+      setList(data.map(({ id, name }) => ({ label: name, value: id })))
     })
   }, [])
 

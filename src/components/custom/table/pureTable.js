@@ -114,7 +114,7 @@ function Table(props, ref) {
   const addFormModal = useFormModal({
     modal: {
       title: `${title}-新增`,
-      width: 900,
+      width: 1000,
       onOk: params => {
         //不受接口控制，需要保存每条数据的唯一key,key前端使用
         let newArr = [...tableData]
@@ -131,7 +131,7 @@ function Table(props, ref) {
   const editFormModal = useFormModal({
     modal: {
       title: `${title}-编辑`,
-      width: 900,
+      width: 1000,
       onOk: params => {
         let newArr = tableData.map(item => {
           if (item.key === record.key) {
@@ -157,7 +157,7 @@ function Table(props, ref) {
   const viewFormModal = useFormModal({
     modal: {
       title: `${title}-查看`,
-      width: 900,
+      width: 1000,
       footer: null,
       onCancel: () => {
         viewFormModal.setVisible(false)

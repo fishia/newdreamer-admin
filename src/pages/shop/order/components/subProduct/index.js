@@ -59,7 +59,7 @@ export default forwardRef((props, ref) => {
     resetKey: 'subCode',
   }
   return (
-    <div style={{ width: '825px', height: '400px' }}>
+    <div style={{ width: '922px', height: '400px' }}>
       <PureTable {...PureTableProps} ref={myRef} />
     </div>
   )

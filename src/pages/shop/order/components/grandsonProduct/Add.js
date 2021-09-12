@@ -58,7 +58,15 @@ function Add(props, ref) {
               {({ getFieldValue }) =>
                 getFieldValue('classificationName') === '个性化定制' ? (
                   <Form.Item name="fabricClassification" label="适用面料">
-                    <FabricTypeSelect {...props} />
+                    <FabricTypeSelect
+                      {...props}
+                      onChange={V => {
+                        setFieldsValue({
+                          fabricClassification: V,
+                          fabricId: '',
+                        })
+                      }}
+                    />
                   </Form.Item>
                 ) : null
               }
@@ -68,7 +76,7 @@ function Add(props, ref) {
             <Form.Item noStyle {...formItemLayout} shouldUpdate>
               {({ getFieldValue }) =>
                 getFieldValue('classificationName') === '个性化定制' ? (
-                  <Form.Item name="styleType" label="适用款式">
+                  <Form.Item name="styleId" label="适用款式">
                     <StyleSelect {...props} />
                   </Form.Item>
                 ) : null
@@ -76,7 +84,13 @@ function Add(props, ref) {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item noStyle {...formItemLayout} shouldUpdate>
+            <Form.Item
+              noStyle
+              {...formItemLayout}
+              shouldUpdate={(prevValues, currentValues) =>
+                prevValues.fabricClassification !== currentValues.fabricClassification
+              }
+            >
               {({ getFieldValue }) =>
                 getFieldValue('classificationName') === '个性化定制' &&
                 getFieldValue('fabricClassification') ? (

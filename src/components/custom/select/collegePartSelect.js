@@ -6,7 +6,7 @@ export default forwardRef((props, ref) => {
   const [list, setList] = useState([])
 
   const getlist = useCallback(async () => {
-    collegeInfoRemote.list({ parentId: props.parentId }).then(({ data }) => {
+    collegeInfoRemote.list({ parentId: props.parentId, enabled: true }).then(({ data }) => {
       setList(
         data.map(item => ({
           label: item.part,

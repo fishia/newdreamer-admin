@@ -1,6 +1,7 @@
 import React from 'react'
 import RenderMenu from '../components/renderMenu'
 import { tableFields } from '../components/column'
+import { ShowVolumeInfo } from '@/components/custom/Button'
 
 export default props => {
   let columns = [...tableFields]

@@ -271,7 +271,7 @@ export const grandsonTableFields = [
     'ND单品名称',
     'name',
     {
-      width: 150,
+      width: 160,
       form: { disabled: true, rules: [{ required: true }] },
     },
   ],

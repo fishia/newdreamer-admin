@@ -67,6 +67,7 @@ export default forwardRef((props, ref) => {
     viewFormModalProps: {
       title: `${document.title}${title ? `-${title}` : ''}-${statusName}`,
       classification,
+      width: 1200,
     },
     parseColumns,
     parseFormData: data => parseFormData({ ...data, status, classification }),

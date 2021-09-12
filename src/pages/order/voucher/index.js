@@ -29,7 +29,7 @@ export default props => {
   const viewFormModal = {
     modalProps: {
       title: `${document.title}-${record.order_Id}`,
-      width: 1200,
+      width: 1400,
       visible,
       footer: null,
       onCancel: () => {

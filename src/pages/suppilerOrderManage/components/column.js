@@ -95,7 +95,7 @@ export const tableFields = status => [
     'shipmentId',
     {
       width: 100,
-      autoHide: status === 'TO_BE_DELIVERED',
+      autoHide: ['TO_BE_DELIVERED', 'TO_BE_CONFIRMED'].indexOf(status) > -1,
     },
   ],
 ]

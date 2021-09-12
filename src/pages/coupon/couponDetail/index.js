@@ -1,6 +1,8 @@
 import React from 'react'
 import { Button, Input, Table, Select } from 'antd'
-import { queryAllCustomerCoupon } from '../../../api/coupon'
+import { queryAllCustomerCoupon, getDetailById } from '../../../api/coupon'
+import { tableFields } from '@/pages/order/voucher/column'
+import View from '@/pages/order/voucher/components/view'
 import './index.less'
 import moment from 'moment'
 const { Option } = Select
@@ -18,6 +20,8 @@ export default class Index extends React.Component {
         page: 1,
         size: 10,
       },
+      record: {},
+      visible: false,
       tableSize: 0,
       couponDetailList: [],
     }
@@ -105,7 +109,7 @@ export default class Index extends React.Component {
   }
 
   render() {
-    const { couponDetailList, pageInfo, tableSize } = this.state
+    const { couponDetailList, pageInfo, tableSize, record, visible } = this.state
     const columns = [
       //  缺失 优惠券明细编码、销售数量、作废时间、作废原因
       { title: '优惠券明细编码', dataIndex: 'detailCode', width: 180, align: 'center' },
@@ -133,10 +137,47 @@ export default class Index extends React.Component {
         render: value => <span>{value ? '是' : '否'}</span>,
         align: 'center',
       },
-      { title: '订单编号', dataIndex: 'order_Id', width: 300, align: 'center' },
+      {
+        title: '订单编号',
+        dataIndex: 'order_Id',
+        width: 300,
+        align: 'center',
+        render: (text, record) => (
+          <span
+            onClick={() => {
+              //TODO:打开详情
+              getDetailById(text).then(res => {
+                if (res.success) {
+                  this.setState({
+                    record: {
+                      ...res.data,
+                      styleJson: res.data.styleJson && JSON.parse(res.data.styleJson),
+                    },
+                    visible: true,
+                  })
+                }
+              })
+            }}
+            className="primaryBtn"
+          >
+            {text}
+          </span>
+        ),
+      },
       { title: '实际销售金额', dataIndex: 'total_Received_Amount', width: 300, align: 'center' },
-      { title: '优惠金额', dataIndex: 'totalDiscountAmount', width: 300, align: 'center' },
-      { title: '销售数量', dataIndex: 'totalDiscountAmount', width: 300, align: 'center' },
+      {
+        title: '优惠金额',
+        dataIndex: 'totalDiscountAmount',
+        width: 300,
+        align: 'center',
+        render: text => (text ? text.toFixed(2) : null),
+      },
+      {
+        title: '销售数量',
+        dataIndex: 'totalDiscountAmount',
+        width: 300,
+        align: 'center',
+      },
       {
         title: '是否失效',
         dataIndex: 'enable',
@@ -145,7 +186,22 @@ export default class Index extends React.Component {
         align: 'center',
       },
     ]
-
+    // 详情
+    const viewFormModal = {
+      modalProps: {
+        title: `订单信息-${record.order_Id}`,
+        width: 1400,
+        visible,
+        footer: null,
+        onCancel: () => {
+          this.setState({
+            visible: false,
+          })
+        },
+      },
+      record,
+      formList: tableFields,
+    }
     return (
       <div className="couponDetailed">
         <div className="search-box">
@@ -219,6 +275,7 @@ export default class Index extends React.Component {
             onChange: this.onPageChange,
           }}
         />
+        {visible && <View {...viewFormModal} />}
       </div>
     )
   }

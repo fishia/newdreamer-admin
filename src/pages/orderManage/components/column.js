@@ -34,7 +34,6 @@ export const tableFields = [
         shouldUpdate: true,
         children: ({ disabled, desp }) => <CollegePartSelect parentId={desp} disabled={disabled} />,
         children: (props, { setFieldsValue, getFieldValue }) => {
-          console.log(getFieldValue('volumerName'))
           return (
             <ReceiverAutoCompolete
               {...props}

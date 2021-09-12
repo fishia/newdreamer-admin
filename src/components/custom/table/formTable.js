@@ -73,7 +73,7 @@ export default forwardRef((props, ref) => {
   const addFormModal = useFormModal({
     modal: {
       title: `${title}-新增`,
-      width: 900,
+      width: 1000,
       onCancel: () => {
         addFormModal.setVisible(false)
         addFormModal.setFormData({})
@@ -99,7 +99,7 @@ export default forwardRef((props, ref) => {
   const editFormModal = useFormModal({
     modal: {
       title: `${title}-编辑`,
-      width: 900,
+      width: 1000,
       onOk: params => {
         return remote
           .saveOrUpdate({
@@ -123,7 +123,7 @@ export default forwardRef((props, ref) => {
   const viewFormModal = useFormModal({
     modal: {
       title: `${title}-查看`,
-      width: 900,
+      width: 1000,
       footer: null,
       onCancel: () => {
         viewFormModal.setVisible(false)

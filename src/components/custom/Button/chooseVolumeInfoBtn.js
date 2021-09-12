@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
-import { Button, Space } from 'antd'
+import { Button, Space, message } from 'antd'
 import { ReloadOutlined } from '@ant-design/icons'
 import VolumeModal from '@/components/volumeModal'
 import { VolumeInput } from '@/components/custom/form'
 import { orderInfoRemote } from '@/services/baseRemote'
+import { requestCustomeVolumeUpdate } from '@/pages/customer/volume/action'
 
 //新增、编辑、查看量体信息
 export default props => {
@@ -25,9 +26,15 @@ export default props => {
     unEditable,
     showCustomized: true,
     submit: (_info, sizeInfo) => {
-      onChange(_info, sizeInfo)
-      setVolumeInputVisible(false)
-      setVisible(false)
+      requestCustomeVolumeUpdate(_info)
+        .then(() => {
+          message.info('修改成功')
+        })
+        .then(() => {
+          onChange(_info, sizeInfo)
+          setVolumeInputVisible(false)
+          setVisible(false)
+        })
     },
   }
   return (

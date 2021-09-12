@@ -27,7 +27,7 @@ export default props => {
           },
         },
       ])
-      columns.splice(3, 0, [
+      cols.splice(3, 0, [
         '款式及面料',
         'styleJson',
         {
