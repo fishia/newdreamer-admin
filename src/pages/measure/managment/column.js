@@ -69,7 +69,7 @@ export const tableFields = [
         type: 'other',
         name: 'part_id',
         desp: 'college_id',
-        shouldUpdate: (prevValues, curValues) => prevValues.college_id !== curValues.college_id,
+        shouldUpdate: true,
         children: ({ disabled, desp }) => <CollegePartSelect parentId={desp} disabled={disabled} />,
         rules: [{ required: true }],
       },

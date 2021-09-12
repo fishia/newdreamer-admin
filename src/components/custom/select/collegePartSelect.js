@@ -15,7 +15,7 @@ export default forwardRef((props, ref) => {
         }))
       )
     })
-  }, [])
+  }, [props.parentId])
 
   useEffect(() => {
     getlist()
