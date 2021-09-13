@@ -30,7 +30,13 @@ export default props => {
     {
       width: 150,
       render: (text, record) => {
-        return <StylesAndFabricsBtn record={record.styleJson} title={record.code} />
+        return (
+          <StylesAndFabricsBtn
+            record={record.styleJson}
+            title={record.code}
+            formData={{ productType: record.productType }}
+          />
+        )
       },
     },
   ])
