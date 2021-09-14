@@ -192,7 +192,7 @@ export default props => {
         </table>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={{ width: 'calc(100% - 140px)' }}>
-            <table border={1} className={styles.tableWrapper}>
+            <table border={1} className={styles.tableWrapper} style={{ textAlign: 'center' }}>
               <tr>
                 <th></th>
                 <th>净尺寸</th>
