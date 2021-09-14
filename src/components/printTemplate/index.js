@@ -74,10 +74,12 @@ export default props => {
       {
         label: '版型',
         key: 'pattern',
+        value: styleJson?.pattern,
       },
       {
         label: '面料编号',
         key: 'fabricId',
+        value: styleJson?.code,
       },
     ],
     [
@@ -184,7 +186,7 @@ export default props => {
                   colSpan={th.span || 1}
                   style={{ color: '#ff4d4f', fontSize: '16px' }}
                 >
-                  {record[th.key]}
+                  {th.value || record[th.key]}
                 </th>,
               ])}
             </tr>
