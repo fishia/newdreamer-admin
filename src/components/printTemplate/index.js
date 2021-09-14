@@ -158,7 +158,7 @@ export default props => {
       <Button
         className={styles.btn}
         type="primary"
-        onOk={() => {
+        onClick={() => {
           document.title = `${detail.customer_Name}订单信息`
           window.document.body.innerHTML = window.document.getElementById('printBody').innerHTML
           window.print()
@@ -182,7 +182,7 @@ export default props => {
                 <th
                   key="value"
                   colSpan={th.span || 1}
-                  style={{ color: '#ff4d4f', fontSize: '18px' }}
+                  style={{ color: '#ff4d4f', fontSize: '16px' }}
                 >
                   {record[th.key]}
                 </th>,
@@ -210,7 +210,7 @@ export default props => {
                         <td
                           key="value"
                           colSpan={td.span}
-                          style={{ color: '#ff4d4f', fontSize: '18px' }}
+                          style={{ color: '#ff4d4f', fontSize: '16px' }}
                         >
                           {sizeDTO[td.key]}
                         </td>,
@@ -218,10 +218,10 @@ export default props => {
                     } else {
                       return [
                         <td key="1">{td.title}</td>,
-                        <td key="2" style={{ color: '#ff4d4f', fontSize: '18px' }}>
+                        <td key="2" style={{ color: '#ff4d4f', fontSize: '16px' }}>
                           {detail[td.key]}
                         </td>,
-                        <td key="3" style={{ color: '#ff4d4f', fontSize: '18px' }}>
+                        <td key="3" style={{ color: '#ff4d4f', fontSize: '16px' }}>
                           {sizeDTO[td.key]}
                         </td>,
                       ]
@@ -272,7 +272,7 @@ export default props => {
                     <td key="label">{td[0]}</td>,
                     <td
                       key="value"
-                      style={{ color: '#ff4d4f', fontSize: '18px' }}
+                      style={{ color: '#ff4d4f', fontSize: '16px' }}
                       colSpan={td[2] || 1}
                     >
                       {td[1]}
