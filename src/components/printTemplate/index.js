@@ -141,9 +141,9 @@ export default props => {
       { title: '胸高', key: 'chest_Height' },
     ],
     [{ title: '肩型', key: 'volume_Data_Remark', span: 5 }],
-    [{ title: '肚型', key: 'volume_Data_Remark', span: 5 }],
-    [{ title: '胸背部', key: 'volume_Data_Remark', span: 5 }],
-    [{ title: '臀部', key: 'volume_Data_Remark', span: 5 }],
+    [{ title: '肚型', key: 'belly_Shape', span: 5 }],
+    [{ title: '胸背部', key: 'chest_Back', span: 5 }],
+    [{ title: '臀部', key: 'buttocks', span: 5 }],
     [{ title: '成衣备注', key: 'volume_Data_Remark', span: 5 }],
   ]
   return (
@@ -192,7 +192,7 @@ export default props => {
         </table>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={{ width: 'calc(100% - 140px)' }}>
-            <table border={1} className={styles.tableWrapper}>
+            <table border={1} className={styles.tableWrapper} style={{ textAlign: 'center' }}>
               <tr>
                 <th></th>
                 <th>净尺寸</th>
@@ -238,7 +238,7 @@ export default props => {
                   alt="figure"
                   className="figure-image-item"
                   src={detail.body_Shape_Front}
-                  style={{ width: '100%', height: '100%' }}
+                  style={{ width: '100%', height: '167px' }}
                 />
               </div>
             )}
@@ -248,7 +248,7 @@ export default props => {
                   alt="figure"
                   className="figure-image-item"
                   src={detail.body_Shape_Side}
-                  style={{ width: '100%', height: '100%' }}
+                  style={{ width: '100%', height: '167px' }}
                 />
               </div>
             )}
@@ -258,7 +258,7 @@ export default props => {
                   alt="figure"
                   className="figure-image-item"
                   src={detail.body_Shape_Back}
-                  style={{ width: '100%', height: '100%' }}
+                  style={{ width: '100%', height: '167px' }}
                 />
               </div>
             )}

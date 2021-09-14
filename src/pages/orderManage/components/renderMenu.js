@@ -126,12 +126,29 @@ export default props => {
       tab: '待发货',
       key: 'TO_BE_DELIVERED',
       props: {
-        actionWidth: 0,
+        actionWidth: classification === 'CUSTOMIZED_PRODUCT' ? 100 : 0,
         actionBtnProps: {
           showAdd: false,
           showDelete: false,
           showEdit: false,
           showCopy: false,
+        },
+        otherTableProps: {
+          otherActionBtns: (text, record) => {
+            let btns = [],
+              printBtn = {
+                name: '去打印',
+                onClick() {
+                  setRecord({
+                    ...record,
+                    receivingInfo: `${record.address}${record.volumerName}${record.phoneNumber}`,
+                  })
+                  setPrintVisible(true)
+                },
+              }
+            if (classification === 'CUSTOMIZED_PRODUCT') btns.push(printBtn)
+            return btns
+          },
         },
       },
     },
@@ -140,12 +157,29 @@ export default props => {
       key: 'COMPLETED',
       props: {
         actionBtnProps: {
-          actionWidth: 0,
+          actionWidth: classification === 'CUSTOMIZED_PRODUCT' ? 100 : 0,
           showAdd: false,
           showDelete: false,
           showEdit: false,
           showCopy: false,
           showExport: true,
+        },
+        otherTableProps: {
+          otherActionBtns: (text, record) => {
+            let btns = [],
+              printBtn = {
+                name: '去打印',
+                onClick() {
+                  setRecord({
+                    ...record,
+                    receivingInfo: `${record.address}${record.volumerName}${record.phoneNumber}`,
+                  })
+                  setPrintVisible(true)
+                },
+              }
+            if (classification === 'CUSTOMIZED_PRODUCT') btns.push(printBtn)
+            return btns
+          },
         },
       },
     },
