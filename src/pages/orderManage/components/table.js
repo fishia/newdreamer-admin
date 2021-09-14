@@ -5,7 +5,6 @@ import FormTable from '@/components/custom/table/formTable'
 import { parseColumns, parseFormData } from './column'
 import Add from './Add'
 import Edit from './Add'
-import { JKUtil } from '@/utils/util'
 
 export default forwardRef((props, ref) => {
   const { status, statusName, classification, columns } = props

@@ -4,10 +4,14 @@ import styles from './index.less'
 import { Tabs, Badge, message } from 'antd'
 import { productInMakingRemote } from '@/services/baseRemote'
 import Table from './table'
+import PrintTemplate from '@/components/printTemplate'
 const TabPane = Tabs.TabPane
 
 export default props => {
+  const { classification } = props
   const [current, setCurrent] = useState('TO_BE_PREPARED')
+  const [printVisible, setPrintVisible] = useState(false)
+  const [record, setRecord] = useState({})
   const [countObj, setCountObj] = useState({
     TO_BE_PREPARED: 0,
     TO_BE_CONFIRMED: 0,
@@ -16,15 +20,13 @@ export default props => {
   })
   const myRef = useRef()
   const getCount = useCallback(() => {
-    productInMakingRemote
-      .countStatus({ classification: props.classification })
-      .then(({ status, data }) => {
-        if (status) {
-          if (JSON.stringify(data) !== '{}') {
-            setCountObj(data)
-          }
+    productInMakingRemote.countStatus({ classification }).then(({ status, data }) => {
+      if (status) {
+        if (JSON.stringify(data) !== '{}') {
+          setCountObj(data)
         }
-      })
+      }
+    })
   }, [])
   useEffect(() => {
     getCount()
@@ -36,27 +38,39 @@ export default props => {
       count: 0,
       key: 'TO_BE_PREPARED',
       props: {
-        actionWidth: 200,
+        actionWidth: classification === 'CUSTOMIZED_PRODUCT' ? 260 : 200,
         otherTableProps: {
           otherActionBtns: (text, record) => {
-            return [
-              {
-                name: '制单',
-                popconfirm: {
-                  title: '是否确认制单？',
-                  confirm() {
-                    //TODO:制单
-                    productInMakingRemote.updateStatus({ id: record.id }).then(({ status }) => {
-                      if (status) {
-                        myRef.current?.submit()
-                        getCount()
-                        message.success('制单成功')
-                      }
-                    })
+            let btns = [
+                {
+                  name: '制单',
+                  popconfirm: {
+                    title: '是否确认制单？',
+                    confirm() {
+                      //TODO:制单
+                      productInMakingRemote.updateStatus({ id: record.id }).then(({ status }) => {
+                        if (status) {
+                          myRef.current?.submit()
+                          getCount()
+                          message.success('制单成功')
+                        }
+                      })
+                    },
                   },
                 },
-              },
-            ]
+              ],
+              printBtn = {
+                name: '去打印',
+                onClick() {
+                  setRecord({
+                    ...record,
+                    receivingInfo: `${record.address}${record.volumerName}${record.phoneNumber}`,
+                  })
+                  setPrintVisible(true)
+                },
+              }
+            if (classification === 'CUSTOMIZED_PRODUCT') btns.push(printBtn)
+            return btns
           },
         },
       },
@@ -65,7 +79,7 @@ export default props => {
       tab: '待确认',
       key: 'TO_BE_CONFIRMED',
       props: {
-        actionWidth: 100,
+        actionWidth: classification === 'CUSTOMIZED_PRODUCT' ? 130 : 100,
         actionBtnProps: {
           showAdd: false,
           showDelete: false,
@@ -74,24 +88,36 @@ export default props => {
         },
         otherTableProps: {
           otherActionBtns: (text, record) => {
-            return [
-              {
-                name: '撤销',
-                popconfirm: {
-                  title: '是否确认撤销？',
-                  confirm() {
-                    //TODO:撤销
-                    productInMakingRemote.cancel({ id: record.id }).then(({ status }) => {
-                      if (status) {
-                        myRef.current?.submit()
-                        getCount()
-                        message.success('撤销成功')
-                      }
-                    })
+            let btns = [
+                {
+                  name: '撤销',
+                  popconfirm: {
+                    title: '是否确认撤销？',
+                    confirm() {
+                      //TODO:撤销
+                      productInMakingRemote.cancel({ id: record.id }).then(({ status }) => {
+                        if (status) {
+                          myRef.current?.submit()
+                          getCount()
+                          message.success('撤销成功')
+                        }
+                      })
+                    },
                   },
                 },
-              },
-            ]
+              ],
+              printBtn = {
+                name: '去打印',
+                onClick() {
+                  setRecord({
+                    ...record,
+                    receivingInfo: `${record.address}${record.volumerName}${record.phoneNumber}`,
+                  })
+                  setPrintVisible(true)
+                },
+              }
+            if (classification === 'CUSTOMIZED_PRODUCT') btns.push(printBtn)
+            return btns
           },
         },
       },
@@ -148,6 +174,15 @@ export default props => {
           </TabPane>
         ))}
       </Tabs>
+      {printVisible && (
+        <PrintTemplate
+          record={record}
+          visible={printVisible}
+          onCancel={() => {
+            setPrintVisible(false)
+          }}
+        />
+      )}
     </div>
   )
 }

@@ -2,6 +2,19 @@ import { SupplierSelect } from '@/components/custom/select'
 
 export const tableFields = status => [
   [
+    '客户名称',
+    'customerName',
+    {
+      width: 100,
+      filter: {
+        isunions: true,
+      },
+      form: {
+        rules: [{ required: true }],
+      },
+    },
+  ],
+  [
     '供应商货号',
     'articleNumber',
     {

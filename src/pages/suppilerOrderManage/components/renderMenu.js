@@ -15,6 +15,7 @@ import { productInMakingRemote } from '@/services/baseRemote'
 const TabPane = Tabs.TabPane
 
 export default forwardRef((props, ref) => {
+  const { classification } = props
   const [current, setCurrent] = useState('TO_BE_CONFIRMED')
   const [mode, setMode] = useState() //修改\填写运单号
   const [countObj, setCountObj] = useState({
@@ -31,15 +32,13 @@ export default forwardRef((props, ref) => {
     [current]
   )
   const getCount = useCallback(() => {
-    productInMakingRemote
-      .countStatus({ classification: props.classification })
-      .then(({ status, data }) => {
-        if (status) {
-          if (JSON.stringify(data) !== '{}') {
-            setCountObj(data)
-          }
+    productInMakingRemote.countStatus({ classification }).then(({ status, data }) => {
+      if (status) {
+        if (JSON.stringify(data) !== '{}') {
+          setCountObj(data)
         }
-      })
+      }
+    })
   }, [])
   useEffect(() => {
     getCount()
@@ -73,7 +72,7 @@ export default forwardRef((props, ref) => {
       tab: '待确认',
       key: 'TO_BE_CONFIRMED',
       props: {
-        actionWidth: 100,
+        actionWidth: classification === 'CUSTOMIZED_PRODUCT' ? 130 : 100,
         actionBtnProps: {
           showAdd: false,
           showDelete: false,
@@ -82,24 +81,36 @@ export default forwardRef((props, ref) => {
         },
         otherTableProps: {
           otherActionBtns: (text, record) => {
-            return [
-              {
-                name: '确认',
-                popconfirm: {
-                  title: '是否确认确认？',
-                  confirm() {
-                    //TODO:确认
-                    productInMakingRemote.updateStatus({ id: record.id }).then(({ status }) => {
-                      if (status) {
-                        myRef.current?.submit()
-                        getCount()
-                        message.success('已确认')
-                      }
-                    })
+            let btns = [
+                {
+                  name: '确认',
+                  popconfirm: {
+                    title: '是否确认确认？',
+                    confirm() {
+                      //TODO:确认
+                      productInMakingRemote.updateStatus({ id: record.id }).then(({ status }) => {
+                        if (status) {
+                          myRef.current?.submit()
+                          getCount()
+                          message.success('已确认')
+                        }
+                      })
+                    },
                   },
                 },
-              },
-            ]
+              ],
+              printBtn = {
+                name: '去打印',
+                onClick() {
+                  setRecord({
+                    ...record,
+                    receivingInfo: `${record.address}${record.volumerName}${record.phoneNumber}`,
+                  })
+                  setPrintVisible(true)
+                },
+              }
+            if (classification === 'CUSTOMIZED_PRODUCT') btns.push(printBtn)
+            return btns
           },
         },
       },
@@ -108,7 +119,7 @@ export default forwardRef((props, ref) => {
       tab: '待发货',
       key: 'TO_BE_DELIVERED',
       props: {
-        actionWidth: 150,
+        actionWidth: classification === 'CUSTOMIZED_PRODUCT' ? 200 : 150,
         actionBtnProps: {
           showAdd: false,
           showDelete: false,
@@ -117,20 +128,32 @@ export default forwardRef((props, ref) => {
         },
         otherTableProps: {
           otherActionBtns: (text, record) => {
-            return [
-              {
-                name: '填写运单号',
-                onClick: () => {
-                  setMode('add')
-                  addFormModal.setFormData({
-                    id: record.id,
-                    shipmentId: '',
-                  })
-                  getCount()
-                  addFormModal.setVisible(true)
+            let btns = [
+                {
+                  name: '填写运单号',
+                  onClick: () => {
+                    setMode('add')
+                    addFormModal.setFormData({
+                      id: record.id,
+                      shipmentId: '',
+                    })
+                    getCount()
+                    addFormModal.setVisible(true)
+                  },
                 },
-              },
-            ]
+              ],
+              printBtn = {
+                name: '去打印',
+                onClick() {
+                  setRecord({
+                    ...record,
+                    receivingInfo: `${record.address}${record.volumerName}${record.phoneNumber}`,
+                  })
+                  setPrintVisible(true)
+                },
+              }
+            if (classification === 'CUSTOMIZED_PRODUCT') btns.push(printBtn)
+            return btns
           },
         },
       },
@@ -139,7 +162,7 @@ export default forwardRef((props, ref) => {
       tab: '已完成',
       key: 'COMPLETED',
       props: {
-        actionWidth: 150,
+        actionWidth: classification === 'CUSTOMIZED_PRODUCT' ? 200 : 150,
         actionBtnProps: {
           showAdd: false,
           showDelete: false,
@@ -148,19 +171,31 @@ export default forwardRef((props, ref) => {
         },
         otherTableProps: {
           otherActionBtns: (text, record) => {
-            return [
-              {
-                name: '修改运单号',
-                onClick: () => {
-                  setMode('edit')
-                  addFormModal.setFormData({
-                    id: record.id,
-                    shipmentId: record.shipmentId,
-                  })
-                  addFormModal.setVisible(true)
+            let btns = [
+                {
+                  name: '修改运单号',
+                  onClick: () => {
+                    setMode('edit')
+                    addFormModal.setFormData({
+                      id: record.id,
+                      shipmentId: record.shipmentId,
+                    })
+                    addFormModal.setVisible(true)
+                  },
                 },
-              },
-            ]
+              ],
+              printBtn = {
+                name: '去打印',
+                onClick() {
+                  setRecord({
+                    ...record,
+                    receivingInfo: `${record.address}${record.volumerName}${record.phoneNumber}`,
+                  })
+                  setPrintVisible(true)
+                },
+              }
+            if (classification === 'CUSTOMIZED_PRODUCT') btns.push(printBtn)
+            return btns
           },
         },
       },

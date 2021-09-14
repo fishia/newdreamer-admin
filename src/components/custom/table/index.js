@@ -207,7 +207,7 @@ function Table(props, ref) {
             btns = btns.concat(otherTableProps.otherActionBtns(text, record, index))
           return btns
         },
-        renderButtonsVisibleNum: 4, //最多展示4个
+        renderButtonsVisibleNum: 5, //最多展示4个
       },
     ],
   ])

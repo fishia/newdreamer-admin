@@ -8,7 +8,7 @@ export default props => {
   setTimeout(() => {
     if (myref.current) {
       let cols = [...tableFields(myref.current.status)]
-      cols.splice(3, 0, [
+      cols.splice(4, 0, [
         '规格修改',
         'sizeChange',
         {

@@ -5,7 +5,7 @@ import { ShowVolumeInfo } from '@/components/custom/Button'
 
 export default props => {
   let columns = [...tableFields]
-  columns.splice(6, 1, [
+  columns.splice(6, 0, [
     '净尺寸',
     'volumeId',
     {
@@ -25,7 +25,7 @@ export default props => {
       },
     },
   ])
-  columns.splice(7, 0, [
+  columns.splice(8, 0, [
     '规格修改',
     'sizeChange',
     {

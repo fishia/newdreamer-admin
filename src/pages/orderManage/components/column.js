@@ -3,6 +3,7 @@ import moment from 'moment'
 import { enumSuperset } from '@/utils/contants'
 import { SupplierSelect, MySelect, SingleNoSelect } from '@/components/custom/select'
 import { ReceiverAutoCompolete } from '@/components/custom/autoComplete'
+import dispatchModal from '@/pages/measure/appoint/dispatchModal'
 const { TextArea } = Input
 
 export const tableFields = [
@@ -222,6 +223,7 @@ export const tableFields = [
 
 export const parseColumns = data => ({
   ...data,
+  size: data.size === '量身定制' ? '' : data.size,
   expectedUsingTime: data.expectedUsingTime ? moment(data.expectedUsingTime) : undefined,
   latestSendTime: data.latestSendTime ? moment(data.latestSendTime) : undefined,
   styleJson: data.styleJson && JSON.parse(data.styleJson),

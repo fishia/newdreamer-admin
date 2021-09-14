@@ -9,7 +9,7 @@ export default props => {
   setTimeout(() => {
     if (myref.current) {
       let cols = [...tableFields(myref.current.status)]
-      cols.splice(2, 1, [
+      cols.splice(3, 1, [
         '成衣尺寸',
         'volumeId',
         {
@@ -27,7 +27,7 @@ export default props => {
           },
         },
       ])
-      cols.splice(3, 0, [
+      cols.splice(4, 0, [
         '款式及面料',
         'styleJson',
         {
