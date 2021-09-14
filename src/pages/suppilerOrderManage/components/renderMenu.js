@@ -17,6 +17,8 @@ const TabPane = Tabs.TabPane
 export default forwardRef((props, ref) => {
   const { classification } = props
   const [current, setCurrent] = useState('TO_BE_CONFIRMED')
+  const [printVisible, setPrintVisible] = useState(false)
+  const [record, setRecord] = useState({})
   const [mode, setMode] = useState() //修改\填写运单号
   const [countObj, setCountObj] = useState({
     TO_BE_CONFIRMED: 0,
@@ -225,6 +227,15 @@ export default forwardRef((props, ref) => {
           </TabPane>
         ))}
       </Tabs>
+      {printVisible && (
+        <PrintTemplate
+          record={record}
+          visible={printVisible}
+          onCancel={() => {
+            setPrintVisible(false)
+          }}
+        />
+      )}
     </div>
   )
 })
