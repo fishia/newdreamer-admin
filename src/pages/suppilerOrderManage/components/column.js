@@ -53,6 +53,13 @@ export const tableFields = status => [
     },
   ],
   [
+    '换洗唛包装',
+    'packing',
+    {
+      width: 120,
+    },
+  ],
+  [
     '备注',
     'remark',
     {
@@ -68,7 +75,7 @@ export const tableFields = status => [
   ],
   [
     '收货人',
-    'customerName',
+    'volumerName',
     {
       width: 80,
       autoHide: status === 'TO_BE_CONFIRMED',
