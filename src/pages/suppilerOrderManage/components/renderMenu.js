@@ -12,6 +12,7 @@ import { Tabs, Badge, message } from 'antd'
 import useFormModal from '@/hooks/useFormModal'
 import Table from './table'
 import { productInMakingRemote } from '@/services/baseRemote'
+import PrintTemplate from '@/components/printTemplate'
 const TabPane = Tabs.TabPane
 
 export default forwardRef((props, ref) => {
