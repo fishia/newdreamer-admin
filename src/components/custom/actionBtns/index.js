@@ -1,5 +1,5 @@
 import React from 'react'
-import { ActionBtn, DeleteBtn, ExportBtn, ImportBtn } from '../Button'
+import { ActionBtn, DeleteBtn, ExportBtn, ImportBtn, BatchOptsBtn } from '../Button'
 import styles from './index.less'
 
 export default props => {

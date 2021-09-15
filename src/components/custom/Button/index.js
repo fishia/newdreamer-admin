@@ -2,6 +2,7 @@ import ActionBtn from './actionBtn'
 import DeleteBtn from './deleteBtn'
 import ExportBtn from './exportBtn'
 import ImportBtn from './importBtn'
+import BatchOptsBtn from './batchOptsBtn'
 import StylesAndFabricsBtn from './stylesAndFabricsBtn'
 import ShowVolumeInfo from './showVolumeBtn'
 import ChooseVolumeInfoBtn from './chooseVolumeInfoBtn'
@@ -13,4 +14,5 @@ export {
   StylesAndFabricsBtn,
   ShowVolumeInfo,
   ChooseVolumeInfoBtn,
+  BatchOptsBtn,
 }
