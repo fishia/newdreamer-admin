@@ -5,7 +5,7 @@
   "scripts": {
     "start": "cross-env BROWSER=none ESLINT=none APP_ENV=development roadhog dev",
     "prod": "cross-env BROWSER=none ESLINT=none APP_ENV=production roadhog server",
-    "build": "cross-env ESLINT=none roadhog build",
+    "build": "cross-env ESLINT=none APP_ENV=production roadhog build",
     "buildD": "cross-env NO_COMPRESS=none ESLINT=none roadhog build"
   },
   "engines": {
