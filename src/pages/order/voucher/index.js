@@ -164,7 +164,9 @@ export default props => {
             tab={
               <Badge
                 count={
-                  ['待备货', '待发货'].indexOf(item.label) > -1 ? statusCountObj[item.value] : 0
+                  ['待备货', '待发货', '待收货'].indexOf(item.label) > -1
+                    ? statusCountObj[item.value]
+                    : 0
                 }
               >
                 {item.label}
