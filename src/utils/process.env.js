@@ -1,7 +1,7 @@
-const { NODE_ENV } = process.env
+const { APP_ENV } = process.env
 // 请求后台接口IP端口
 let api = ''
-if (NODE_ENV === 'development') {
+if (APP_ENV === 'development') {
   // 开发
   api = 'https://test.newdreamer.cn/' //https://test.newdreamer.cn/http://newdreamer.mynatapp.cc/
 } else {

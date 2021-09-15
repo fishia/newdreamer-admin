@@ -63,7 +63,7 @@ export const tableFields = status => [
     '备注',
     'remark',
     {
-      width: 160,
+      width: 100,
     },
   ],
   [
@@ -88,7 +88,7 @@ export const tableFields = status => [
     '收货电话',
     'phoneNumber',
     {
-      width: 120,
+      width: 150,
       autoHide: status === 'TO_BE_CONFIRMED',
       filter: {
         isunions: true,
@@ -99,7 +99,7 @@ export const tableFields = status => [
     '收货地址',
     'address',
     {
-      width: 100,
+      width: 150,
       autoHide: status === 'TO_BE_CONFIRMED',
     },
   ],
