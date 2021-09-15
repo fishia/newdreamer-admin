@@ -3,7 +3,7 @@ import { Button, Modal } from 'antd'
 import { orderInfoRemote, styleRemote } from '@/services/baseRemote'
 import styles from './index.less'
 import { chunk } from 'lodash'
-import { documentURI } from 'min-document'
+import moment from 'moment'
 
 export default props => {
   const { record, visible, onCancel } = props
@@ -54,6 +54,7 @@ export default props => {
       {
         label: '最晚寄出时间',
         key: 'latestSendTime',
+        value: record?.latestSendTime ? moment(record?.latestSendTime).format('YYYY-MM-DD') : '',
       },
       {
         label: '数量',
