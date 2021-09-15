@@ -276,6 +276,24 @@ export default function ProductManager() {
         <div className="product-table-operations">
           {record.reservation_Status !== '已量体' && record.reservation_Status !== '已取消' ? (
             <React.Fragment>
+              {record.reservation_Status === '预约中' ? (
+                <Button
+                  onClick={() => {
+                    DispatchModalProps.setFormData({
+                      ...record,
+                      volumer_Id: undefined,
+                    })
+                    DispatchModalProps.setVisible(true)
+                  }}
+                  type="primary"
+                  size="small"
+                >
+                  派单
+                </Button>
+              ) : null}
+              <Button type="primary" onClick={() => edit(record)} size="small">
+                修改
+              </Button>
               <Button
                 type="danger"
                 onClick={() => {
@@ -300,24 +318,6 @@ export default function ProductManager() {
               >
                 取消
               </Button>
-              <Button type="primary" onClick={() => edit(record)} size="small">
-                修改
-              </Button>
-              {record.reservation_Status === '预约中' ? (
-                <Button
-                  onClick={() => {
-                    DispatchModalProps.setFormData({
-                      ...record,
-                      volumer_Id: undefined,
-                    })
-                    DispatchModalProps.setVisible(true)
-                  }}
-                  type="primary"
-                  size="small"
-                >
-                  派单
-                </Button>
-              ) : null}
             </React.Fragment>
           ) : record.reservation_Status === '已取消' ? (
             <span style={{ color: '#ccc' }}>已取消</span>
