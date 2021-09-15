@@ -6,10 +6,10 @@ export default forwardRef((props, ref) => {
   const [list, setList] = useState([])
 
   const getlist = useCallback(async () => {
-    singleItemRemote.list({ classification: props.classification }).then(({ data }) => {
+    singleItemRemote.list().then(({ data }) => {
       setList(data.map(({ id, barcode, ...res }) => ({ label: barcode, value: id, ...res })))
     })
-  }, [props.classification])
+  }, [])
 
   useEffect(() => {
     getlist()

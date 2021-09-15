@@ -4,7 +4,7 @@ import RenderMenu from '../components/renderMenu'
 import { tableFields } from '../components/column'
 
 export default props => {
-  let columns = [...tableFields('CUSTOMIZED_PRODUCT')]
+  let columns = [...tableFields]
 
   columns.splice(6, 1, [
     '成衣尺寸',

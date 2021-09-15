@@ -4,7 +4,7 @@ import { tableFields } from '../components/column'
 
 export default props => {
   const TableProps = {
-    columns: tableFields('FINISHED_PRODUCT'),
+    columns: tableFields,
     classification: 'FINISHED_PRODUCT',
   }
   return <RenderMenu {...TableProps} />

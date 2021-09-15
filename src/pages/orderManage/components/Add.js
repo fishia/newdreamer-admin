@@ -9,7 +9,7 @@ import { StylesAndFabricsBtn, ChooseVolumeInfoBtn } from '@/components/custom/Bu
 function Add(props, ref) {
   const { modalProps, formData = {}, confirm, formList, viewModal, classification } = props
   const [form] = Form.useForm()
-  const { validateFields, resetFields, setFieldsValue } = form
+  const { validateFields, resetFields, setFieldsValue, getFieldValue } = form
 
   useEffect(() => {
     if (!modalProps.visible && form) {
@@ -23,7 +23,6 @@ function Add(props, ref) {
     let fieldsValue = await validateFields()
     confirm && confirm({ ...fieldsValue, classification })
   }
-
   return (
     <VtxModal {...modalProps} onOk={onOk} moveable maximize okText="确定" cancelText="取消">
       <Form form={form} {...formItemLayout} initialValues={{ ...formData }}>
@@ -83,21 +82,15 @@ function Add(props, ref) {
               <Form.Item
                 noStyle
                 shouldUpdate={(prevValues, curValues) =>
-                  prevValues.productType !== curValues.productType ||
-                  JSON.stringify(prevValues.styleJson) !== JSON.stringify(curValues.styleJson)
+                  prevValues.productType !== curValues.productType
                 }
               >
-                {({ getFieldValue, setFieldsValue }) => {
+                {({ getFieldValue }) => {
                   return getFieldValue('singleItemCode') ? (
                     <Form.Item name="styleJson" label="款式及面料" rules={[{ required: true }]}>
                       <StylesAndFabricsBtn
                         viewMode={false}
                         record={getFieldValue('styleJson')}
-                        onChange={V => {
-                          setFieldsValue({
-                            styleJson: V,
-                          })
-                        }}
                         formData={{ productType: getFieldValue('productType') }}
                       />
                     </Form.Item>

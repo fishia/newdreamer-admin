@@ -201,7 +201,7 @@ export default function ProductManager() {
   ])
 
   // TODO 修改有问题
-  let columns = [
+  const columns = [
     { title: '预约编号', dataIndex: 'code', width: 100 },
     { title: '客户名称', dataIndex: 'name', width: 100 },
     { title: '客户电话', dataIndex: 'phone', width: 100 },
@@ -346,10 +346,7 @@ export default function ProductManager() {
       },
     },
   })
-  //预约中 不显示列顾问所属高校及着装顾问
-  if (pageInfo.reservation_Status === '预约中') {
-    columns.splice(8, 2)
-  }
+
   return (
     <div className="product-manager">
       <Tabs

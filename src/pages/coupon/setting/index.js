@@ -14,7 +14,6 @@ export default class Index extends React.Component {
       searchForm: {
         couponCode: '',
         couponType: '',
-        enable: 'true',
       },
       pageInfo: {
         page: 1,
@@ -326,19 +325,6 @@ export default class Index extends React.Component {
               >
                 <Option value="CASH">现金</Option>
                 <Option value="RATE">折扣</Option>
-              </Select>
-            </div>
-            <div className="manager-search-item">
-              <div className="search-item__title">是否有效</div>
-              <Select
-                style={{ width: 177 }}
-                allowClear
-                placeholder="请选择优惠券类型"
-                value={this.state.searchForm.enable}
-                onChange={e => this.updateSearch('enable', e)}
-              >
-                <Option value="true">是</Option>
-                <Option value="false">否</Option>
               </Select>
             </div>
             {/*<div className="manager-search-btn"><Button onClick={this.pageData.bind(this)} type="primary" >筛选</Button></div>*/}

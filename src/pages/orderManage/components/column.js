@@ -3,9 +3,10 @@ import moment from 'moment'
 import { enumSuperset } from '@/utils/contants'
 import { SupplierSelect, MySelect, SingleNoSelect } from '@/components/custom/select'
 import { ReceiverAutoCompolete } from '@/components/custom/autoComplete'
+import dispatchModal from '@/pages/measure/appoint/dispatchModal'
 const { TextArea } = Input
 
-export const tableFields = classification => [
+export const tableFields = [
   [
     '客户名称',
     'customerName',
@@ -76,7 +77,6 @@ export const tableFields = classification => [
         children: (props, { setFieldsValue }) => (
           <SingleNoSelect
             {...props}
-            classification={classification}
             onChange={(v, item) => {
               if (item[0])
                 setFieldsValue({

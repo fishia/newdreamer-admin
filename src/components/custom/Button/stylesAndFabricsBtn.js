@@ -14,17 +14,13 @@ import { styleRemote } from '@/services/baseRemote'
 export default props => {
   const { title, record, remote, viewMode = true, onChange, formData } = props
   const [dynamicCols, setDynamicCols] = useState([]) //动态列
-  const [detail, setDetail] = useState({}) //款式详情
-  const [embroideryInput, setEmbroideryInput] = useState(false) //是否展示刺绣、版型
-  const [patternInput, setPatternInput] = useState(false) //是否展示刺绣、版型
-  useEffect(() => {
-    setDetail(record)
-  }, [record])
+  const [detail, setDetail] = useState(record) //动态列
+
   const columns = [
     ...dynamicCols,
-    embroideryInput && ['刺绣内容', 'embroideryContent', { form: {} }],
+    ['刺绣内容', 'embroideryContent', { form: {} }],
     ['面料编号', 'code', { form: {} }],
-    patternInput && ['版型', 'pattern', { form: {} }],
+    ['版型', 'pattern', { form: {} }],
   ]
   let obj = {
     title: `款式及面料信息${title ? `-${title}` : ''}`,
@@ -39,16 +35,15 @@ export default props => {
           .then(({ status, data }) => {
             if (status) {
               setDetail({ ...JSON.parse(data.styleJson) })
+              addFormModal.setVisible(false)
               message.success('编辑款式及面料成功')
-              return status
             }
           })
       } else {
-        return new Promise(resolve => {
-          onChange({ ...params })
-          resolve(true)
-        })
+        onChange({ ...params })
+        addFormModal.setVisible(false)
       }
+      return status
     },
   }
   if (viewMode)
@@ -70,8 +65,6 @@ export default props => {
       styleRemote.list({ ...formData }).then(({ status, data }) => {
         if (status) {
           if (Array.isArray(data) && data.length) {
-            setEmbroideryInput(data[0].embroideryInput)
-            setPatternInput(data[0].patternInput)
             setDynamicCols(
               data[0].optionDTOS.map(item => [
                 item.typeName,
