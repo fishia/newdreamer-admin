@@ -4,7 +4,7 @@ import { tableFields } from '../components/column'
 import { ShowVolumeInfo } from '@/components/custom/Button'
 
 export default props => {
-  let columns = [...tableFields]
+  let columns = [...tableFields('TAILOR_MADE_PRODUCT')]
   columns.splice(6, 0, [
     '净尺寸',
     'volumeId',

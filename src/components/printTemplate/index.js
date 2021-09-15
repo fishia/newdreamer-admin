@@ -142,7 +142,7 @@ export default props => {
       { title: '领围', key: 'collar' },
       { title: '胸高', key: 'chest_Height' },
     ],
-    [{ title: '肩型', key: 'volume_Data_Remark', span: 5 }],
+    [{ title: '肩型', key: 'shoulder_Shape', span: 5 }],
     [{ title: '肚型', key: 'belly_Shape', span: 5 }],
     [{ title: '胸背部', key: 'chest_Back', span: 5 }],
     [{ title: '臀部', key: 'buttocks', span: 5 }],
@@ -161,7 +161,7 @@ export default props => {
         className={styles.btn}
         type="primary"
         onClick={() => {
-          document.title = `${detail.customer_Name}订单信息`
+          document.title = `${record.supplierName}制作单${record.orderTime}${detail.customer_Name}`
           window.document.body.innerHTML = window.document.getElementById('printBody').innerHTML
           window.print()
           window.location.reload()
@@ -214,7 +214,7 @@ export default props => {
                           colSpan={td.span}
                           style={{ color: '#ff4d4f', fontSize: '16px' }}
                         >
-                          {sizeDTO[td.key]}
+                          {detail[td.key]}
                         </td>,
                       ]
                     } else {
