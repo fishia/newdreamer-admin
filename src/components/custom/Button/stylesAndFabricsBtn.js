@@ -62,7 +62,7 @@ export default props => {
   useEffect(() => {
     //打开弹窗才调接口
     if (addFormModal.modalProps.visible)
-      styleRemote.list({ ...formData }).then(({ status, data }) => {
+      styleRemote.list({ productType: formData.productType }).then(({ status, data }) => {
         if (status) {
           if (Array.isArray(data) && data.length) {
             setDynamicCols(
