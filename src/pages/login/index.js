@@ -35,12 +35,12 @@ class Login extends Component {
             }),
           ]).then(res => {
             if (JKUtil.getUrlParam('redirectUrl')) push(JKUtil.getUrlParam('redirectUrl'))
-            else
-              res[0].roleName === '供应商'
-                ? push('/suppilerOrderManage/customized')
-                : res[0].roleName === '超级管理员'
-                ? push(homePage)
-                : push('/homePage')
+            // res[0].roleName === '供应商'
+            //   ? push('/suppilerOrderManage/customized')
+            //   : res[0].roleName === '超级管理员'
+            //   ? push(homePage)
+            //   : push('/homePage')
+            else push('/homePage')
           })
         } else {
           message.warning(res.msg)
