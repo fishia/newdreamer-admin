@@ -48,13 +48,15 @@ export default props => {
                     title: '是否确认制单？',
                     confirm() {
                       //TODO:制单
-                      productInMakingRemote.updateStatus({ id: record.id }).then(({ status }) => {
-                        if (status) {
-                          myRef.current?.submit()
-                          getCount()
-                          message.success('制单成功')
-                        }
-                      })
+                      productInMakingRemote
+                        .updateStatus({ ids: [record.id] })
+                        .then(({ status }) => {
+                          if (status) {
+                            myRef.current?.submit()
+                            getCount()
+                            message.success('制单成功')
+                          }
+                        })
                     },
                   },
                 },
@@ -95,7 +97,7 @@ export default props => {
                     title: '是否确认撤销？',
                     confirm() {
                       //TODO:撤销
-                      productInMakingRemote.cancel({ id: record.id }).then(({ status }) => {
+                      productInMakingRemote.cancel({ ids: [record.id] }).then(({ status }) => {
                         if (status) {
                           myRef.current?.submit()
                           getCount()
