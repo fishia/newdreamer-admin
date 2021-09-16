@@ -236,32 +236,32 @@ export default props => {
           </div>
           <div style={{ width: '125px', 'margin-top': '20px' }}>
             {detail.body_Shape_Front && (
-              <div style={{ width: '100%', marginBottom: '5px' }}>
+              <div style={{ width: '100%', marginBottom: '6px', textAlign: 'center' }}>
                 <img
                   alt="figure"
                   className="figure-image-item"
                   src={detail.body_Shape_Front}
-                  style={{ width: '100%', height: '167px' }}
+                  style={{ margin: '0 auto', height: '167px' }}
                 />
               </div>
             )}
             {detail.body_Shape_Side && (
-              <div style={{ width: '100%', marginBottom: '5px' }}>
+              <div style={{ margin: '0 auto', marginBottom: '6px', textAlign: 'center' }}>
                 <img
                   alt="figure"
                   className="figure-image-item"
                   src={detail.body_Shape_Side}
-                  style={{ width: '100%', height: '167px' }}
+                  style={{ margin: '0 auto', height: '167px' }}
                 />
               </div>
             )}
             {detail.body_Shape_Back && (
-              <div style={{ width: '100%' }}>
+              <div style={{ width: '100%', textAlign: 'center' }}>
                 <img
                   alt="figure"
                   className="figure-image-item"
                   src={detail.body_Shape_Back}
-                  style={{ width: '100%', height: '167px' }}
+                  style={{ margin: '0 auto', height: '167px' }}
                 />
               </div>
             )}

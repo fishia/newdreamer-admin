@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "cross-env BROWSER=none ESLINT=none roadhog dev",
-    "prod": "cross-env BROWSER=none ESLINT=none roadhog server",
+    "start": "cross-env BROWSER=none APP_ENV=development ESLINT=none roadhog dev",
+    "prod": "cross-env BROWSER=none APP_ENV=production ESLINT=none roadhog server",
     "build": "cross-env ESLINT=none roadhog build",
     "buildD": "cross-env NO_COMPRESS=none ESLINT=none roadhog build"
   },
