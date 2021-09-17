@@ -91,13 +91,15 @@ export default forwardRef((props, ref) => {
                     title: '是否确认确认？',
                     confirm() {
                       //TODO:确认
-                      productInMakingRemote.updateStatus({ id: record.id }).then(({ status }) => {
-                        if (status) {
-                          myRef.current?.submit()
-                          getCount()
-                          message.success('已确认')
-                        }
-                      })
+                      productInMakingRemote
+                        .updateStatus({ ids: [record.id] })
+                        .then(({ status }) => {
+                          if (status) {
+                            myRef.current?.submit()
+                            getCount()
+                            message.success('已确认')
+                          }
+                        })
                     },
                   },
                 },
