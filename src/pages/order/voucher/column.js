@@ -79,7 +79,7 @@ export const childrenTableFields = (customerName, orderId) => [
       width: 100,
       render: (text, record) => {
         //TODO:如果产品类型是成衣商品展示文字,其他展示量体信息按钮，
-        return typeof record.classification === 'FINISHED_PRODUCT' ? (
+        return record.classification === 'FINISHED_PRODUCT' ? (
           text
         ) : record.volume_Id ? (
           <ShowVolumeInfo
