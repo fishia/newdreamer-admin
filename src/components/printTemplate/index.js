@@ -147,7 +147,7 @@ export default props => {
     [{ title: '肚型', key: 'belly_Shape', span: 5 }],
     [{ title: '胸背部', key: 'chest_Back', span: 5 }],
     [{ title: '臀部', key: 'buttocks', span: 5 }],
-    [{ title: '成衣备注', key: 'volume_Data_Remark', span: 5 }],
+    [{ title: '成衣备注', key: 'volume_Data_Remark', span: 5, value: sizeDTO?.volume_Data_Remark }],
   ]
   return (
     <Modal
@@ -215,7 +215,7 @@ export default props => {
                           colSpan={td.span}
                           style={{ color: '#ff4d4f', fontSize: '16px' }}
                         >
-                          {detail[td.key]}
+                          {td.value || detail[td.key]}
                         </td>,
                       ]
                     } else {
