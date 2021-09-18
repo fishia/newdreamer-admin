@@ -187,7 +187,7 @@ export default props => {
                   colSpan={th.span || 1}
                   style={{ color: '#ff4d4f', fontSize: '16px' }}
                 >
-                  {th.value || record[th.key]}
+                  {'value' in th ? th.value : record[th.key]}
                 </th>,
               ])}
             </tr>
@@ -215,7 +215,7 @@ export default props => {
                           colSpan={td.span}
                           style={{ color: '#ff4d4f', fontSize: '16px' }}
                         >
-                          {td.value || detail[td.key]}
+                          {'value' in td ? td.value : detail[td.key]}
                         </td>,
                       ]
                     } else {
