@@ -56,7 +56,7 @@ export default forwardRef((props, ref) => {
           .updateStatus({
             ...params,
             status: current,
-            id: addFormModal.formData?.id,
+            ids: [addFormModal.formData?.id],
           })
           .then(({ status }) => {
             if (status) {
