@@ -1,3 +1,4 @@
+import { exportFile } from '@/assets/js/common'
 import request from '../assets/js/request'
 // import Url from "../env";
 
@@ -34,4 +35,8 @@ export function getDetailById(orderId) {
     method: 'get',
     url: `/newdreamer/backOrder/order/${orderId}`,
   })
+}
+//优惠券明细导出
+export function exportCustomerCoupon(ids) {
+  return exportFile(`/newdreamer/coupon/exportCustomerCoupon`, { ids })
 }

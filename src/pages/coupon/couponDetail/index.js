@@ -1,10 +1,11 @@
 import React from 'react'
 import { Button, Input, Table, Select } from 'antd'
-import { queryAllCustomerCoupon, getDetailById } from '../../../api/coupon'
+import { queryAllCustomerCoupon, getDetailById, exportCustomerCoupon } from '../../../api/coupon'
 import { tableFields } from '@/pages/order/voucher/column'
 import View from '@/pages/order/voucher/components/view'
 import './index.less'
 import moment from 'moment'
+import { ExportOutlined } from '@ant-design/icons'
 const { Option } = Select
 export default class Index extends React.Component {
   constructor(props) {
@@ -206,18 +207,6 @@ export default class Index extends React.Component {
       <div className="couponDetailed">
         <div className="search-box">
           <section className="product-manager-search">
-            {/*<div className="manager-search-item">*/}
-            {/*  <div className="search-item__title">优惠券编码</div>*/}
-            {/*  <Input  placeholder="请输入优惠券编码" value={this.state.searchForm.couponCode} onChange={e => this.updateSearch('couponCode', e.target.value)} />*/}
-            {/*</div>*/}
-            {/*<div className="manager-search-item">*/}
-            {/*  <div className="search-item__title">优惠券类型</div>*/}
-            {/*  /!*<Input  placeholder="请输入优惠券类型" onChange={e => this.updateSearch('couponType', e.target.value)} />*!/*/}
-            {/*  <Select allowClear placeholder="请选择优惠券类型" value={this.state.searchForm.couponType} onChange={e => this.updateSearch('couponType', e)}>*/}
-            {/*    <Option value="CASH">现金</Option>*/}
-            {/*    <Option value="RATE">折扣</Option>*/}
-            {/*  </Select>*/}
-            {/*</div>*/}
             <div className="manager-search-item">
               <div className="search-item__title">优惠券明细</div>
               <Input
@@ -263,6 +252,11 @@ export default class Index extends React.Component {
                 重置
               </Button>
             </div>
+          </section>
+          <section className="sear-add">
+            <Button type="primary" icon={<ExportOutlined />} onClick={() => exportCustomerCoupon()}>
+              导出
+            </Button>
           </section>
         </div>
         <Table

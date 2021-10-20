@@ -30,5 +30,5 @@ export function requestEvaluateDelete(data) {
 }
 
 export function requestEvaluateExport(data) {
-  return exportFile('/newdreamer/backOrder/exportEvaluation', data)
+  return exportFile('/newdreamer/backOrder/exportEvaluation', { ids: data })
 }

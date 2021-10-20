@@ -1,23 +1,12 @@
 import request from './request'
 import React from 'react'
 import { Modal } from 'antd'
+import { jsonToUrl } from '@/utils/util'
 const { confirm } = Modal
-export function exportFile(url, data) {
-  let params =
-    data && typeof data === 'object'
-      ? Object.entries(data).reduce((Result, [key, value], index) => {
-          if (value)
-            if (index === 0) {
-              Result += `ids=${value}`
-            } else {
-              Result += `&ids=${value}`
-            }
-          return Result
-        }, '')
-      : ''
+export function exportFile(url, params) {
   const link = document.createElement('a')
   link.target = '_blank'
-  link.href = `${url}?${params}`
+  link.href = `${url}?${jsonToUrl(params)}`
   link.click()
   return Promise.resolve()
 }

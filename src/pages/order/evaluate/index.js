@@ -193,9 +193,9 @@ export default function OrderEvaluate() {
         </div>
       </section>
       <section className="product-manager-operation">
-        <Button onClick={export_data} type="primary">
+        {/* <Button onClick={export_data} type="primary">
           数据导出
-        </Button>
+        </Button> */}
         <Button onClick={delete_data} type="primary">
           批量删除
         </Button>

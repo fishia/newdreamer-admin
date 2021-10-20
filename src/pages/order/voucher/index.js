@@ -95,8 +95,9 @@ export default props => {
       showDelete: false,
       showEdit: false,
       showCopy: false,
-      // showExport: true,
-      // downloadURL: orderInfoRemote.exportExcel.bind(orderInfoRemote),
+      showExport: true,
+      downloadURL: orderInfoRemote.exportExcel.bind(orderInfoRemote),
+      exportCommonsFieds: { orderStatus },
     },
     otherTableProps: {
       rowKey: record => record.order_Id,

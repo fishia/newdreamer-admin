@@ -44,8 +44,8 @@ class BornCroudApi extends baseCrudApi {
   importExcel() {
     return `${this.url}/importExcel`
   }
-  exportExcel(ids) {
-    return exportFile(`${this.url}/exportExcel`, { ids })
+  exportExcel(params) {
+    return exportFile(`${this.url}/exportExcel`, { ...params })
   }
 }
 
@@ -98,6 +98,9 @@ productInMakingRemote.cancel = params => {
 //订单状态统计
 productInMakingRemote.countStatus = params => {
   return axios.get(`/newdreamer/productInMaking/countStatus?${jsonToUrl(params)}`)
+} //订单状态统计
+productInMakingRemote.exportExcel = params => {
+  return exportFile(`/newdreamer/productInMaking/exportExcel`, { ...params })
 }
 export { productInMakingRemote }
 //订单信息
@@ -135,8 +138,8 @@ export const orderInfoRemote = (url => {
       return axios.get(`${url}/deliver?${jsonToUrl(params)}`)
     },
     //导出
-    exportExcel(ids) {
-      return exportFile(`${url}/exportOrder`, { ids })
+    exportExcel(params) {
+      return exportFile(`${url}/exportOrder`, { ...params })
     },
     //状态数量统计
     orderStatusCount() {

@@ -1,11 +1,12 @@
 import React from 'react'
-import { Button, Input, Table, Modal, message, Select, Tooltip } from 'antd'
-import { requestcoupomList, couponDelete } from './action'
+import { Button, Input, Table, message, Select, Tooltip } from 'antd'
+import { requestcoupomList, couponDelete, exportCoupon } from './action'
 import moment from 'moment'
 import './index.less'
 import AddCoupon from '../../../components/coupon/addCoupon/index'
 import QRCODE from '@/components/custom/qrcode'
 import { getQrcode } from '@/services/baseRemote'
+import { ExportOutlined } from '@ant-design/icons'
 const { Option } = Select
 export default class Index extends React.Component {
   constructor(props) {
@@ -342,6 +343,9 @@ export default class Index extends React.Component {
           <section className="sear-add">
             <Button type="primary" onClick={this.addListData.bind(this)}>
               新增
+            </Button>
+            <Button type="primary" icon={<ExportOutlined />} onClick={() => exportCoupon()}>
+              导出
             </Button>
           </section>
         </div>

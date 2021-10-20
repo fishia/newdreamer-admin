@@ -10,7 +10,7 @@ export function requestCustomeVolumeList(data) {
 }
 
 export function requestCustomeVolumeExport(data) {
-  return exportFile('/newdreamer/backCustomer/exportSizeInfo', data)
+  return exportFile('/newdreamer/backCustomer/exportSizeInfo', { ids: data })
 }
 
 export function requestCustomeVolumeUpdate(data) {

@@ -2,7 +2,7 @@ import request from '../../../assets/js/request'
 import { exportFile } from '../../../assets/js/common'
 
 export function requestForAppointExport(data) {
-  exportFile('/newdreamer/backVolumer/exportReservation', data)
+  exportFile('/newdreamer/backVolumer/exportReservation', { ids: data })
 }
 
 export function requestAppointList(data) {
