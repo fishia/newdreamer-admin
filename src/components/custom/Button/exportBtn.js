@@ -7,6 +7,7 @@ import useExport from '@/hooks/useExport'
  * 传入[className, text = '导出', exportApi, type = 'primary',mode = 'backend']
  * dataSource:当前列表数据，selectedRowKeys选中数据
  * downloadUrl:下载api地址，dataSource，selectedRowKeys必须传
+ * searchFields:其他的查询条件
  */
 export default props => {
   const {
@@ -19,6 +20,7 @@ export default props => {
     fileName,
     parseColumns,
     columns,
+    exportCommonsFieds,
   } = props
 
   if (!('downloadURL' in props && 'selectedRowKeys' in props && 'dataSource' in props)) {
@@ -32,6 +34,7 @@ export default props => {
     fileName,
     parseColumns,
     columns,
+    exportCommonsFieds,
   })
   const handleMenuClick = e => {
     switch (e.key) {

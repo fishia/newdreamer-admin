@@ -1,11 +1,11 @@
-import request from '../../../assets/js/request';
+import request from '../../../assets/js/request'
 import { exportFile } from '../../../assets/js/common'
 
 export function requestcoupomList(data) {
   return request({
-      method: 'get',
-      url: '/newdreamer/coupon/queryAll',
-      params: data
+    method: 'get',
+    url: '/newdreamer/coupon/queryAll',
+    params: data,
   })
 }
 export function couponDelete(data) {
@@ -13,7 +13,10 @@ export function couponDelete(data) {
     method: 'delete',
     url: '/newdreamer/coupon/delete',
     params: data,
-    version: 2
+    version: 2,
   })
 }
-
+//优惠券设置导出
+export function exportCoupon(ids) {
+  return exportFile(`/newdreamer/coupon/exportCoupon`, { ids })
+}

@@ -410,7 +410,7 @@ export default function ProductManager() {
                 </section>
                 <section className="product-manager-table">
                   <Table
-                    rowKey="order_Id"
+                    rowKey="reservation_Id"
                     rowSelection={{
                       type: 'checkbox',
                       onChange: (selectedRowKeys, selectedRows) => {

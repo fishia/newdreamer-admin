@@ -2,7 +2,7 @@ import request from '../../../assets/js/request'
 import { exportFile } from '../../../assets/js/common'
 
 export function requestRefundExport(data) {
-  exportFile('/newdreamer/backOrder/exportRefund', data)
+  exportFile('/newdreamer/backOrder/exportRefund', { ids: data })
 }
 
 export function requestOrderRefundList(data) {

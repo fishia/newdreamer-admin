@@ -38,6 +38,11 @@ export default props => {
       count: 0,
       key: 'TO_BE_PREPARED',
       props: {
+        actionBtnProps: {
+          showExport: true,
+          downloadURL: productInMakingRemote.exportExcel.bind(productInMakingRemote),
+          exportCommonsFieds: { status: current, classification },
+        },
         actionWidth: classification === 'CUSTOMIZED_PRODUCT' ? 260 : 200,
         otherTableProps: {
           otherActionBtns: (text, record) => {
@@ -87,6 +92,9 @@ export default props => {
           showDelete: false,
           showEdit: false,
           showCopy: false,
+          showExport: true,
+          downloadURL: productInMakingRemote.exportExcel.bind(productInMakingRemote),
+          exportCommonsFieds: { status: current, classification },
         },
         otherTableProps: {
           otherActionBtns: (text, record) => {
@@ -134,6 +142,9 @@ export default props => {
           showDelete: false,
           showEdit: false,
           showCopy: false,
+          showExport: true,
+          downloadURL: productInMakingRemote.exportExcel.bind(productInMakingRemote),
+          exportCommonsFieds: { status: current, classification },
         },
         otherTableProps: {
           otherActionBtns: (text, record) => {
@@ -165,6 +176,8 @@ export default props => {
           showEdit: false,
           showCopy: false,
           showExport: true,
+          downloadURL: productInMakingRemote.exportExcel.bind(productInMakingRemote),
+          exportCommonsFieds: { status: current, classification },
         },
         otherTableProps: {
           otherActionBtns: (text, record) => {

@@ -181,7 +181,9 @@ export default props => {
           {cols.map((item, i) => (
             <tr key={i}>
               {item.map(th => [
-                <th key="label">{th.label}</th>,
+                <th key="label" style={{ width: '128px' }}>
+                  {th.label}
+                </th>,
                 <th
                   key="value"
                   colSpan={th.span || 1}
