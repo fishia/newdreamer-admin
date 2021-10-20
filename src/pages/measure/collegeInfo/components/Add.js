@@ -26,7 +26,11 @@ function Add(props, ref) {
 
   return (
     <VtxModal {...modalProps} onOk={onOk} moveable maximize okText="确定" cancelText="取消">
-      <Form form={form} {...formItemLayout} initialValues={{ ...formData }}>
+      <Form
+        form={form}
+        {...formItemLayout}
+        initialValues={{ enabled: true, reservationAvailable: false, ...formData }}
+      >
         <Row>
           <Col span={12}>
             <Form.Item name="code" label="高校编号" rules={[{ required: true }]}>
@@ -65,7 +69,7 @@ function Add(props, ref) {
               {...formFullItemLayout}
             >
               {({ getFieldValue }) =>
-                getFieldValue('id') ? (
+                getFieldValue('code') ? (
                   <Form.Item name="children" label="">
                     <CampusTable
                       parentId={getFieldValue('id')}

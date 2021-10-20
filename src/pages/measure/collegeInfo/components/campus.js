@@ -11,7 +11,8 @@ export default forwardRef((props, ref) => {
       showCopy: false,
     },
     initialValues: {
-      enabled: 'true',
+      enabled: true,
+      reservationAvailable: false,
     },
     title: '学校校区',
     columns: campusFields,

@@ -79,7 +79,7 @@ export default props => {
   })
 
   const TableProps = {
-    initialValues: { reservationAvailable: 'true' },
+    initialValues: { enabled: 'true', reservationAvailable: 'true' },
     searchFields: [...renderSearchFields(columns)],
     actionBtnProps,
     otherTableProps: {
