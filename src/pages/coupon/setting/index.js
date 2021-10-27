@@ -51,24 +51,19 @@ export default class Index extends React.Component {
       data.content.forEach(e => {
         e.key = e.id
       })
-      // console.log(data.content, '数据');
-      // setTableSize(data.totalElements)
-      // let content = data.content.filter(item => item.volumer_Address !== "1")
-      // updateSource(content)
       this.setState({
         tableSize: data.totalElements,
         coupomList: data.content,
       })
     })
-    // console.log(this.state.searchForm);
   }
   onPageChange = (page, pageSize) => {
-    // console.log(page, pageSize)
+    console.log(page, pageSize)
     this.setState(
       {
         pageInfo: {
           page: page,
-          pageSize: 10,
+          pageSize,
         },
       },
       () => {

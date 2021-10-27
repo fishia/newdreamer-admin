@@ -22,7 +22,7 @@ export default class Index extends React.Component {
     }
   }
   componentWillMount() {
-    if (this.props.rowData) {
+    if (this.props.rowData && JSON.stringify(this.props.rowData) !== '{}') {
       let rowData = this.props.rowData
       if (rowData.startTime && rowData.endTime) {
         let startTime = moment(rowData.startTime).format('YYYY/MM/DD')

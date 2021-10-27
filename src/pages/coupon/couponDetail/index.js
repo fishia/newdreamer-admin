@@ -65,7 +65,7 @@ export default class Index extends React.Component {
       {
         pageInfo: {
           page: page,
-          pageSize: 10,
+          pageSize,
         },
       },
       () => {
