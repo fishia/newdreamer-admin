@@ -58,12 +58,11 @@ export default class Index extends React.Component {
     })
   }
   onPageChange = (page, pageSize) => {
-    console.log(page, pageSize)
     this.setState(
       {
         pageInfo: {
           page: page,
-          pageSize,
+          size: pageSize,
         },
       },
       () => {
@@ -103,11 +102,6 @@ export default class Index extends React.Component {
     this.pageData()
     this.handleCancel() // 关闭弹窗
   }
-  // confirmLoading () {
-  //   this.setState({
-  //     visible: false
-  //   })
-  // }
   //  关闭弹窗
   handleCancel = () => {
     this.setState({
@@ -128,7 +122,7 @@ export default class Index extends React.Component {
       {
         pageInfo: {
           page: 1,
-          pageSize: 10,
+          size: 10,
         },
       },
       () => {
@@ -143,7 +137,7 @@ export default class Index extends React.Component {
       {
         pageInfo: {
           page: 1,
-          pageSize: 10,
+          size: 10,
         },
         searchForm: {
           couponCode: '',

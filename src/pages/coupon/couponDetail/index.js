@@ -65,7 +65,7 @@ export default class Index extends React.Component {
       {
         pageInfo: {
           page: page,
-          pageSize,
+          size: pageSize,
         },
       },
       () => {
@@ -80,7 +80,7 @@ export default class Index extends React.Component {
       {
         pageInfo: {
           page: 1,
-          pageSize: 10,
+          size: 10,
         },
       },
       () => {
@@ -94,7 +94,7 @@ export default class Index extends React.Component {
       {
         pageInfo: {
           page: 1,
-          pageSize: 10,
+          size: 10,
         },
         searchForm: {
           detailCode: '',
