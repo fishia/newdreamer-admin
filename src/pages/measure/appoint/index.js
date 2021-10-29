@@ -126,16 +126,10 @@ export default function ProductManager() {
     }
   }, [modalInfo, refreshTable, visible])
 
-  const onPageChange = useCallback(
-    page => {
-      if (page !== pageInfo.page) {
-        pageInfo.page = page
-        updatePageInfo({ ...pageInfo })
-        pageData()
-      }
-    },
-    [pageData, pageInfo]
-  )
+  const onPageChange = (page, pageSize) => {
+    updatePageInfo({ ...pageInfo, page, size: pageSize })
+    setIsinit(false)
+  }
 
   const closeModalInfo = useCallback(() => {
     setVisible(false)
