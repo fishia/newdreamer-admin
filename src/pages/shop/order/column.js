@@ -238,19 +238,19 @@ export const childTableFields = [
       },
     },
   ],
-  // [
-  //   '量体数据',
-  //   'optionalData',
-  //   {
-  //     render: (text, record) => {
-  //       return <Switch checked={text} disabled />
-  //     },
-  //     width: 100,
-  //     form: {
-  //       type: 'switch',
-  //     },
-  //   },
-  // ],
+  [
+    '优惠券使用',
+    'couponAvailable',
+    {
+      render: (text, record) => {
+        return <Switch checked={text} disabled />
+      },
+      width: 100,
+      form: {
+        type: 'switch',
+      },
+    },
+  ],
   [
     '子商品图',
     'images',

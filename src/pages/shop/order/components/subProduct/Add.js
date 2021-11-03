@@ -28,7 +28,7 @@ function Add(props, ref) {
 
   return (
     <VtxModal {...modalProps} onOk={onFinish} moveable maximize okText="确定" cancelText="取消">
-      <Form name="sub" form={form} {...formItemLayout}>
+      <Form name="sub" form={form} {...formItemLayout} initialValues={{ couponAvailable: true }}>
         {renderFormList(formData, formList, viewModal)}
         <Row>
           <Col span={12}>
