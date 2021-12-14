@@ -35,7 +35,7 @@ const NdUpload = props => {
           }
         },
         downloadUrl,
-        flag,
+        flag, //编辑之后再开启预览
         maxCount,
         onChange: {},
         showUploadList: { showDownloadIcon: viewMode && listType === 'text' },
@@ -65,7 +65,9 @@ const NdUpload = props => {
           }
           setFileList(files)
           onChange(files)
-          setFlag(flag + 1)
+          if (mode === 'single') {
+            setFlag(flag + 1)
+          }
         },
         onError(e) {
           console.log(e)
