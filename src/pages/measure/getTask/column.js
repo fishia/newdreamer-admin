@@ -1,22 +1,15 @@
 import { Switch } from 'antd'
 import ImagePreviewGroup from '@/components/custom/ImagePreviewGroup'
+import { MySelect } from '@/components/custom/select'
+import { enumSuperset } from '@/utils/contants'
 
 export const tableFields = [
-  [
-    '任务名称',
-    'name',
-    {
-      form: {},
-      filter: {
-        isunions: true,
-      },
-    },
-  ],
   [
     '任务奖励',
     'college',
     {
       form: {},
+      width: 100,
     },
   ],
   [
@@ -24,6 +17,7 @@ export const tableFields = [
     'receiveTime',
     {
       form: {},
+      width: 100,
     },
   ],
   [
@@ -31,6 +25,10 @@ export const tableFields = [
     'volumerName',
     {
       form: {},
+      filter: {
+        isunions: true, //联合类型
+      },
+      width: 100,
     },
   ],
   [
@@ -38,6 +36,10 @@ export const tableFields = [
     'statusName',
     {
       form: {},
+      width: 100,
+      filter: {
+        elem: <MySelect datasource={enumSuperset['finish']} />,
+      },
     },
   ],
   [
@@ -63,6 +65,7 @@ export const tableFields = [
       form: {
         type: 'upload',
         fileDirectorEnum: 'PRODUCT',
+        maxCount: 3,
       },
     },
   ],
@@ -73,6 +76,7 @@ export const tableFields = [
       render: (text, record) => {
         return <Switch checked={text} disabled />
       },
+      width: 100,
     },
   ],
 ]

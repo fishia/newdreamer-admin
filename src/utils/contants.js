@@ -81,6 +81,10 @@ export const enumSuperset = {
     { value: 'ALL', label: '全部' },
   ],
   GoodsClassification: ['西服', '衬衫', '配饰', '其他'].map(item => ({ value: item, label: item })),
+  finish: [
+    { value: 'FINISHED', label: '已完成' },
+    { value: 'NOFINISHED', label: '未完成' },
+  ], //启用
 }
 
 export const format = 'YYYY-MM-DD HH:mm:ss'

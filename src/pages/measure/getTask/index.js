@@ -11,22 +11,24 @@ export default props => {
     initialValues: {
       volumer_Status: 'true',
     },
+    actionWidth: 150,
     actionBtnProps: {
       showAdd: false,
+      showCopy: false,
       showExport: true,
       downloadURL: volumerRemote.exportExcel.bind(volumerRemote),
     },
     columns: [
       [
-        '顾问名称',
-        'volumer_Name',
+        '任务名称',
+        'task_name',
         {
           width: 100,
           render: (text, record) => {
             return (
               <span
                 onClick={() => {
-                  setTitle(record.volumer_Name)
+                  setTitle(record.task_name)
                   ref.current?.viewFormModal.setFormData({
                     ...record,
                   })
@@ -54,7 +56,6 @@ export default props => {
     viewFormModalProps: {
       title: `${document.title}-${title}`,
     },
-    resetKey: 'volumer_Id',
   }
   return <FormTable {...FormTableProps} ref={ref} />
 }

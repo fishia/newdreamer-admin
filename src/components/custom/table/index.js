@@ -112,11 +112,7 @@ function Table(props, ref) {
   }
   //操作栏props
   const ActionBtnsProps = {
-    showAdd,
-    showEdit,
-    showDelete,
-    showImport,
-    showExport,
+    ...actionBtnProps,
     addProps: {
       formModal: addFormModal,
     },
@@ -209,7 +205,7 @@ function Table(props, ref) {
             btns = btns.concat(otherTableProps.otherActionBtns(text, record, index))
           return btns
         },
-        renderButtonsVisibleNum: 5, //最多展示4个
+        renderButtonsVisibleNum: otherTableProps.renderButtonsVisibleNum || 5, //最多展示5个
       },
     ],
   ])

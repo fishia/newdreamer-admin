@@ -76,28 +76,5 @@ export const tableFields = [
     },
   ],
 ]
-//适用范围
-export const rangeFields = [
-  [
-    '模块名称',
-    'moduleName',
-    {
-      form: {
-        rules: [{ required: true }],
-      },
-    },
-  ],
-  [
-    '启用',
-    'enabled',
-    {
-      render: (text, record) => {
-        return <Switch checked={text} disabled />
-      },
-      form: {
-        type: 'switch',
-      },
-    },
-  ],
-]
+
 export const parseColumns = data => ({ ...data })

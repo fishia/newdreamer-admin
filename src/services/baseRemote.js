@@ -85,6 +85,11 @@ export const productInfoRemote = new BornCroudApi('/newdreamer/productInfo')
 export const collegeInfoRemote = new baseCrudApi('/newdreamer/collegeInfo')
 //着装顾问
 export const volumerRemote = new BornCroudApi('/newdreamer/volumer')
+//顾问提成
+export const bonusRemote = new BornCroudApi('/newdreamer/backVolumer')
+bonusRemote.settleAccounts = params => {
+  return axios.post(`/newdreamer/backVolumer/settleAccounts`, { ...params })
+}
 //制单生产
 let productInMakingRemote = new baseCrudApi('/newdreamer/productInMaking')
 //订单状态更改

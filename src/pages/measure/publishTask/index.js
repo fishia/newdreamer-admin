@@ -1,100 +1,83 @@
-import React, { useRef } from 'react'
-import _ from 'lodash'
-import { collegeInfoRemote } from '@/services/baseRemote'
-import { message } from 'antd'
-import useFormModal from '@/hooks/useFormModal'
-import Table from '@/components/custom/table'
-import Add from './components/Add'
-import Edit from './components/Add'
-import { tableFields } from './column'
-import { renderSearchFields } from '@/utils/util'
+import React, { useRef, useState } from 'react'
+import { productInfoRemote } from '@/services/baseRemote'
+import FormTable from '@/components/custom/table/formTable'
+import { tableFields, parseColumns, parseFormData, resetFormData } from './column'
+import { Button } from 'antd'
+import AddRange from './components/addRange'
 
 export default props => {
-  const myRef = useRef()
-  const getTableData = ({ current, pageSize }, formData) => {
-    let params = {
-      page: current - 1,
-      size: pageSize,
-      ...formData,
-    }
-    return collegeInfoRemote.page(params).then(({ data, status }) => {
-      if (status) {
-        return {
-          total: data.totalElements,
-          list: data.content,
-        }
-      }
-    })
+  const ref = useRef()
+  const [title, setTitle] = useState(false)
+  const [visible, setVisible] = useState(false)
+  const FormTableProps = {
+    remote: productInfoRemote,
+    actionBtnProps: {
+      showExport: true,
+      //downloadURL: volumerRemote.exportExcel.bind(volumerRemote),
+      extraButtonList: [
+        <Button key="add" type="primary" onClick={() => setVisible(true)}>
+          新增范围
+        </Button>,
+      ],
+    },
+    columns: [
+      [
+        '任务名称',
+        'task_name',
+        {
+          width: 100,
+          render: (text, record) => {
+            return (
+              <span
+                onClick={() => {
+                  setTitle(record.task_name)
+                  ref.current?.viewFormModal.setFormData({
+                    ...record,
+                  })
+                  //详情
+                  ref.current?.viewFormModal.setVisible(true)
+                }}
+                className="primaryBtn"
+              >
+                {text}
+              </span>
+            )
+          },
+          filter: {
+            isunions: true, //联合类型
+          },
+          form: {
+            rules: [{ required: true }],
+          },
+        },
+      ],
+      ...tableFields,
+    ],
+    parseColumns,
+    parseFormData,
+    resetFormData,
+    viewFormModalProps: {
+      title: `${document.title}-${title}`,
+    },
   }
-  const columns = tableFields
 
-  const actionBtnProps = {
-    showAdd: true,
-    showEdit: true,
-    showDelete: true,
-  }
-  // 新增
-  const addFormModal = useFormModal({
-    modal: {
-      title: `${document.title}-新增`,
-      width: 900,
-      onOk: params => {
-        return collegeInfoRemote
-          .saveOrUpdate({
-            ...params,
-          })
-          .then(({ status }) => {
-            if (status) {
-              addFormModal.setVisible(false)
-              myRef.current?.submit()
-              message.success('新增成功')
-            }
-            return status
-          })
-      },
+  const AddRangeProps = {
+    modalProps: {
+      title: `新增适用范围`,
+      width: 700,
+      visible,
+      footer: [
+        <Button key="close" type="primary" onClick={() => setVisible(false)}>
+          确定
+        </Button>,
+      ],
+      onCancel: () => setVisible(false),
     },
-  })
-
-  // 编辑
-  const editFormModal = useFormModal({
-    modal: {
-      title: `${document.title}-编辑`,
-      width: 900,
-      onOk: params => {
-        return collegeInfoRemote
-          .saveOrUpdate({
-            ...params,
-            id: editFormModal.formData?.id,
-          })
-          .then(({ status }) => {
-            if (status) {
-              editFormModal.setVisible(false)
-              myRef.current?.submit()
-              message.success('编辑成功')
-            }
-            return status
-          })
-      },
-    },
-  })
-
-  const TableProps = {
-    initialValues: { enabled: 'true', reservationAvailable: 'true' },
-    searchFields: [...renderSearchFields(columns)],
-    actionBtnProps,
-    otherTableProps: {
-      columns,
-    },
-    getTableData,
-    deleteItems: collegeInfoRemote.deletes.bind(collegeInfoRemote),
-    addFormModal,
-    editFormModal,
-    title: '高校',
   }
   return (
-    <Table {...TableProps} ref={myRef}>
-      <Add {...addFormModal} />
-      <Edit {...editFormModal} />
-    </Table>
+    <>
+      <FormTable {...FormTableProps} ref={ref} />
+      {visible && <AddRange {...AddRangeProps} />}
+    </>
   )
 }
