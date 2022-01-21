@@ -24,7 +24,8 @@ export const tableFields = [
   ['实收单据金额', 'total_Received_Amount', { width: 150 }],
   ['付款时间', 'payment_Time', { width: 100 }],
   ['预计使用时间', 'expectedUsingTime', { width: 150 }],
-  ['着装顾问', 'volumerName', { width: 100 }],
+  ['量体顾问', 'volumerName', { width: 100 }],
+  ['销售顾问', 'salesConsultanter', { width: 100 }],
   ['备注', 'remarks', { width: 80 }],
   ['快递地址', 'receiver_Adress', { display: false }],
   [
@@ -91,11 +92,27 @@ export const childrenTableFields = (customerName, orderId) => [
       },
     },
   ],
+  //   [
+  //     '上线价',
+  //     'sellingPrice',
+  //     {
+  //       width: 100,
+  //     },
+  //   ],
   [
-    '上线价',
-    'sellingPrice',
+    '优惠券折扣',
+    'couponDiscount',
     {
       width: 100,
+      render: (_, record) => <span>{record.received_Amount / record.amounts}</span>,
+    },
+  ],
+  [
+    '手动折扣',
+    'manualDiscount',
+    {
+      width: 100,
+      render: (_, record) => <span>{record.received_Amount / record.amounts}</span>,
     },
   ],
   [

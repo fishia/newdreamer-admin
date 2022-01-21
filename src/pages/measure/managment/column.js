@@ -121,6 +121,82 @@ export const tableFields = [
     },
   ],
   [
+    '销售提成',
+    'salesCommissions',
+    {
+      display: false,
+      form: {
+        type: 'switch',
+      },
+    },
+  ],
+  [
+    '销售提成',
+    'salesCommissionsValue',
+    {
+      display: false,
+      form: { addonAfter: '%' },
+    },
+  ],
+  [
+    '量体提成',
+    'volumeCommissions',
+    {
+      display: false,
+      form: {
+        type: 'switch',
+      },
+    },
+  ],
+  [
+    '量体提成',
+    'volumeCommissionsValue',
+    {
+      display: false,
+      form: { addonAfter: '%' },
+    },
+  ],
+  [
+    '协助下单',
+    'AssistPurchasing',
+    {
+      display: false,
+      form: {
+        type: 'switch',
+      },
+    },
+  ],
+  [
+    '学习天地',
+    'study',
+    {
+      display: false,
+      form: {
+        type: 'switch',
+      },
+    },
+  ],
+  [
+    '任务发放',
+    'taskPublish',
+    {
+      display: false,
+      form: {
+        type: 'switch',
+      },
+    },
+  ],
+  [
+    '运营活动',
+    'operatingActivities',
+    {
+      display: false,
+      form: {
+        type: 'switch',
+      },
+    },
+  ],
+  [
     '兼职协议',
     'files',
     {

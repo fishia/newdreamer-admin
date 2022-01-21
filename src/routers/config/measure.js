@@ -49,4 +49,35 @@ export default [
       },
     ],
   },
+  {
+    path: '/measure/taskManage',
+    title: '任务发放',
+    icon: <TransactionOutlined />,
+    component: () => RouterContainer,
+    show: true,
+    routes: [
+      {
+        path: '/measure/taskManage',
+        exact: true,
+        redirect: '/measure/taskManage/',
+        hide: true,
+      },
+      {
+        path: '/measure/taskManage/publishTask',
+        title: '发布任务',
+        exact: true,
+        icon: <FileSearchOutlined />,
+        component: () => import('@/pages/measure/publishTask'),
+        show: true,
+      },
+      {
+        path: '/measure/taskManage/getTask',
+        title: '领取任务',
+        exact: true,
+        icon: <SettingOutlined />,
+        component: () => import('@/pages/measure/getTask'),
+        show: true,
+      },
+    ],
+  },
 ]

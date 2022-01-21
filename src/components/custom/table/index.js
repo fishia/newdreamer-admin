@@ -33,7 +33,7 @@ function Table(props, ref) {
     resetKey = 'code',
     resetFormData,
   } = props
-  const { columns } = otherTableProps
+  const { columns = [] } = otherTableProps
 
   const {
     showAdd,
@@ -84,7 +84,7 @@ function Table(props, ref) {
   //删除hooks实例
   const deleteRows = useDeleteRows(
     ids => {
-      return deleteItems.deletes(ids).then(({ status }) => {
+      return deleteItems(ids).then(({ status }) => {
         status && message.success('删除成功')
         return status
       })

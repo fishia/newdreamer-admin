@@ -21,6 +21,7 @@ export const renderFormItem = (item, form) => {
       'listType',
       'desp',
       'format',
+      'options',
     ]
   switch (item.type) {
     case 'input':
@@ -50,6 +51,12 @@ export const renderFormItem = (item, form) => {
       return (
         <Form.Item {...omit(item, [...omitProps])} valuePropName="checked">
           <Switch {...formItemProps} />
+        </Form.Item>
+      )
+    case 'select':
+      return (
+        <Form.Item {...omit(item, [...omitProps])}>
+          <Select {...formItemProps} />
         </Form.Item>
       )
     case 'upload':

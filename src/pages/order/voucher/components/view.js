@@ -78,8 +78,34 @@ export default props => {
                   })
               },
             },
+          },
+          btn2 = {
+            name: '退款',
+            popconfirm: {
+              title: '是否确认退款？',
+              confirm() {
+                //TODO:退款
+                orderInfoRemote
+                  .produce({
+                    ids: [record.item_Id],
+                  })
+                  .then(({ status, data }) => {
+                    if (status) {
+                      message.success('发起退款成功')
+                      setSubOrder(
+                        u(
+                          {
+                            [i]: { ...data[0] },
+                          },
+                          subOrder
+                        )
+                      )
+                    }
+                  })
+              },
+            },
           }
-        record.itemStatusName === '待备货' && btns.push(btn)
+        record.itemStatusName === '待备货' && btns.push(btn, btn2)
         record.itemStatusName === '待发货' && btns.push(btn1)
         return btns
       },
@@ -101,7 +127,12 @@ export default props => {
       </div>
       <div className={styles.total}>
         <Statistic
-          title="总金额:"
+          title="商品金额:"
+          value={record.total_Original_Price || 0}
+          valueStyle={{ fontSize: '14px' }}
+        />
+        <Statistic
+          title="优惠券:"
           value={record.total_Original_Price || 0}
           valueStyle={{ fontSize: '14px' }}
         />
@@ -111,7 +142,12 @@ export default props => {
           valueStyle={{ fontSize: '14px' }}
         />
         <Statistic
-          title="实收总金额:"
+          title="其他费用:"
+          value={record.total_Received_Amount || 0}
+          valueStyle={{ fontSize: '14px' }}
+        />
+        <Statistic
+          title="实际支付:"
           value={record.total_Received_Amount || 0}
           valueStyle={{ fontSize: '14px' }}
         />
