@@ -1,61 +1,33 @@
 import React, { useRef, useState } from 'react'
-import { bonusRemote } from '@/services/baseRemote'
+import { productInfoRemote } from '@/services/baseRemote'
 import FormTable from '@/components/custom/table/formTable'
 import { tableFields, parseColumns, parseFormData, resetFormData } from './column'
 import { Button } from 'antd'
-import SettleAccounts from './components/settleAccounts'
-import useFormModal from '@/hooks/useFormModal'
+import AddRange from './components/addRange'
 
 export default props => {
   const ref = useRef()
   const [title, setTitle] = useState(false)
-  // 结算
-  const addFormModal = useFormModal({
-    modal: {
-      title: `结算`,
-      width: 900,
-      onOk: params => {
-        return bonusRemote
-          .saveOrUpdate({
-            ...params,
-          })
-          .then(({ status }) => {
-            if (status) {
-              addFormModal.setVisible(false)
-              myRef.current?.submit()
-              message.success('结算成功')
-            }
-            return status
-          })
-      },
-    },
-  })
-
+  const [visible, setVisible] = useState(false)
   const FormTableProps = {
-    remote: bonusRemote,
+    remote: productInfoRemote,
     actionBtnProps: {
-      showImport: true,
-      //   templateURL,
-      //   uploadURL,
-      showExport: true,
-      //downloadURL: volumerRemote.exportExcel.bind(volumerRemote),
       extraButtonList: [
-        <Button key="add" type="primary" onClick={() => addFormModal.setVisible(true)}>
-          结算
+        <Button key="add" type="primary" onClick={() => setVisible(true)}>
+          新增模块
         </Button>,
       ],
     },
     columns: [
       [
-        '顾问名称',
-        'task_name',
+        '名称',
+        'name',
         {
-          width: 100,
           render: (text, record) => {
             return (
               <span
                 onClick={() => {
-                  setTitle(record.task_name)
+                  setTitle(record.name)
                   ref.current?.viewFormModal.setFormData({
                     ...record,
                   })
@@ -86,10 +58,23 @@ export default props => {
     },
   }
 
+  const AddRangeProps = {
+    modalProps: {
+      title: `新增模块`,
+      width: 700,
+      visible,
+      footer: [
+        <Button key="close" type="primary" onClick={() => setVisible(false)}>
+          确定
+        </Button>,
+      ],
+      onCancel: () => setVisible(false),
+    },
+  }
   return (
     <>
       <FormTable {...FormTableProps} ref={ref} />
-      {addFormModal.modalProps.visible && <SettleAccounts {...addFormModal} />}
+      {visible && <AddRange {...AddRangeProps} />}
     </>
   )
 }

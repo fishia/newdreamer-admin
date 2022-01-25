@@ -84,7 +84,17 @@ export const enumSuperset = {
   finish: [
     { value: 'FINISHED', label: '已完成' },
     { value: 'NOFINISHED', label: '未完成' },
-  ], //启用
+  ], //完成状态
+  settleAccounts: [
+    { value: 'true', label: '已结算' },
+    { value: 'false', label: '未结算' },
+  ], //结算状态
+  refundStatus: [
+    { value: 'TO_BE_REFUND', label: '退款中' },
+    { value: 'TO_BE_REFUNDED', label: '已退款' },
+    { value: 'TO_BE_REJECTED', label: '已驳回' },
+    { value: 'ALL', label: '全部' },
+  ],
 }
 
 export const format = 'YYYY-MM-DD HH:mm:ss'

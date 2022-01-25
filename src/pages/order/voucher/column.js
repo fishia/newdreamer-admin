@@ -8,6 +8,7 @@ export const tableFields = [
       width: 120,
       filter: {
         isunions: true, //联合类型
+        orderIndex: -1,
       },
     },
   ],

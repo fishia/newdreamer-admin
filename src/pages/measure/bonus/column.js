@@ -1,80 +1,89 @@
 import { Switch } from 'antd'
-import { enumSuperset } from '@/utils/contants'
+import { enumSuperset, format } from '@/utils/contants'
 import { MySelect } from '@/components/custom/select'
 import ImagePreviewGroup from '@/components/custom/ImagePreviewGroup'
+import moment from 'moment'
 
 export const tableFields = [
   [
-    '任务奖励',
-    'college',
-    {
-      form: {},
-    },
-  ],
-  [
-    '任务概述',
+    '资金名称',
     'desctiption',
     {
-      form: {},
-      width: 150,
+      filter: {
+        isunions: true, //联合类型
+      },
+      width: 100,
     },
   ],
   [
-    '任务介绍',
+    '金额',
     'introduce',
     {
-      width: 150,
+      width: 80,
       render: (text, record) => {
         //展示详情
         return text && <ImagePreviewGroup images={text} />
       },
-      form: {
-        type: 'upload',
-        fileDirectorEnum: 'PRODUCT',
-        mode: 'single',
-      },
+      form: {},
     },
   ],
   [
-    '发布时间',
+    '订单号',
     'publishTime',
     {
       form: {},
     },
   ],
   [
-    '截止时间',
-    'endTime',
+    '创建时间',
+    'createTime',
     {
-      form: {},
+      render: text => (text ? moment(text).format(format) : ''),
+      form: {
+        type: 'datePicker',
+        format,
+      },
     },
   ],
   [
-    '领取人数',
+    '结算状态',
     'peoples',
     {
       form: {},
+      filter: {
+        elem: <MySelect datasource={enumSuperset['settleAccounts']} />,
+      },
     },
   ],
   [
-    '适用范围',
-    'range',
+    '结算时间',
+    'settlementDate',
     {
-      form: {},
+      render: text => (text ? moment(text).format(format) : ''),
+      form: {
+        type: 'datePicker',
+        format,
+      },
     },
   ],
   [
-    '发布状态',
+    '备注',
     'enabled',
     {
       render: (text, record) => {
         return <Switch checked={text} disabled />
       },
-      filter: {
-        elem: <MySelect datasource={enumSuperset['enabled']} />,
-      },
     },
   ],
 ]
 
-export const parseColumns = data => ({ ...data })
+export const parseColumns = data => ({
+  ...data,
+  createTime: data.createTime ? moment(data.createTime) : undefined,
+  settlementDate: data.settlementDate ? moment(data.settlementDate) : undefined,
+})
+export const parseFormData = data => ({
+  ...data,
+  createTime: data.createTime ? moment(data.createTime).format(format) : undefined,
+  settlementDate: data.settlementDate ? moment(data.settlementDate).format(format) : undefined,
+}) //下拉保存给id给后台

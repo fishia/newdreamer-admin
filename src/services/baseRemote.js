@@ -153,6 +153,33 @@ export const orderInfoRemote = (url => {
   }
 })('/newdreamer/backOrder')
 
+//评价管理
+export const evaluateRemote = (url => {
+  return {
+    //评价列表
+    page(params) {
+      return axios.get(`${url}/evaluation`, { ...params })
+    },
+    //删除
+    deletes(params) {
+      return axios.get(`${url}/deleteEvaluation`, { ...params })
+    },
+    //新增、编辑
+    saveOrUpdate(params) {
+      return params.id
+        ? axios.put(`${this.url}`, { ...params })
+        : axios.post(`${this.url}`, { ...params })
+    },
+    //导入
+    importExcel() {
+      return `${this.url}/importExcel`
+    },
+    exportExcel(params) {
+      return exportFile(`${this.url}/exportExcel`, { ...params })
+    },
+  }
+})('/newdreamer/backOrder')
+
 //获取二维码
 export const getQrcode = params => {
   return request(`/api/QRcode/get?${jsonToUrl(params)}`, '')

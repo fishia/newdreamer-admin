@@ -151,7 +151,7 @@ function Table(props, ref) {
       {
         width: actionWidth,
         fixed: 'right',
-        display: showAdd || showDelete || showCopy || showOtherBtns,
+        display: showAdd || showEdit || showDelete || showCopy || showOtherBtns,
         renderButtons(text, record, index) {
           let btns = [
             {

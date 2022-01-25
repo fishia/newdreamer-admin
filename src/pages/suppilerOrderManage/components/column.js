@@ -29,6 +29,7 @@ export const tableFields = status => [
       autoHide: status === 'TO_BE_DELIVERED',
       filter: {
         isunions: true,
+        orderIndex: -1,
       },
       form: {
         type: 'other',

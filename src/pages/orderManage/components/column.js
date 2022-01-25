@@ -15,6 +15,7 @@ export const tableFields = [
       autoHide: true,
       filter: {
         isunions: true,
+        orderIndex: -1,
       },
       form: {
         rules: [{ required: true }],

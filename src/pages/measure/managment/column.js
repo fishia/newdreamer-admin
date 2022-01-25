@@ -20,7 +20,7 @@ export const tableFields = [
       filter: {
         isunions: true, //联合类型
       },
-      form: {},
+      form: { rules: [{ required: true }] },
     },
   ],
   [
@@ -122,7 +122,7 @@ export const tableFields = [
   ],
   [
     '销售提成',
-    'salesCommissions',
+    'saleRole',
     {
       display: false,
       form: {
@@ -132,7 +132,7 @@ export const tableFields = [
   ],
   [
     '销售提成',
-    'salesCommissionsValue',
+    'saleCommission',
     {
       display: false,
       form: { addonAfter: '%' },
@@ -140,7 +140,7 @@ export const tableFields = [
   ],
   [
     '量体提成',
-    'volumeCommissions',
+    'measureRole',
     {
       display: false,
       form: {
@@ -150,7 +150,7 @@ export const tableFields = [
   ],
   [
     '量体提成',
-    'volumeCommissionsValue',
+    'measureCommission',
     {
       display: false,
       form: { addonAfter: '%' },
@@ -158,7 +158,7 @@ export const tableFields = [
   ],
   [
     '协助下单',
-    'AssistPurchasing',
+    'assistWithOrder',
     {
       display: false,
       form: {
@@ -168,7 +168,7 @@ export const tableFields = [
   ],
   [
     '学习天地',
-    'study',
+    'studyModule',
     {
       display: false,
       form: {
@@ -178,7 +178,7 @@ export const tableFields = [
   ],
   [
     '任务发放',
-    'taskPublish',
+    'releaseTask',
     {
       display: false,
       form: {
@@ -188,7 +188,7 @@ export const tableFields = [
   ],
   [
     '运营活动',
-    'operatingActivities',
+    'operationalActivities',
     {
       display: false,
       form: {

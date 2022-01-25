@@ -19,13 +19,13 @@ export default [
     title: '退款管理',
     exact: true,
     icon: <BarsOutlined />,
-    component: () => import('@/pages/order/refund'),
+    component: () => import('@/pages/order/refund/index'),
   },
   {
     path: '/voucher/evaluate',
     title: '评价管理',
     exact: true,
     icon: <BarsOutlined />,
-    component: () => import('@/pages/order/evaluate'),
+    component: () => import('@/pages/order/evaluate/index'),
   },
 ]

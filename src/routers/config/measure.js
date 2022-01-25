@@ -22,6 +22,14 @@ export default [
     component: () => import('@/pages/measure/collegeInfo'),
   },
   {
+    path: '/measure/studyModule',
+    title: '学习天地',
+    exact: true,
+    show: true,
+    icon: <ReconciliationOutlined />,
+    component: () => import('@/pages/measure/studyModule'),
+  },
+  {
     path: '/measure/commission',
     title: '顾问提成',
     icon: <TransactionOutlined />,
