@@ -140,6 +140,7 @@ function Table(props, ref) {
       refresh,
       record,
       submit,
+      selectedRowKeys,
     }),
     [record]
   )

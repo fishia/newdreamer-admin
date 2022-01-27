@@ -1,89 +1,54 @@
-import { Switch } from 'antd'
-import { enumSuperset, format } from '@/utils/contants'
+import { enumSuperset } from '@/utils/contants'
 import { MySelect } from '@/components/custom/select'
-import ImagePreviewGroup from '@/components/custom/ImagePreviewGroup'
-import moment from 'moment'
 
 export const tableFields = [
   [
     '资金名称',
-    'desctiption',
+    'type',
     {
       filter: {
         isunions: true, //联合类型
       },
       width: 100,
+      form: {},
     },
   ],
   [
     '金额',
-    'introduce',
+    'amount',
     {
       width: 80,
-      render: (text, record) => {
-        //展示详情
-        return text && <ImagePreviewGroup images={text} />
-      },
-      form: {},
-    },
-  ],
-  [
-    '订单号',
-    'publishTime',
-    {
-      form: {},
-    },
-  ],
-  [
-    '创建时间',
-    'createTime',
-    {
-      render: text => (text ? moment(text).format(format) : ''),
       form: {
-        type: 'datePicker',
-        format,
+        inputType: 'number',
       },
     },
   ],
+  ['订单号', 'orderId'],
+  ['创建时间', 'createTime'],
   [
     '结算状态',
-    'peoples',
+    'status',
     {
-      form: {},
+      form: {
+        type: 'other',
+        children: props => <MySelect datasource={enumSuperset['settleAccounts']} {...props} />,
+      },
       filter: {
         elem: <MySelect datasource={enumSuperset['settleAccounts']} />,
       },
+      render: text =>
+        enumSuperset['settleAccounts'].filter(item => item.value == text.toString())[0]?.label ||
+        text,
     },
   ],
-  [
-    '结算时间',
-    'settlementDate',
-    {
-      render: text => (text ? moment(text).format(format) : ''),
-      form: {
-        type: 'datePicker',
-        format,
-      },
-    },
-  ],
-  [
-    '备注',
-    'enabled',
-    {
-      render: (text, record) => {
-        return <Switch checked={text} disabled />
-      },
-    },
-  ],
+  ['结算时间', 'settleDate'],
+  ['备注', 'remark'],
 ]
 
 export const parseColumns = data => ({
   ...data,
-  createTime: data.createTime ? moment(data.createTime) : undefined,
-  settlementDate: data.settlementDate ? moment(data.settlementDate) : undefined,
+  status: data.status.toString(),
 })
 export const parseFormData = data => ({
   ...data,
-  createTime: data.createTime ? moment(data.createTime).format(format) : undefined,
-  settlementDate: data.settlementDate ? moment(data.settlementDate).format(format) : undefined,
 }) //下拉保存给id给后台

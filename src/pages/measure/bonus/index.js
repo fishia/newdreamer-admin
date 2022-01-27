@@ -1,46 +1,52 @@
 import React, { useRef, useState } from 'react'
+import moment from 'moment'
+import { Button, message } from 'antd'
 import { bonusRemote } from '@/services/baseRemote'
 import FormTable from '@/components/custom/table/formTable'
 import { tableFields, parseColumns, parseFormData, resetFormData } from './column'
-import { Button } from 'antd'
 import SettleAccounts from './components/settleAccounts'
 import useFormModal from '@/hooks/useFormModal'
+import { VolumerSelect } from '@/components/custom/select'
 
 export default props => {
-  const ref = useRef()
+  const myRef = useRef()
   const [title, setTitle] = useState(false)
-  // 结算
-  const addFormModal = useFormModal({
+
+  //批量结算
+  const settleFormModal = useFormModal({
     modal: {
       title: `结算`,
       width: 900,
-      onOk: params => {
-        return bonusRemote
-          .saveOrUpdate({
+      onOk: params =>
+        bonusRemote
+          .batchSettle({
             ...params,
+            year: moment(params.month).format('YYYY'),
+            month: moment(params.month).format('M'),
           })
           .then(({ status }) => {
             if (status) {
-              addFormModal.setVisible(false)
+              settleFormModal.setVisible(false)
               myRef.current?.submit()
               message.success('结算成功')
             }
             return status
-          })
-      },
+          }),
     },
   })
 
   const FormTableProps = {
     remote: bonusRemote,
+    initialValues: { status: 'false' },
     actionBtnProps: {
+      showCopy: false,
       showImport: true,
-      //   templateURL,
-      //   uploadURL,
+      templateURL: '/resources/template/顾问提成.xls',
+      uploadURL: bonusRemote.importExcel(),
       showExport: true,
-      //downloadURL: volumerRemote.exportExcel.bind(volumerRemote),
+      downloadURL: bonusRemote.exportExcel.bind(bonusRemote),
       extraButtonList: [
-        <Button key="add" type="primary" onClick={() => addFormModal.setVisible(true)}>
+        <Button key="add" type="primary" onClick={() => settleFormModal.setVisible(true)}>
           结算
         </Button>,
       ],
@@ -48,14 +54,14 @@ export default props => {
     columns: [
       [
         '顾问名称',
-        'task_name',
+        'volumerName',
         {
           width: 100,
           render: (text, record) => {
             return (
               <span
                 onClick={() => {
-                  setTitle(record.task_name)
+                  setTitle(`${record.volumerName}${record.orderId ? `-${record.orderId}` : ''}`)
                   ref.current?.viewFormModal.setFormData({
                     ...record,
                   })
@@ -72,12 +78,34 @@ export default props => {
             isunions: true, //联合类型
           },
           form: {
+            type: 'other',
+            name: 'volumerId',
+            children: props => <VolumerSelect {...props} />,
             rules: [{ required: true }],
           },
         },
       ],
       ...tableFields,
     ],
+    otherTableProps: {
+      otherActionBtns: (text, record) => {
+        let btns = [
+          {
+            name: '结算',
+            popconfirm: {
+              title: '是否确认结算？',
+              confirm() {
+                bonusRemote.settle({ id: record.id }).then(() => {
+                  myRef.current?.submit()
+                  message.success('结算成功')
+                })
+              },
+            },
+          },
+        ]
+        return record.status == false ? null : btns
+      },
+    },
     parseColumns,
     parseFormData,
     resetFormData,
@@ -88,8 +116,8 @@ export default props => {
 
   return (
     <>
-      <FormTable {...FormTableProps} ref={ref} />
-      {addFormModal.modalProps.visible && <SettleAccounts {...addFormModal} />}
+      <FormTable {...FormTableProps} ref={myRef} />
+      {settleFormModal.modalProps.visible && <SettleAccounts {...settleFormModal} />}
     </>
   )
 }

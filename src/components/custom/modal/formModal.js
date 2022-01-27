@@ -23,6 +23,7 @@ export const renderFormItem = (item, form) => {
       'format',
       'options',
     ]
+
   switch (item.type) {
     case 'input':
       return (
@@ -30,6 +31,7 @@ export const renderFormItem = (item, form) => {
           <Input
             {...{
               ...formItemProps,
+              type: item.inputType ?? 'text',
               allowClear: true,
               placeholder: `请输入${item.label}`,
             }}

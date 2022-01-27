@@ -87,7 +87,7 @@ export const enumSuperset = {
   ], //完成状态
   settleAccounts: [
     { value: 'true', label: '已结算' },
-    { value: 'false', label: '未结算' },
+    { value: 'false', label: '待结算' },
   ], //结算状态
   refundStatus: [
     { value: 'TO_BE_REFUND', label: '退款中' },

@@ -28,12 +28,12 @@ function Add(props) {
       <Form form={form} {...formItemLayout} initialValues={{ ...formData }}>
         <Row>
           <Col span={12}>
-            <Form.Item name="code" label="顾问名称" rules={[{ required: true }]}>
+            <Form.Item name="volumerId" label="顾问名称" rules={[{ required: true }]}>
               <VolumerSelect />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="college" label="月份" rules={[{ required: true }]}>
+            <Form.Item name="month" label="月份" rules={[{ required: true }]}>
               <DatePicker picker="month" />
             </Form.Item>
           </Col>
