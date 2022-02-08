@@ -1,19 +1,20 @@
 import { Switch } from 'antd'
-import { enumSuperset } from '@/utils/contants'
-import { MySelect } from '@/components/custom/select'
+import moment from 'moment'
+import { enumSuperset, format } from '@/utils/contants'
+import { ScopeNameSelect, MySelect } from '@/components/custom/select'
 import ImagePreviewGroup from '@/components/custom/ImagePreviewGroup'
 
 export const tableFields = [
   [
     '任务奖励',
-    'college',
+    'reward',
     {
       form: {},
     },
   ],
   [
     '任务概述',
-    'desctiption',
+    'content',
     {
       form: {},
       width: 150,
@@ -21,7 +22,7 @@ export const tableFields = [
   ],
   [
     '任务介绍',
-    'introduce',
+    'brief',
     {
       width: 150,
       render: (text, record) => {
@@ -37,35 +38,37 @@ export const tableFields = [
   ],
   [
     '发布时间',
-    'publishTime',
+    'createTime',
     {
-      form: {},
+      render: text => (text ? moment(text).format('YYYY-MM-DD') : ''),
     },
   ],
   [
     '截止时间',
     'endTime',
     {
-      form: {},
+      form: {
+        type: 'datePicker',
+        format,
+      },
+      render: text => (text ? moment(text).format('YYYY-MM-DD') : ''),
     },
   ],
-  [
-    '领取人数',
-    'peoples',
-    {
-      form: {},
-    },
-  ],
+  ['领取人数', 'receiveCount', {}],
   [
     '适用范围',
-    'range',
+    'scopeName',
     {
-      form: {},
+      form: {
+        name: 'scopeId',
+        type: 'other',
+        children: props => <ScopeNameSelect />,
+      },
     },
   ],
   [
     '发布状态',
-    'enabled',
+    'publishStatus',
     {
       render: (text, record) => {
         return <Switch checked={text} disabled />
@@ -80,7 +83,7 @@ export const tableFields = [
 export const rangeFields = [
   [
     '模块名称',
-    'moduleName',
+    'name',
     {
       form: {
         rules: [{ required: true }],
@@ -100,4 +103,17 @@ export const rangeFields = [
     },
   ],
 ]
-export const parseColumns = data => ({ ...data })
+
+export const parseColumns = data => ({
+  ...data,
+  createTime: data.createTime ? moment(data.createTime) : undefined,
+  endTime: data.endTime ? moment(data.endTime) : undefined,
+  brief: data.brief && JSON.parse(data.brief),
+})
+
+export const parseFormData = data => ({
+  ...data,
+  createTime: data.createTime ? moment(data.createTime).format('YYYY-MM-DD') : undefined,
+  endTime: data.endTime ? moment(data.endTime).format('YYYY-MM-DD') : undefined,
+  brief: data.brief && JSON.stringify(data.brief),
+})

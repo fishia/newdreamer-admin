@@ -114,6 +114,14 @@ productInMakingRemote.exportExcel = params => {
   return exportFile(`/newdreamer/productInMaking/exportExcel`, { ...params })
 }
 export { productInMakingRemote }
+
+//发布任务
+export const taskRemote = new BornCroudApi('/newdreamer/task')
+//适用范围
+export const taskScopeRemote = new baseCrudApi('/newdreamer/taskScope')
+//任务领取
+export const taskReceiveRecordRemote = new BornCroudApi('/newdreamer/taskReceiveRecord')
+
 //订单信息
 export const orderInfoRemote = (url => {
   return {
@@ -156,6 +164,30 @@ export const orderInfoRemote = (url => {
     orderStatusCount() {
       return axios.get(`${url}/orderStatusCount`)
     },
+    //绑定销售顾问、量体数据
+    bind(params) {
+      return axios.post(`${url}/bind`, { ...params })
+    },
+    //退款订单列表
+    refundPage(params) {
+      return axios.get(`${url}/refund?${jsonToUrl(params)}`, { type: 'page' })
+    },
+    //退款
+    refundApply(params) {
+      return axios.post(`${url}/refundApply`, { ...params })
+    },
+    //撤销退款
+    refundCancel(params) {
+      return axios.post(`${url}/refundCancel`, { ...params })
+    },
+    //撤销备注
+    refundRemark(params) {
+      return axios.post(`${url}/refundRemark`, { ...params })
+    },
+    //退款导出
+    exportRefund(params) {
+      return exportFile(`${url}/exportRefund`, { ...params })
+    },
   }
 })('/newdreamer/backOrder')
 
@@ -190,3 +222,24 @@ export const evaluateRemote = (url => {
 export const getQrcode = params => {
   return request(`/api/QRcode/get?${jsonToUrl(params)}`, '')
 }
+
+//客户管理
+export const backCustomerRemote = (url => {
+  return {
+    //评价列表
+    page(params) {
+      return axios.get(`${url}/customerInfo`, { ...params })
+    },
+    //删除
+    deletes(params) {
+      return axios.get(`${url}/deleteEvaluation`, { ...params })
+    },
+    //新增、编辑
+    saveOrUpdate(params) {
+      return axios.post(`${url}/partialUpdate`, { ...params })
+    },
+    exportExcel(params) {
+      return exportFile(`${url}/exportCustomer`, { ...params })
+    },
+  }
+})('/newdreamer/backCustomer')

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { productInfoRemote } from '@/services/baseRemote'
+import { taskRemote } from '@/services/baseRemote'
 import FormTable from '@/components/custom/table/formTable'
 import { tableFields, parseColumns, parseFormData, resetFormData } from './column'
 import { Button } from 'antd'
@@ -10,10 +10,10 @@ export default props => {
   const [title, setTitle] = useState(false)
   const [visible, setVisible] = useState(false)
   const FormTableProps = {
-    remote: productInfoRemote,
+    remote: taskRemote,
     actionBtnProps: {
       showExport: true,
-      //downloadURL: volumerRemote.exportExcel.bind(volumerRemote),
+      downloadURL: taskRemote.exportExcel.bind(taskRemote),
       extraButtonList: [
         <Button key="add" type="primary" onClick={() => setVisible(true)}>
           新增范围
@@ -23,14 +23,14 @@ export default props => {
     columns: [
       [
         '任务名称',
-        'task_name',
+        'taskName',
         {
           width: 100,
           render: (text, record) => {
             return (
               <span
                 onClick={() => {
-                  setTitle(record.task_name)
+                  setTitle(record.taskName)
                   ref.current?.viewFormModal.setFormData({
                     ...record,
                   })

@@ -5,7 +5,7 @@ import { MySelect, SalesConsultanterSelect } from '@/components/custom/select'
 export const tableFields = [
   [
     '客户姓名',
-    'customer_Wechat_Name',
+    'name',
     {
       form: {},
       filter: {
@@ -43,9 +43,13 @@ export const tableFields = [
   ],
   [
     '销售顾问',
-    'salesConsultanter',
+    'salesAdvisorName',
     {
-      form: {},
+      form: {
+        type: 'other',
+        name: 'salesAdvisorId',
+        children: props => <SalesConsultanterSelect {...props} />,
+      },
       width: 100,
       filter: {
         isunions: true,
@@ -67,22 +71,18 @@ export const tableFields = [
   ],
   [
     '账户名称',
-    'accountName',
+    'customer_Wechat_Name',
     {
       width: 100,
       form: {},
     },
   ],
   [
-    '是否购买',
-    'enabled',
+    '订单数量',
+    'purchase_Count',
     {
-      render: (text, record) => {
-        return <Switch checked={text} disabled />
-      },
       width: 100,
       form: {
-        type: 'switch',
         disabled: 'edit',
       },
     },

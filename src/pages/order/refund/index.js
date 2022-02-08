@@ -11,7 +11,7 @@ const TabPane = Tabs.TabPane
 
 export default props => {
   const ref = useRef()
-  const [refundStatus, setRefundStatus] = useState('TO_BE_REFUND')
+  const [refundStatus, setRefundStatus] = useState('REFUNDING')
   const [record, setRecord] = useState({})
   const [statusCountObj, setStatusCountObj] = useState({})
 
@@ -34,7 +34,7 @@ export default props => {
       onOk: params => {
         //TODO:退款接口
         return orderInfoRemote
-          .saveOrUpdate({
+          .refundRemark({
             ...params,
           })
           .then(({ status }) => {
@@ -55,9 +55,9 @@ export default props => {
         page: current - 1,
         size: pageSize,
         ...formData,
-        refundStatus,
+        // refundStatus,
       }
-      return orderInfoRemote.page(params).then(({ data, status }) => {
+      return orderInfoRemote.refundPage(params).then(({ data, status }) => {
         if (status) {
           return {
             total: data.totalElements,
@@ -97,7 +97,7 @@ export default props => {
               confirm() {
                 //TODO:全部撤销
                 orderInfoRemote
-                  .cancelProduce({
+                  .refundApply({
                     ids: record.subOrderInfoDTOS
                       ? record.subOrderInfoDTOS.map(item => item.item_Id)
                       : [],
@@ -120,7 +120,7 @@ export default props => {
               confirm() {
                 //TODO:全部撤销
                 orderInfoRemote
-                  .cancelProduce({
+                  .refundCancel({
                     ids: record.subOrderInfoDTOS
                       ? record.subOrderInfoDTOS.map(item => item.item_Id)
                       : [],

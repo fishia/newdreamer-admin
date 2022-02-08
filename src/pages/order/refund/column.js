@@ -4,7 +4,7 @@ import { Popover } from 'antd'
 export const tableFields = [
   [
     '单品编号',
-    'item_Id',
+    'code',
     {
       width: 120,
       filter: {
@@ -52,7 +52,7 @@ export const tableFields = [
   ],
   [
     '子订单号',
-    'volumerName',
+    'item_Id',
     {
       width: 120,
       filter: {
@@ -72,7 +72,7 @@ export const tableFields = [
   ],
   [
     '退款备注',
-    'refund_memo',
+    'refundRemark',
     {
       width: 200,
       render: (text, record) => {

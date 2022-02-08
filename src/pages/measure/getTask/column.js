@@ -6,7 +6,7 @@ import { enumSuperset } from '@/utils/contants'
 export const tableFields = [
   [
     '任务奖励',
-    'college',
+    'reward',
     {
       form: {},
       width: 100,
@@ -14,7 +14,7 @@ export const tableFields = [
   ],
   [
     '领取时间',
-    'receiveTime',
+    'createTime',
     {
       form: {},
       width: 100,
@@ -33,7 +33,7 @@ export const tableFields = [
   ],
   [
     '完成状态',
-    'statusName',
+    'completeStatus',
     {
       form: {},
       width: 100,
@@ -44,10 +44,9 @@ export const tableFields = [
   ],
   [
     '完成时间',
-    'finishTime',
+    'completeTime',
     {
       width: 150,
-      render: text => (text ? moment(text).format('YYYY-MM-DD') : ''),
       form: {
         type: 'datePicker',
       },
@@ -55,7 +54,7 @@ export const tableFields = [
   ],
   [
     '完成截图',
-    'photos',
+    'taskPhotos',
     {
       width: 300,
       render: (text, record) => {
@@ -71,7 +70,7 @@ export const tableFields = [
   ],
   [
     '审核状态',
-    'enabled',
+    'auditStatus',
     {
       render: (text, record) => {
         return <Switch checked={text} disabled />
@@ -83,12 +82,5 @@ export const tableFields = [
 
 export const parseColumns = data => ({
   ...data,
-  receiveTime: data.receiveTime ? moment(data.receiveTime) : undefined,
-  finishTime: data.finishTime ? moment(data.finishTime) : undefined,
-})
-
-export const parseFormData = data => ({
-  ...data,
-  receiveTime: data.receiveTime ? moment(data.receiveTime).format('YYYY-MM-DD') : undefined,
-  finishTime: data.finishTime ? moment(data.finishTime).format('YYYY-MM-DD') : undefined,
+  taskPhotos: data.taskPhotos && JSON.parse(data.taskPhotos),
 })

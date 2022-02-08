@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { volumerRemote } from '@/services/baseRemote'
+import { backCustomerRemote } from '@/services/baseRemote'
 import FormTable from '@/components/custom/table/formTable'
 import { tableFields, parseColumns, parseFormData } from './column'
 
@@ -7,26 +7,26 @@ export default props => {
   const ref = useRef()
   const [title, setTitle] = useState(false)
   const FormTableProps = {
-    remote: volumerRemote,
+    remote: backCustomerRemote,
     actionWidth: 100,
     actionBtnProps: {
       showAdd: false,
       showCopy: false,
       showDelete: false,
       showExport: true,
-      downloadURL: volumerRemote.exportExcel.bind(volumerRemote),
+      downloadURL: backCustomerRemote.exportExcel.bind(backCustomerRemote),
     },
     columns: [
       [
         'wechatid',
-        'wechatid',
+        'customer_Wechat_Id',
         {
           width: 100,
           render: (text, record) => {
             return (
               <span
                 onClick={() => {
-                  setTitle(record.wechatid)
+                  setTitle(record.customer_Wechat_Id)
                   ref.current?.viewFormModal.setFormData({
                     ...record,
                   })

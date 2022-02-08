@@ -10,6 +10,7 @@ import FabricSelect from './fabricSelect'
 import SingleNoSelect from './singleNoSelect'
 import StyleSelect from './styleSelect'
 import SalesConsultanterSelect from './salesConsultanterSelect' //销售顾问
+import ScopeNameSelect from './scopeNameSelect' //适用范围
 export {
   UnionSelect,
   SupplierSelect,
@@ -22,5 +23,6 @@ export {
   CollegePartSelect,
   StyleSelect,
   SalesConsultanterSelect,
+  ScopeNameSelect,
   MySelect,
 }

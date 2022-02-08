@@ -61,9 +61,12 @@ export const enumSuperset = {
     { value: 'HEADQUARTERS', label: '总部' },
     { value: 'OTHERS', label: '其他' },
   ],
-  washingLabelPackaging: ['换洗唛包装', '不换洗唛换包装', '不换洗唛不换包装', '换洗唛不换包装'].map(
-    item => ({ value: item, label: item })
-  ), //洗唛包装
+  washingLabelPackaging: [
+    '换洗唛包装',
+    '不换洗唛换包装',
+    '不换洗唛不换包装',
+    '换洗唛不换包装',
+  ].map(item => ({ value: item, label: item })), //洗唛包装
   onlineType: [
     { value: 'true', label: '单品' },
     { value: 'false', label: '组合商品' },
@@ -82,17 +85,17 @@ export const enumSuperset = {
   ],
   GoodsClassification: ['西服', '衬衫', '配饰', '其他'].map(item => ({ value: item, label: item })),
   finish: [
-    { value: 'FINISHED', label: '已完成' },
-    { value: 'NOFINISHED', label: '未完成' },
+    { value: 'true', label: '已完成' },
+    { value: 'false', label: '未完成' },
   ], //完成状态
   settleAccounts: [
     { value: 'true', label: '已结算' },
     { value: 'false', label: '待结算' },
   ], //结算状态
   refundStatus: [
-    { value: 'TO_BE_REFUND', label: '退款中' },
-    { value: 'TO_BE_REFUNDED', label: '已退款' },
-    { value: 'TO_BE_REJECTED', label: '已驳回' },
+    { value: 'REFUNDING', label: '退款中' },
+    { value: 'REFUNDED', label: '已退款' },
+    { value: 'REJECT', label: '已驳回' },
     { value: 'ALL', label: '全部' },
   ],
 }

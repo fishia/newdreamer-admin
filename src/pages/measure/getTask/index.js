@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { volumerRemote } from '@/services/baseRemote'
+import { taskReceiveRecordRemote } from '@/services/baseRemote'
 import FormTable from '@/components/custom/table/formTable'
 import { tableFields, parseColumns, parseFormData } from './column'
 
@@ -7,7 +7,7 @@ export default props => {
   const ref = useRef()
   const [title, setTitle] = useState(false)
   const FormTableProps = {
-    remote: volumerRemote,
+    remote: taskReceiveRecordRemote,
     initialValues: {
       volumer_Status: 'true',
     },
@@ -16,7 +16,7 @@ export default props => {
       showAdd: false,
       showCopy: false,
       showExport: true,
-      downloadURL: volumerRemote.exportExcel.bind(volumerRemote),
+      downloadURL: taskReceiveRecordRemote.exportExcel.bind(taskReceiveRecordRemote),
     },
     columns: [
       [

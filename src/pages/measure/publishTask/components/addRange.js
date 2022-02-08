@@ -1,5 +1,5 @@
 import { forwardRef } from 'react'
-import { collegeInfoRemote } from '@/services/baseRemote'
+import { taskScopeRemote } from '@/services/baseRemote'
 import FormTable from '@/components/custom/table/formTable'
 import { rangeFields, parseColumns } from '../column'
 import { Modal } from 'antd'
@@ -7,7 +7,7 @@ import { Modal } from 'antd'
 export default forwardRef((props, ref) => {
   const { modalProps, callback } = props
   const FormTableProps = {
-    remote: collegeInfoRemote,
+    remote: taskScopeRemote,
     actionBtnProps: {
       showCopy: false,
     },
