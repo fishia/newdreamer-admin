@@ -41,7 +41,7 @@ export default props => {
         actionBtnProps: {
           showExport: true,
           downloadURL: productInMakingRemote.exportExcel.bind(productInMakingRemote),
-          exportCommonsFieds: { status: current, classification },
+          exportCommonsFields: { status: current, classification },
         },
         actionWidth: classification === 'CUSTOMIZED_PRODUCT' ? 260 : 200,
         otherTableProps: {
@@ -94,7 +94,7 @@ export default props => {
           showCopy: false,
           showExport: true,
           downloadURL: productInMakingRemote.exportExcel.bind(productInMakingRemote),
-          exportCommonsFieds: { status: current, classification },
+          exportCommonsFields: { status: current, classification },
         },
         otherTableProps: {
           otherActionBtns: (text, record) => {
@@ -144,7 +144,7 @@ export default props => {
           showCopy: false,
           showExport: true,
           downloadURL: productInMakingRemote.exportExcel.bind(productInMakingRemote),
-          exportCommonsFieds: { status: current, classification },
+          exportCommonsFields: { status: current, classification },
         },
         otherTableProps: {
           otherActionBtns: (text, record) => {
@@ -177,7 +177,7 @@ export default props => {
           showCopy: false,
           showExport: true,
           downloadURL: productInMakingRemote.exportExcel.bind(productInMakingRemote),
-          exportCommonsFieds: { status: current, classification },
+          exportCommonsFields: { status: current, classification },
         },
         otherTableProps: {
           otherActionBtns: (text, record) => {

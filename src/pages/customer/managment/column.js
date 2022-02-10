@@ -53,7 +53,13 @@ export const tableFields = [
       width: 100,
       filter: {
         isunions: true,
-        elem: () => <SalesConsultanterSelect />,
+        elem: ({ onChange }) => (
+          <SalesConsultanterSelect
+            onChange={v => {
+              onChange({ salesAdvisorId: v })
+            }}
+          />
+        ),
       },
     },
   ],

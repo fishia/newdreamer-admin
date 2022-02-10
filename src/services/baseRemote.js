@@ -180,6 +180,10 @@ export const orderInfoRemote = (url => {
     refundCancel(params) {
       return axios.post(`${url}/refundCancel`, { ...params })
     },
+    //退款审批
+    refundAudit(params) {
+      return axios.post(`${url}/refundAudit`, { ...params })
+    },
     //撤销备注
     refundRemark(params) {
       return axios.post(`${url}/refundRemark`, { ...params })
@@ -228,7 +232,7 @@ export const backCustomerRemote = (url => {
   return {
     //评价列表
     page(params) {
-      return axios.get(`${url}/customerInfo`, { ...params })
+      return axios.get(`${url}/customerInfo?${jsonToUrl(params)}`, { type: 'page' })
     },
     //删除
     deletes(params) {

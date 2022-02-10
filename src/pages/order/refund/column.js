@@ -1,5 +1,6 @@
 import { ShowVolumeInfo, StylesAndFabricsBtn } from '@/components/custom/Button'
 import { orderInfoRemote } from '@/services/baseRemote'
+import { enumSuperset } from '@/utils/contants'
 import { Popover } from 'antd'
 export const tableFields = [
   [
@@ -68,6 +69,7 @@ export const tableFields = [
     'refund_Status',
     {
       width: 100,
+      render: text => enumSuperset['refundStatus'].filter(item => item.value === text)[0]?.label,
     },
   ],
   [
@@ -77,7 +79,7 @@ export const tableFields = [
       width: 200,
       render: (text, record) => {
         return (
-          <Popover content={text} title="备注">
+          <Popover content={text} title="备注" placement="topLeft">
             <div
               style={{
                 width: '200px',

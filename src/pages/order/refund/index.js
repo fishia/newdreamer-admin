@@ -12,7 +12,6 @@ const TabPane = Tabs.TabPane
 export default props => {
   const ref = useRef()
   const [refundStatus, setRefundStatus] = useState('REFUNDING')
-  const [record, setRecord] = useState({})
   const [statusCountObj, setStatusCountObj] = useState({})
 
   const getCount = useCallback(() => {
@@ -30,19 +29,21 @@ export default props => {
   const memoModal = useFormModal({
     modal: {
       title: `退款备注`,
-      width: 1400,
+      width: 700,
       onOk: params => {
-        //TODO:退款接口
+        //TODO:退款备注
         return orderInfoRemote
           .refundRemark({
             ...params,
           })
-          .then(({ status }) => {
-            if (status) {
-              myRef.current?.refresh()
+          .then(({ success }) => {
+            if (success) {
+              ref.current?.submit()
               message.success('备注成功')
+            } else {
+              message.warning('备注失败')
             }
-            return status
+            return success
           })
       },
     },
@@ -55,7 +56,7 @@ export default props => {
         page: current - 1,
         size: pageSize,
         ...formData,
-        // refundStatus,
+        refundStatus,
       }
       return orderInfoRemote.refundPage(params).then(({ data, status }) => {
         if (status) {
@@ -77,16 +78,20 @@ export default props => {
       showEdit: false,
       showCopy: false,
       showExport: true,
-      downloadURL: orderInfoRemote.exportExcel.bind(orderInfoRemote),
-      exportCommonsFieds: { refundStatus },
+      downloadURL: orderInfoRemote.exportRefund.bind(orderInfoRemote),
+      exportCommonsFields: { refundStatus },
     },
     otherTableProps: {
-      rowKey: record => record.order_Id,
+      rowKey: record => record.item_Id,
       otherActionBtns: (text, record) => {
         let btns = [],
           btn = {
             name: '备注',
             onClick() {
+              memoModal.setFormData({
+                item_Id: record.item_Id,
+                refundRemark: record.refundRemark,
+              })
               memoModal.setVisible(true)
             },
           },
@@ -97,13 +102,13 @@ export default props => {
               confirm() {
                 //TODO:全部撤销
                 orderInfoRemote
-                  .refundApply({
-                    ids: record.subOrderInfoDTOS
-                      ? record.subOrderInfoDTOS.map(item => item.item_Id)
-                      : [],
+                  .refundAudit({
+                    item_Id: record.item_Id,
+                    orderId: record.order_Id,
+                    agree: true,
                   })
-                  .then(({ status }) => {
-                    if (status) {
+                  .then(({ success }) => {
+                    if (success) {
                       message.success('已同意退款')
                       getCount()
                       ref.current?.submit()
@@ -120,13 +125,13 @@ export default props => {
               confirm() {
                 //TODO:全部撤销
                 orderInfoRemote
-                  .refundCancel({
-                    ids: record.subOrderInfoDTOS
-                      ? record.subOrderInfoDTOS.map(item => item.item_Id)
-                      : [],
+                  .refundAudit({
+                    item_Id: record.item_Id,
+                    orderId: record.order_Id,
+                    agree: false,
                   })
-                  .then(({ status }) => {
-                    if (status) {
+                  .then(({ success }) => {
+                    if (success) {
                       message.success('已驳回退款')
                       getCount()
                       ref.current?.submit()
@@ -136,8 +141,8 @@ export default props => {
               },
             },
           }
-        record.order_Status === '退款中' && btns.push(btn1, btn2)
-        record.order_Status !== '退款中' && btns.push(btn)
+        record.refund_Status === 'REFUNDING' && btns.push(btn1, btn2)
+        record.refund_Status !== 'REFUNDING' && btns.push(btn)
         return btns
       },
     },

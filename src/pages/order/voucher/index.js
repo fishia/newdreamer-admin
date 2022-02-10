@@ -47,16 +47,16 @@ export default props => {
   const bindFormModal = useFormModal({
     modal: {
       title: `绑定数据`,
-      width: 1400,
+      width: 800,
       onOk: params => {
-        //TODO:绑定接口
         return orderInfoRemote
-          .saveOrUpdate({
+          .bind({
+            orderId: record.order_Id,
             ...params,
           })
           .then(({ status }) => {
             if (status) {
-              myRef.current?.refresh()
+              ref.current?.submit()
               message.success('绑定成功')
             }
             return status
@@ -120,7 +120,7 @@ export default props => {
       showCopy: false,
       showExport: true,
       downloadURL: orderInfoRemote.exportExcel.bind(orderInfoRemote),
-      exportCommonsFieds: { orderStatus },
+      exportCommonsFields: { orderStatus },
     },
     otherTableProps: {
       rowKey: record => record.order_Id,
@@ -174,7 +174,11 @@ export default props => {
           btn2 = {
             name: '绑定',
             onClick() {
-              //setRecord()
+              setRecord(record)
+              bindFormModal.setFormData({
+                saleAdvisorId: record.saleAdvisorId,
+                volumeId: record.volumerId,
+              })
               bindFormModal.setVisible(true)
             },
           }

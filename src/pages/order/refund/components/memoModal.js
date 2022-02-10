@@ -21,7 +21,7 @@ function BindModal(props) {
 
   const onOk = async () => {
     let fieldsValue = await validateFields()
-    confirm && confirm(fieldsValue)
+    confirm && confirm({ ...formData, ...fieldsValue })
   }
 
   return (
@@ -29,7 +29,7 @@ function BindModal(props) {
       <Form form={form} {...formFullItemLayout} initialValues={{ ...formData }}>
         <Row>
           <Col span={24}>
-            <Form.Item name="salesConsultanter" label="备注">
+            <Form.Item name="refundRemark" label="备注">
               <TextArea {...props} placeholder="请输入备注" showCount maxLength={100} />
             </Form.Item>
           </Col>

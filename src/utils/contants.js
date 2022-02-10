@@ -61,12 +61,9 @@ export const enumSuperset = {
     { value: 'HEADQUARTERS', label: '总部' },
     { value: 'OTHERS', label: '其他' },
   ],
-  washingLabelPackaging: [
-    '换洗唛包装',
-    '不换洗唛换包装',
-    '不换洗唛不换包装',
-    '换洗唛不换包装',
-  ].map(item => ({ value: item, label: item })), //洗唛包装
+  washingLabelPackaging: ['换洗唛包装', '不换洗唛换包装', '不换洗唛不换包装', '换洗唛不换包装'].map(
+    item => ({ value: item, label: item })
+  ), //洗唛包装
   onlineType: [
     { value: 'true', label: '单品' },
     { value: 'false', label: '组合商品' },
@@ -81,7 +78,7 @@ export const enumSuperset = {
     { value: 'TO_BE_RECEIVED', label: '待收货' },
     { value: 'TO_BE_EVALUATED', label: '待评价' },
     { value: 'COMPLETED', label: '已完成' },
-    { value: 'ALL', label: '全部' },
+    { value: '', label: '全部' },
   ],
   GoodsClassification: ['西服', '衬衫', '配饰', '其他'].map(item => ({ value: item, label: item })),
   finish: [
@@ -96,7 +93,7 @@ export const enumSuperset = {
     { value: 'REFUNDING', label: '退款中' },
     { value: 'REFUNDED', label: '已退款' },
     { value: 'REJECT', label: '已驳回' },
-    { value: 'ALL', label: '全部' },
+    { value: '', label: '全部' },
   ],
 }
 

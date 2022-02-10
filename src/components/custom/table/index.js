@@ -45,7 +45,7 @@ function Table(props, ref) {
     templateURL,
     uploadURL,
     downloadURL,
-    exportCommonsFieds,
+    exportCommonsFields,
   } = actionBtnProps
   const [form] = Form.useForm()
   const myref = useRef()
@@ -129,7 +129,7 @@ function Table(props, ref) {
       downloadURL,
       selectedRowKeys,
       dataSource,
-      exportCommonsFieds,
+      exportCommonsFields,
     },
   }
   //传递出去的数据

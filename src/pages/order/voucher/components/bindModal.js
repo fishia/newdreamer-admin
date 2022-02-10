@@ -29,23 +29,26 @@ function BindModal(props) {
       <Form form={form} {...formItemLayout} initialValues={{ ...formData }}>
         <Row>
           <Col span={12}>
-            <Form.Item name="salesConsultanter" label="销售顾问">
+            <Form.Item name="saleAdvisorId" label="销售顾问">
               <SalesConsultanterSelect />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="volumeId" label="成衣尺寸">
-              <ChooseVolumeInfoBtn
-                volumeId={getFieldValue('volumeId')}
-                sizeDTO={getFieldValue('sizeDTO') || {}}
-                onChange={(info, sizeInfo) => {
-                  setFieldsValue({
-                    volumeId: info.volume_Id,
-                    volumeName: info.customer_Name,
-                    sizeDTO: sizeInfo,
-                  })
-                }}
-              />
+            <Form.Item noStyle shouldUpdate>
+              {({ getFieldValue }) => (
+                <Form.Item name="volumeId" label="量体数据">
+                  <ChooseVolumeInfoBtn
+                    volumeId={getFieldValue('volumeId')}
+                    sizeDTO={getFieldValue('sizeDTO') || {}}
+                    onChange={(info, sizeInfo) => {
+                      setFieldsValue({
+                        volumeId: info.volume_Id,
+                        volumeName: info.customer_Name,
+                      })
+                    }}
+                  />
+                </Form.Item>
+              )}
             </Form.Item>
           </Col>
         </Row>
