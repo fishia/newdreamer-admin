@@ -160,9 +160,13 @@ export const orderInfoRemote = (url => {
     exportExcel(params) {
       return exportFile(`${url}/exportOrder`, { ...params })
     },
-    //状态数量统计
+    //订单状态数量统计
     orderStatusCount() {
       return axios.get(`${url}/orderStatusCount`)
+    },
+    //退款状态数量统计
+    refundStatusCount() {
+      return axios.get(`${url}/refundStatusCount`)
     },
     //绑定销售顾问、量体数据
     bind(params) {

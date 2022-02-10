@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import u from 'updeep'
 import { VtxModal } from '@vtx/components'
 import { Descriptions, Statistic, message } from 'antd'
@@ -10,6 +10,7 @@ import { JKUtil } from '@/utils/util'
 
 export default props => {
   const { modalProps, record, formList } = props
+  const ref = useRef()
   const [subOrder, setSubOrder] = useState([])
   useEffect(() => {
     setSubOrder(record.subOrderInfoDTOS)
@@ -22,7 +23,7 @@ export default props => {
       showEdit: false,
       showCopy: false,
     },
-    actionWidth: 120,
+    actionWidth: 150,
     otherTableProps: {
       dataSource: subOrder,
       rowKey: record => record.item_Id,
@@ -88,56 +89,23 @@ export default props => {
                 //TODO:退款
                 orderInfoRemote
                   .refundApply({
-                    ids: [record.item_Id],
+                    item_Id: record.item_Id,
                   })
                   .then(({ status, data }) => {
                     if (status) {
                       message.success('发起退款成功')
-                      setSubOrder(
-                        u(
-                          {
-                            [i]: { ...data[0] },
-                          },
-                          subOrder
-                        )
-                      )
-                    }
-                  })
-              },
-            },
-          },
-          btn3 = {
-            name: '撤销退款',
-            popconfirm: {
-              title: '是否确认撤销退款？',
-              confirm() {
-                //TODO:退款
-                orderInfoRemote
-                  .refundCancel({
-                    ids: [record.item_Id],
-                  })
-                  .then(({ status, data }) => {
-                    if (status) {
-                      message.success('撤销退款成功')
-                      setSubOrder(
-                        u(
-                          {
-                            [i]: { ...data[0] },
-                          },
-                          subOrder
-                        )
-                      )
+                      ref.current?.submit()
                     }
                   })
               },
             },
           }
         if (record.refund_Status) {
-          record.refund_Status === 'REFUNDING' && btns.push(btn3)
           record.refund_Status !== 'REFUNDING' && btns.push(btn2)
         } else {
           record.itemStatusName === '待备货' && btns.push(btn)
           record.itemStatusName === '待发货' && btns.push(btn1)
+          btns.push(btn2)
         }
         return btns
       },
@@ -155,7 +123,7 @@ export default props => {
         ))}
       </Descriptions>
       <div className={styles.tableWrapper}>
-        <FormTable {...FormTableProps} />
+        <FormTable {...FormTableProps} ref={ref} />
       </div>
       <div className={styles.total}>
         <Statistic

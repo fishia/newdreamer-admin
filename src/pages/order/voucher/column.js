@@ -1,5 +1,6 @@
 import { ShowVolumeInfo, StylesAndFabricsBtn } from '@/components/custom/Button'
 import { orderInfoRemote } from '@/services/baseRemote'
+import { enumSuperset } from '@/utils/contants'
 export const tableFields = [
   [
     '收货人名称',
@@ -102,26 +103,23 @@ export const childrenTableFields = (customerName, orderId) => [
   //   ],
   [
     '优惠券折扣',
-    'couponDiscount',
+    'couponDeduction',
     {
-      width: 100,
-      render: (_, record) => <span>{record.received_Amount / record.amounts}</span>,
+      width: 120,
     },
   ],
   [
     '手动折扣',
-    'manualDiscount',
+    'manualDeduction',
     {
       width: 100,
-      render: (_, record) => <span>{record.received_Amount / record.amounts}</span>,
     },
   ],
   [
-    '折后价',
-    'discount',
+    '上线价',
+    'sellingPrice',
     {
       width: 100,
-      render: (_, record) => <span>{record.received_Amount / record.amounts}</span>,
     },
   ],
   [
@@ -161,6 +159,14 @@ export const childrenTableFields = (customerName, orderId) => [
           />
         ) : null
       },
+    },
+  ],
+  [
+    '退款状态',
+    'refund_Status',
+    {
+      width: 100,
+      render: text => enumSuperset['refundStatus'].filter(item => item.value === text)[0]?.label,
     },
   ],
 ]
