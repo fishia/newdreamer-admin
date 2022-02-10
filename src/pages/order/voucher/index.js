@@ -177,7 +177,7 @@ export default props => {
               setRecord(record)
               bindFormModal.setFormData({
                 saleAdvisorId: record.saleAdvisorId,
-                volumeId: record.volumerId,
+                volumeId: record.subOrderInfoDTOS[0]?.volume_Id,
               })
               bindFormModal.setVisible(true)
             },
