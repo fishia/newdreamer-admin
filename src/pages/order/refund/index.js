@@ -140,30 +140,9 @@ export default props => {
                   .then(() => ref.current?.submit())
               },
             },
-          },
-          btn3 = {
-            name: '撤销退款',
-            popconfirm: {
-              title: '是否确认撤销退款？',
-              confirm() {
-                //TODO:退款
-                orderInfoRemote
-                  .refundCancel({
-                    item_Id: record.item_Id,
-                    orderId: record.order_Id,
-                  })
-                  .then(({ status, data }) => {
-                    if (status) {
-                      message.success('撤销退款成功')
-                      ref.current?.submit()
-                    }
-                  })
-              },
-            },
           }
         record.refund_Status === 'REFUNDING' && btns.push(btn1, btn2)
         record.refund_Status !== 'REFUNDING' && btns.push(btn)
-        record.refund_Status === 'REFUNDED' && btns.push(btn3)
         return btns
       },
     },
