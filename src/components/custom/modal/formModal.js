@@ -21,7 +21,9 @@ export const renderFormItem = (item, form) => {
       'listType',
       'desp',
       'format',
+      'options',
     ]
+
   switch (item.type) {
     case 'input':
       return (
@@ -29,6 +31,7 @@ export const renderFormItem = (item, form) => {
           <Input
             {...{
               ...formItemProps,
+              type: item.inputType ?? 'text',
               allowClear: true,
               placeholder: `请输入${item.label}`,
             }}
@@ -50,6 +53,12 @@ export const renderFormItem = (item, form) => {
       return (
         <Form.Item {...omit(item, [...omitProps])} valuePropName="checked">
           <Switch {...formItemProps} />
+        </Form.Item>
+      )
+    case 'select':
+      return (
+        <Form.Item {...omit(item, [...omitProps])}>
+          <Select {...formItemProps} />
         </Form.Item>
       )
     case 'upload':

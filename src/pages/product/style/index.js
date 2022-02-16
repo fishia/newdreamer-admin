@@ -82,7 +82,7 @@ export default props => {
       columns,
     },
     getTableData,
-    deleteItems: styleRemote,
+    deleteItems: styleRemote.deletes.bind(styleRemote),
     addFormModal,
     editFormModal,
     title: '款式管理',

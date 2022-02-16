@@ -5,7 +5,7 @@ export default [
     title: '基本信息',
     exact: true,
     icon: <SolutionOutlined />,
-    component: () => import('@/pages/customer/managment'),
+    component: () => import('@/pages/customer/managment/index'),
   },
   {
     path: '/customer/volume',

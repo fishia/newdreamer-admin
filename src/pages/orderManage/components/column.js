@@ -3,7 +3,6 @@ import moment from 'moment'
 import { enumSuperset } from '@/utils/contants'
 import { SupplierSelect, MySelect, SingleNoSelect } from '@/components/custom/select'
 import { ReceiverAutoCompolete } from '@/components/custom/autoComplete'
-import dispatchModal from '@/pages/measure/appoint/dispatchModal'
 const { TextArea } = Input
 
 export const tableFields = [
@@ -15,6 +14,7 @@ export const tableFields = [
       autoHide: true,
       filter: {
         isunions: true,
+        orderIndex: -1,
       },
       form: {
         rules: [{ required: true }],

@@ -78,8 +78,23 @@ export const enumSuperset = {
     { value: 'TO_BE_RECEIVED', label: '待收货' },
     { value: 'TO_BE_EVALUATED', label: '待评价' },
     { value: 'COMPLETED', label: '已完成' },
+    { value: '', label: '全部' },
   ],
   GoodsClassification: ['西服', '衬衫', '配饰', '其他'].map(item => ({ value: item, label: item })),
+  finish: [
+    { value: 'true', label: '已完成' },
+    { value: 'false', label: '未完成' },
+  ], //完成状态
+  settleAccounts: [
+    { value: 'true', label: '已结算' },
+    { value: 'false', label: '待结算' },
+  ], //结算状态
+  refundStatus: [
+    { value: 'REFUNDING', label: '退款中' },
+    { value: 'REFUNDED', label: '已退款' },
+    { value: 'REJECT', label: '已驳回' },
+    { value: '', label: '全部' },
+  ],
 }
 
 export const format = 'YYYY-MM-DD HH:mm:ss'

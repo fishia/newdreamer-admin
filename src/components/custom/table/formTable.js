@@ -44,7 +44,7 @@ export default forwardRef((props, ref) => {
         size: pageSize,
         ...parseFormData(formData),
       }
-      return remote.page(params).then(({ data, status }) => {
+      return remote?.page(params).then(({ data, status }) => {
         if (status) {
           return {
             total: data.totalElements,
@@ -69,6 +69,7 @@ export default forwardRef((props, ref) => {
     showDelete: true,
     ...actionBtnProps,
   }
+
   // 新增
   const addFormModal = useFormModal({
     modal: {
@@ -142,7 +143,7 @@ export default forwardRef((props, ref) => {
       ...otherTableProps,
     },
     getTableData,
-    deleteItems: remote,
+    deleteItems: remote && remote.deletes ? remote.deletes.bind(remote) : null,
     resetFormData,
     addFormModal,
     editFormModal,
@@ -151,6 +152,7 @@ export default forwardRef((props, ref) => {
     actionText,
     resetKey,
   }
+
   //传递出去的数据
   useImperativeHandle(
     ref,

@@ -20,7 +20,7 @@ export default props => {
     fileName,
     parseColumns,
     columns,
-    exportCommonsFieds,
+    exportCommonsFields,
   } = props
 
   if (!('downloadURL' in props && 'selectedRowKeys' in props && 'dataSource' in props)) {
@@ -34,7 +34,7 @@ export default props => {
     fileName,
     parseColumns,
     columns,
-    exportCommonsFieds,
+    exportCommonsFields,
   })
   const handleMenuClick = e => {
     switch (e.key) {

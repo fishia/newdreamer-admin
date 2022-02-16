@@ -11,6 +11,7 @@ export const tableFields = [
       width: 180,
       filter: {
         isunions: true,
+        orderIndex: -1,
       },
       form: {
         rules: [{ required: true }],
