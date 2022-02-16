@@ -62,11 +62,11 @@ export default props => {
               <span
                 onClick={() => {
                   setTitle(`${record.volumerName}${record.orderId ? `-${record.orderId}` : ''}`)
-                  ref.current?.viewFormModal.setFormData({
+                  myRef.current?.viewFormModal.setFormData({
                     ...record,
                   })
                   //详情
-                  ref.current?.viewFormModal.setVisible(true)
+                  myRef.current?.viewFormModal.setVisible(true)
                 }}
                 className="primaryBtn"
               >
@@ -80,7 +80,7 @@ export default props => {
           form: {
             type: 'other',
             name: 'volumerId',
-            children: props => <VolumerSelect {...props} />,
+            children: props => <VolumerSelect {...props} params={{ volumer_Status: true }} />,
             rules: [{ required: true }],
           },
         },
@@ -103,7 +103,7 @@ export default props => {
             },
           },
         ]
-        return record.status == false ? null : btns
+        return record.status ? null : btns
       },
     },
     parseColumns,

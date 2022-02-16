@@ -11,6 +11,9 @@ export default props => {
   const [visible, setVisible] = useState(false)
   const FormTableProps = {
     remote: taskRemote,
+    initialValues: {
+      publishStatus: 'true',
+    },
     actionBtnProps: {
       showExport: true,
       downloadURL: taskRemote.exportExcel.bind(taskRemote),

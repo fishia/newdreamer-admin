@@ -113,7 +113,7 @@ export const parseColumns = data => ({
 
 export const parseFormData = data => ({
   ...data,
-  createTime: data.createTime ? moment(data.createTime).format('YYYY-MM-DD') : undefined,
-  endTime: data.endTime ? moment(data.endTime).format('YYYY-MM-DD') : undefined,
+  createTime: data.createTime ? moment(data.createTime).format('YYYY-MM-DD HH:mm:ss') : undefined,
+  endTime: data.endTime ? moment(data.endTime).format('YYYY-MM-DD HH:mm:ss') : undefined,
   brief: data.brief && JSON.stringify(data.brief),
 })

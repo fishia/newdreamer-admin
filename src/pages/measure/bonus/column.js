@@ -1,5 +1,7 @@
+import { Input } from 'antd'
 import { enumSuperset } from '@/utils/contants'
 import { MySelect } from '@/components/custom/select'
+const { TextArea } = Input
 
 export const tableFields = [
   [
@@ -23,7 +25,16 @@ export const tableFields = [
       },
     },
   ],
-  ['订单号', 'orderId'],
+  [
+    '订单号',
+    'orderId',
+    {
+      form: {
+        disabled: true,
+        hide: 'add',
+      },
+    },
+  ],
   ['创建时间', 'createTime'],
   [
     '结算状态',
@@ -42,7 +53,18 @@ export const tableFields = [
     },
   ],
   ['结算时间', 'settleDate'],
-  ['备注', 'remark'],
+  [
+    '备注',
+    'remark',
+    {
+      form: {
+        type: 'other',
+        children: props => (
+          <TextArea {...props} placeholder="请输入备注" showCount maxLength={100} />
+        ),
+      },
+    },
+  ],
 ]
 
 export const parseColumns = data => ({

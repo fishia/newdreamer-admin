@@ -52,6 +52,7 @@ export default [
         path: '/measure/commission/bonusSetting',
         title: '提成设置',
         exact: true,
+        hide: true,
         icon: <SettingOutlined />,
         component: () => import('@/pages/measure/bonusSetting'),
       },
