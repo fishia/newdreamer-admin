@@ -37,6 +37,20 @@ export const tableFields = [
       width: 80,
     },
   ],
+  [
+    '优惠券名称',
+    'couponName',
+    {
+      width: 150,
+    },
+  ],
+  [
+    '优惠券渠道',
+    'channel',
+    {
+      width: 150,
+    },
+  ],
 ]
 //子订单
 export const childrenTableFields = (customerName, orderId) => [

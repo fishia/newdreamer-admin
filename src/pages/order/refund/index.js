@@ -70,7 +70,7 @@ export default props => {
         }
       })
     },
-    columns: tableFields,
+    columns: tableFields(refundStatus),
     parseColumns,
     actionBtnProps: {
       showAdd: false,
@@ -86,7 +86,7 @@ export default props => {
       otherActionBtns: (text, record) => {
         let btns = [],
           btn = {
-            name: '备注',
+            name: record.refundRemark ? '修改备注' : '备注',
             onClick() {
               memoModal.setFormData({
                 item_Id: record.item_Id,

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import u from 'updeep'
 import { VtxModal } from '@vtx/components'
 import { Descriptions, Statistic, message } from 'antd'
@@ -10,7 +10,6 @@ import { JKUtil } from '@/utils/util'
 
 export default props => {
   const { modalProps, record, formList } = props
-  const ref = useRef()
   const [subOrder, setSubOrder] = useState([])
   useEffect(() => {
     setSubOrder(record.subOrderInfoDTOS)
@@ -23,7 +22,7 @@ export default props => {
       showEdit: false,
       showCopy: false,
     },
-    actionWidth: 150,
+    actionWidth: 180,
     otherTableProps: {
       dataSource: subOrder,
       rowKey: record => record.item_Id,
@@ -83,6 +82,7 @@ export default props => {
           },
           btn2 = {
             name: '退款',
+            style: { color: 'red' },
             popconfirm: {
               title: '是否确认退款？',
               confirm() {
@@ -93,9 +93,15 @@ export default props => {
                   })
                   .then(({ status, data }) => {
                     if (status) {
-                      console.log(ref)
                       message.success('发起退款成功')
-                      ref.current?.refresh()
+                      setSubOrder(
+                        u(
+                          {
+                            [i]: { ...data },
+                          },
+                          subOrder
+                        )
+                      )
                     }
                   })
               },
@@ -103,6 +109,7 @@ export default props => {
           },
           btn3 = {
             name: '撤销退款',
+            style: { color: 'red' },
             popconfirm: {
               title: '是否确认撤销退款？',
               confirm() {
@@ -114,7 +121,14 @@ export default props => {
                   .then(({ status, data }) => {
                     if (status) {
                       message.success('撤销退款成功')
-                      ref.current?.refresh()
+                      setSubOrder(
+                        u(
+                          {
+                            [i]: { ...data },
+                          },
+                          subOrder
+                        )
+                      )
                     }
                   })
               },
@@ -146,7 +160,7 @@ export default props => {
         ))}
       </Descriptions>
       <div className={styles.tableWrapper}>
-        <FormTable {...FormTableProps} ref={ref} />
+        <FormTable {...FormTableProps} />
       </div>
       <div className={styles.total}>
         <Statistic
