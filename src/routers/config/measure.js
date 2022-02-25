@@ -25,7 +25,7 @@ export default [
     path: '/measure/studyModule',
     title: '学习天地',
     exact: true,
-    show: true,
+    //show: true,
     icon: <ReconciliationOutlined />,
     component: () => import('@/pages/measure/studyModule'),
   },
