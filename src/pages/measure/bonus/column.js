@@ -1,6 +1,7 @@
 import { Input } from 'antd'
-import { enumSuperset } from '@/utils/contants'
+import { enumSuperset, format } from '@/utils/contants'
 import { MySelect } from '@/components/custom/select'
+import moment from 'moment'
 const { TextArea } = Input
 
 export const tableFields = [
@@ -54,6 +55,18 @@ export const tableFields = [
   ],
   ['结算时间', 'settleDate'],
   [
+    '生效时间',
+    'effectiveTime',
+    {
+      width: 150,
+      render: text => (text ? moment(text).format(format) : ''),
+      form: {
+        type: 'datePicker',
+        format,
+      },
+    },
+  ],
+  [
     '备注',
     'remark',
     {
@@ -70,7 +83,9 @@ export const tableFields = [
 export const parseColumns = data => ({
   ...data,
   status: data.status.toString(),
+  effectiveTime: data.effectiveTime ? moment(data.effectiveTime) : undefined,
 })
 export const parseFormData = data => ({
   ...data,
+  effectiveTime: data.effectiveTime ? moment(data.effectiveTime).format(format) : undefined,
 }) //下拉保存给id给后台
