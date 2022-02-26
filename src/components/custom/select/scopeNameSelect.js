@@ -6,7 +6,8 @@ export default forwardRef((props, ref) => {
   const [list, setList] = useState([])
 
   const getlist = useCallback(async () => {
-    taskScopeRemote.list().then(({ data }) => {
+    let opts = props.params ? props.params : {}
+    taskScopeRemote.list({ enabled: true, ...opts }).then(({ data }) => {
       setList(data.map(({ id, name }) => ({ label: name, value: id })))
     })
   }, [])

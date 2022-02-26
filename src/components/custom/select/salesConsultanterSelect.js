@@ -7,7 +7,7 @@ export default forwardRef((props, ref) => {
 
   const getlist = useCallback(async () => {
     let opts = props.params ? props.params : {}
-    requestForVolumerList({ ...opts, saleRole: true }).then(({ data }) => {
+    requestForVolumerList({ saleRole: true, ...opts }).then(({ data }) => {
       if (data)
         setList(
           data

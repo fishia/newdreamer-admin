@@ -10,6 +10,12 @@ export default props => {
     remote: volumerRemote,
     initialValues: {
       volumer_Status: 'true',
+      saleRole: false,
+      measureRole: false,
+      assistWithOrder: false,
+      studyModule: false,
+      releaseTask: false,
+      operationalActivities: false,
     },
     actionBtnProps: {
       showExport: true,
