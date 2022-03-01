@@ -55,7 +55,7 @@ export const tableFields = [
   ],
   [
     '任务截图',
-    'taskPhotos',
+    'brief',
     {
       width: 300,
       render: (text, record) => {
@@ -102,5 +102,5 @@ export const tableFields = [
 
 export const parseColumns = data => ({
   ...data,
-  taskPhotos: data.taskPhotos && JSON.parse(data.taskPhotos),
+  brief: data.brief && JSON.parse(data.brief),
 })

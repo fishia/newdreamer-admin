@@ -21,14 +21,14 @@ export default props => {
     columns: [
       [
         '任务名称',
-        'task_name',
+        'taskName',
         {
           width: 100,
           render: (text, record) => {
             return (
               <span
                 onClick={() => {
-                  setTitle(record.task_name)
+                  setTitle(record.taskName)
                   ref.current?.viewFormModal.setFormData({
                     ...record,
                   })
