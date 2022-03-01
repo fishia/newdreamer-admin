@@ -135,7 +135,15 @@ export const tableFields = [
     'saleCommission',
     {
       display: false,
-      form: { addonAfter: '%' },
+      form: {
+        addonAfter: '%',
+        desp: 'saleRole',
+        shouldUpdate: true,
+        type: 'other',
+        tempType: 'input',
+        placeholder: '请输入1-100的数字',
+        rules: [{ required: true }],
+      },
     },
   ],
   [
@@ -153,7 +161,15 @@ export const tableFields = [
     'measureCommission',
     {
       display: false,
-      form: { addonAfter: '%' },
+      form: {
+        addonAfter: '%',
+        desp: 'measureRole',
+        shouldUpdate: true,
+        type: 'other',
+        tempType: 'input',
+        placeholder: '请输入1-100的数字',
+        rules: [{ required: true }],
+      },
     },
   ],
   [

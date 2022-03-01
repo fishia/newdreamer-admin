@@ -36,6 +36,7 @@ export const tableFields = [
     'completeStatus',
     {
       form: {},
+      render: text => (text ? '已完成' : '未完成'),
       width: 100,
       filter: {
         elem: <MySelect datasource={enumSuperset['finish']} />,
@@ -53,7 +54,7 @@ export const tableFields = [
     },
   ],
   [
-    '完成截图',
+    '任务截图',
     'taskPhotos',
     {
       width: 300,
@@ -76,6 +77,25 @@ export const tableFields = [
         return <Switch checked={text} disabled />
       },
       width: 100,
+    },
+  ],
+  [
+    '完成度',
+    'measureCommission',
+    {
+      form: {
+        addonAfter: '%',
+        placeholder: '请输入1-100的数字',
+      },
+    },
+  ],
+  [
+    '实际奖励',
+    'measureCommission1',
+    {
+      form: {
+        addonAfter: '元',
+      },
     },
   ],
 ]

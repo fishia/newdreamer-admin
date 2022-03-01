@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Button, Space, message } from 'antd'
-import { ReloadOutlined } from '@ant-design/icons'
+import { ClearOutlined, ReloadOutlined } from '@ant-design/icons'
 import VolumeModal from '@/components/volumeModal'
 import { VolumeInput } from '@/components/custom/form'
 import { orderInfoRemote } from '@/services/baseRemote'
@@ -63,16 +63,28 @@ export default props => {
               }}
             />
           ) : (
-            <Button
-              icon={<ReloadOutlined />}
-              key="reset"
-              onClick={() => {
-                setSizeInfo({})
-                setVolumeInputVisible(true)
-              }}
-            >
-              重新选择
-            </Button>
+            [
+              <Button
+                icon={<ReloadOutlined />}
+                key="reset"
+                onClick={() => {
+                  setSizeInfo({})
+                  setVolumeInputVisible(true)
+                }}
+              >
+                重新选择
+              </Button>,
+              <Button
+                icon={<ClearOutlined />}
+                key="reset"
+                onClick={() => {
+                  setSizeInfo({})
+                  onChange({})
+                }}
+              >
+                清空
+              </Button>,
+            ]
           ),
         ]
       ) : (

@@ -33,7 +33,6 @@ export const tableFields = [
         type: 'other',
         name: 'volumerName',
         shouldUpdate: true,
-        children: ({ disabled, desp }) => <CollegePartSelect parentId={desp} disabled={disabled} />,
         children: (props, { setFieldsValue, getFieldValue }) => {
           return (
             <ReceiverAutoCompolete

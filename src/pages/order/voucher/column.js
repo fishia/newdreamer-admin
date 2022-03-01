@@ -24,7 +24,7 @@ export const tableFields = [
     },
   ],
   ['实收单据金额', 'total_Received_Amount', { width: 150 }],
-  ['付款时间', 'payment_Time', { width: 100 }],
+  ['付款时间', 'paymentTime', { width: 100 }],
   ['预计使用时间', 'expectedUsingTime', { width: 150 }],
   ['量体顾问', 'volumerName', { width: 100 }],
   ['销售顾问', 'saleAdvisorName', { width: 100 }],
