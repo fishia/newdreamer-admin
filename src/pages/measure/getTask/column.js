@@ -109,5 +109,5 @@ export const parseColumns = data => ({
 })
 export const parseFormData = data => ({
   ...data,
-  brief: brief && JSON.stringify(data.brief),
+  brief: data.brief && JSON.stringify(data.brief),
 })
