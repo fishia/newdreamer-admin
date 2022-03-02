@@ -81,21 +81,24 @@ export const tableFields = [
   ],
   [
     '完成度',
-    'measureCommission',
+    'percent',
     {
+      render: text => (text ? `${text}%` : ''),
       form: {
         addonAfter: '%',
         placeholder: '请输入1-100的数字',
       },
+      width: 100,
     },
   ],
   [
     '实际奖励',
-    'measureCommission1',
+    'actualReward',
     {
       form: {
         addonAfter: '元',
       },
+      width: 100,
     },
   ],
 ]
@@ -103,4 +106,8 @@ export const tableFields = [
 export const parseColumns = data => ({
   ...data,
   brief: data.brief && JSON.parse(data.brief),
+})
+export const parseFormData = data => ({
+  ...data,
+  brief: brief && JSON.stringify(data.brief),
 })
