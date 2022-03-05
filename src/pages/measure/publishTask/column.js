@@ -74,6 +74,9 @@ export const tableFields = [
       render: (text, record) => {
         return <Switch checked={text} disabled />
       },
+      form: {
+        type: 'switch',
+      },
       filter: {
         elem: <MySelect datasource={enumSuperset['enabled']} />,
       },
