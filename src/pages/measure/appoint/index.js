@@ -265,7 +265,7 @@ export default function ProductManager() {
     {
       title: '操作',
       dataIndex: 'name11',
-      width: 180,
+      width: 200,
       render: (item, record) => (
         <div className="product-table-operations">
           {record.reservation_Status !== '已量体' && record.reservation_Status !== '已取消' ? (
