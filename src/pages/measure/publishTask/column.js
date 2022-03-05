@@ -45,12 +45,51 @@ export const tableFields = [
     },
   ],
   [
+    '发布状态',
+    'publishStatus',
+    {
+      render: (text, record) => {
+        return <Switch checked={text} disabled />
+      },
+      form: {
+        type: 'other',
+        valuePropName: 'checked',
+        children: (props, { setFieldsValue, getFieldValue }) => {
+          return (
+            <Switch
+              {...props}
+              checked={getFieldValue('publishStatus')}
+              onChange={checked => {
+                let obj = {
+                  publishStatus: checked,
+                }
+                if (!checked) {
+                  obj = Object.assign(obj, {
+                    endTime: '',
+                  })
+                }
+                setFieldsValue({ ...obj })
+              }}
+            />
+          )
+        },
+      },
+      filter: {
+        elem: <MySelect datasource={enumSuperset['enabled']} />,
+      },
+    },
+  ],
+  [
     '截止时间',
     'endTime',
     {
       form: {
         type: 'datePicker',
         format,
+      },
+      form: {
+        type: 'datePicker',
+        rules: [{ required: true }],
       },
       render: text => (text ? moment(text).format('YYYY-MM-DD') : ''),
     },
@@ -64,21 +103,6 @@ export const tableFields = [
         name: 'scopeId',
         type: 'other',
         children: props => <ScopeNameSelect />,
-      },
-    },
-  ],
-  [
-    '发布状态',
-    'publishStatus',
-    {
-      render: (text, record) => {
-        return <Switch checked={text} disabled />
-      },
-      form: {
-        type: 'switch',
-      },
-      filter: {
-        elem: <MySelect datasource={enumSuperset['enabled']} />,
       },
     },
   ],

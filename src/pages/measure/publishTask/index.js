@@ -34,11 +34,11 @@ export default props => {
               <span
                 onClick={() => {
                   setTitle(record.taskName)
-                  ref.current?.viewFormModal.setFormData({
+                  ref.current?.editFormModal.setFormData({
                     ...record,
                   })
                   //详情
-                  ref.current?.viewFormModal.setVisible(true)
+                  ref.current?.editFormModal.setVisible(true)
                 }}
                 className="primaryBtn"
               >
@@ -59,9 +59,6 @@ export default props => {
     parseColumns,
     parseFormData,
     resetFormData,
-    viewFormModalProps: {
-      title: `${document.title}-${title}`,
-    },
   }
 
   const AddRangeProps = {

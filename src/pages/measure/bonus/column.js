@@ -36,7 +36,18 @@ export const tableFields = [
       },
     },
   ],
-  ['创建时间', 'createTime'],
+  [
+    '生效时间',
+    'effectiveTime',
+    {
+      width: 150,
+      render: text => (text ? moment(text).format(format) : ''),
+      form: {
+        type: 'datePicker',
+        format,
+      },
+    },
+  ],
   [
     '结算状态',
     'status',
@@ -54,18 +65,7 @@ export const tableFields = [
     },
   ],
   ['结算时间', 'settleDate'],
-  [
-    '生效时间',
-    'effectiveTime',
-    {
-      width: 150,
-      render: text => (text ? moment(text).format(format) : ''),
-      form: {
-        type: 'datePicker',
-        format,
-      },
-    },
-  ],
+  ['创建时间', 'createTime'],
   [
     '备注',
     'remark',

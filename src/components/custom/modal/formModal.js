@@ -81,7 +81,6 @@ export const renderFormItem = (item, form) => {
         </Form.Item>
       )
     default:
-      console.log(item)
       return item.shouldUpdate ? (
         <Form.Item
           noStyle
