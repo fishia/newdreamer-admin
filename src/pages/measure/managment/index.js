@@ -35,11 +35,11 @@ export default props => {
               <span
                 onClick={() => {
                   setTitle(record.volumer_Name)
-                  ref.current?.viewFormModal.setFormData({
+                  ref.current?.editFormModal.setFormData({
                     ...record,
                   })
                   //详情
-                  ref.current?.viewFormModal.setVisible(true)
+                  ref.current?.editFormModal.setVisible(true)
                 }}
                 className="primaryBtn"
               >
@@ -59,9 +59,6 @@ export default props => {
     ],
     parseColumns,
     parseFormData,
-    viewFormModalProps: {
-      title: `${document.title}-${title}`,
-    },
     resetKey: 'volumer_Id',
   }
   return <FormTable {...FormTableProps} ref={ref} />

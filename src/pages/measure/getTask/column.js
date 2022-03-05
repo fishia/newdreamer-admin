@@ -35,7 +35,9 @@ export const tableFields = [
     '完成状态',
     'completeStatus',
     {
-      form: {},
+      form: {
+        type: 'switch',
+      },
       render: text => (text ? '已完成' : '未完成'),
       width: 100,
       filter: {
