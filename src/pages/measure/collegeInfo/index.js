@@ -86,7 +86,7 @@ export default props => {
       columns,
     },
     getTableData,
-    deleteItems: collegeInfoRemote,
+    deleteItems: collegeInfoRemote.deletes.bind(collegeInfoRemote),
     addFormModal,
     editFormModal,
     title: '高校',

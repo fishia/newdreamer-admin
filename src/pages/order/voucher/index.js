@@ -6,6 +6,8 @@ import { tableFields, parseColumns } from './column'
 import View from './components/view'
 import styles from '@/pages/orderManage/components/index.less'
 import { enumSuperset } from '@/utils/contants'
+import useFormModal from '@/hooks/useFormModal'
+import BindModal from './components/bindModal'
 const TabPane = Tabs.TabPane
 
 export default props => {
@@ -41,6 +43,27 @@ export default props => {
     record,
     formList: tableFields,
   }
+  // 绑定
+  const bindFormModal = useFormModal({
+    modal: {
+      title: `绑定数据`,
+      width: 800,
+      onOk: params => {
+        return orderInfoRemote
+          .bind({
+            orderId: record.order_Id,
+            ...params,
+          })
+          .then(({ status }) => {
+            if (status) {
+              ref.current?.submit()
+              message.success('绑定成功')
+            }
+            return status
+          })
+      },
+    },
+  })
   //列表
   const FormTableProps = {
     remote: orderInfoRemote,
@@ -97,7 +120,7 @@ export default props => {
       showCopy: false,
       showExport: true,
       downloadURL: orderInfoRemote.exportExcel.bind(orderInfoRemote),
-      exportCommonsFieds: { orderStatus },
+      exportCommonsFields: { orderStatus },
     },
     otherTableProps: {
       rowKey: record => record.order_Id,
@@ -147,8 +170,19 @@ export default props => {
                   .then(() => ref.current?.submit())
               },
             },
+          },
+          btn2 = {
+            name: '绑定',
+            onClick() {
+              setRecord(record)
+              bindFormModal.setFormData({
+                saleAdvisorId: record.saleAdvisorId,
+                volumeId: record.subOrderInfoDTOS[0]?.volume_Id,
+              })
+              bindFormModal.setVisible(true)
+            },
           }
-        record.order_Status === '待备货' && btns.push(btn)
+        record.order_Status === '待备货' && btns.push(btn2, btn)
         record.order_Status === '待发货' && btns.push(btn1)
         return btns
       },
@@ -176,6 +210,7 @@ export default props => {
           </TabPane>
         ))}
       </Tabs>
+      {bindFormModal.modalProps.visible && <BindModal {...bindFormModal} />}
     </div>
   )
 }

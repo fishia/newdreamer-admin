@@ -21,16 +21,19 @@ export const renderFormItem = (item, form) => {
       'listType',
       'desp',
       'format',
+      'options',
     ]
+
   switch (item.type) {
     case 'input':
       return (
         <Form.Item {...omit(item, [...omitProps])}>
           <Input
             {...{
-              ...formItemProps,
-              allowClear: true,
               placeholder: `请输入${item.label}`,
+              ...formItemProps,
+              type: item.inputType ?? 'text',
+              allowClear: true,
             }}
           />
         </Form.Item>
@@ -50,6 +53,12 @@ export const renderFormItem = (item, form) => {
       return (
         <Form.Item {...omit(item, [...omitProps])} valuePropName="checked">
           <Switch {...formItemProps} />
+        </Form.Item>
+      )
+    case 'select':
+      return (
+        <Form.Item {...omit(item, [...omitProps])}>
+          <Select {...formItemProps} />
         </Form.Item>
       )
     case 'upload':
@@ -72,6 +81,7 @@ export const renderFormItem = (item, form) => {
         </Form.Item>
       )
     default:
+      console.log(item)
       return item.shouldUpdate ? (
         <Form.Item
           noStyle
@@ -82,15 +92,22 @@ export const renderFormItem = (item, form) => {
         >
           {({ getFieldValue }) =>
             getFieldValue(item.desp) || !item.desp ? (
-              <Form.Item name={item.name} label={item.label}>
-                {item.children(
-                  {
-                    disabled: formItemProps.disabled,
-                    desp: getFieldValue(item.desp),
-                  },
+              item.children ? (
+                <Form.Item name={item.name} label={item.label}>
+                  {item.children(
+                    {
+                      disabled: formItemProps.disabled,
+                      desp: getFieldValue(item.desp),
+                    },
+                    form
+                  )}
+                </Form.Item>
+              ) : (
+                renderFormItem(
+                  { ...omit({ ...item, type: item.tempType }, ['shouldUpdate', 'tempType']) },
                   form
-                )}
-              </Form.Item>
+                )
+              )
             ) : null
           }
         </Form.Item>

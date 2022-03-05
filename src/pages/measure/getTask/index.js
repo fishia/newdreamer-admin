@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { backCustomerRemote } from '@/services/baseRemote'
+import { taskReceiveRecordRemote } from '@/services/baseRemote'
 import FormTable from '@/components/custom/table/formTable'
 import { tableFields, parseColumns, parseFormData } from './column'
 
@@ -7,26 +7,28 @@ export default props => {
   const ref = useRef()
   const [title, setTitle] = useState(false)
   const FormTableProps = {
-    remote: backCustomerRemote,
-    actionWidth: 100,
+    remote: taskReceiveRecordRemote,
+    initialValues: {
+      volumer_Status: 'true',
+    },
+    actionWidth: 150,
     actionBtnProps: {
       showAdd: false,
       showCopy: false,
-      showDelete: false,
       showExport: true,
-      downloadURL: backCustomerRemote.exportExcel.bind(backCustomerRemote),
+      downloadURL: taskReceiveRecordRemote.exportExcel.bind(taskReceiveRecordRemote),
     },
     columns: [
       [
-        'wechatid',
-        'customer_Wechat_Id',
+        '任务名称',
+        'taskName',
         {
           width: 100,
           render: (text, record) => {
             return (
               <span
                 onClick={() => {
-                  setTitle(record.customer_Wechat_Id)
+                  setTitle(record.taskName)
                   ref.current?.viewFormModal.setFormData({
                     ...record,
                   })
@@ -41,10 +43,9 @@ export default props => {
           },
           filter: {
             isunions: true, //联合类型
-            orderIndex: 4,
           },
           form: {
-            disabled: 'edit',
+            rules: [{ required: true }],
           },
         },
       ],

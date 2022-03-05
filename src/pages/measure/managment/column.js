@@ -20,7 +20,7 @@ export const tableFields = [
       filter: {
         isunions: true, //联合类型
       },
-      form: {},
+      form: { rules: [{ required: true }] },
     },
   ],
   [
@@ -115,6 +115,98 @@ export const tableFields = [
       filter: {
         elem: <MySelect datasource={enumSuperset['enabled']} />,
       },
+      form: {
+        type: 'switch',
+      },
+    },
+  ],
+  [
+    '销售提成',
+    'saleRole',
+    {
+      display: false,
+      form: {
+        type: 'switch',
+      },
+    },
+  ],
+  [
+    '销售提成',
+    'saleCommission',
+    {
+      display: false,
+      form: {
+        addonAfter: '%',
+        desp: 'saleRole',
+        shouldUpdate: true,
+        type: 'other',
+        tempType: 'input',
+        placeholder: '请输入1-100的数字',
+        rules: [{ required: true }],
+      },
+    },
+  ],
+  [
+    '量体提成',
+    'measureRole',
+    {
+      display: false,
+      form: {
+        type: 'switch',
+      },
+    },
+  ],
+  [
+    '量体提成',
+    'measureCommission',
+    {
+      display: false,
+      form: {
+        addonAfter: '%',
+        desp: 'measureRole',
+        shouldUpdate: true,
+        type: 'other',
+        tempType: 'input',
+        placeholder: '请输入1-100的数字',
+        rules: [{ required: true }],
+      },
+    },
+  ],
+  [
+    '协助下单',
+    'assistWithOrder',
+    {
+      display: false,
+      form: {
+        type: 'switch',
+      },
+    },
+  ],
+  [
+    '学习天地',
+    'studyModule',
+    {
+      display: false,
+      form: {
+        type: 'switch',
+      },
+    },
+  ],
+  [
+    '任务发放',
+    'releaseTask',
+    {
+      display: false,
+      form: {
+        type: 'switch',
+      },
+    },
+  ],
+  [
+    '运营活动',
+    'operationalActivities',
+    {
+      display: false,
       form: {
         type: 'switch',
       },

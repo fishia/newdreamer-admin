@@ -1,5 +1,6 @@
 import { ShowVolumeInfo, StylesAndFabricsBtn } from '@/components/custom/Button'
 import { orderInfoRemote } from '@/services/baseRemote'
+import { enumSuperset } from '@/utils/contants'
 export const tableFields = [
   [
     '收货人名称',
@@ -8,6 +9,7 @@ export const tableFields = [
       width: 120,
       filter: {
         isunions: true, //联合类型
+        orderIndex: -1,
       },
     },
   ],
@@ -22,9 +24,10 @@ export const tableFields = [
     },
   ],
   ['实收单据金额', 'total_Received_Amount', { width: 150 }],
-  ['付款时间', 'payment_Time', { width: 100 }],
+  ['付款时间', 'paymentTime', { width: 100 }],
   ['预计使用时间', 'expectedUsingTime', { width: 150 }],
-  ['着装顾问', 'volumerName', { width: 100 }],
+  ['量体顾问', 'volumerName', { width: 100 }],
+  ['销售顾问', 'saleAdvisorName', { width: 100 }],
   ['备注', 'remarks', { width: 80 }],
   ['快递地址', 'receiver_Adress', { display: false }],
   [
@@ -32,6 +35,20 @@ export const tableFields = [
     'order_Status',
     {
       width: 80,
+    },
+  ],
+  [
+    '优惠券名称',
+    'couponName',
+    {
+      width: 150,
+    },
+  ],
+  [
+    '优惠券渠道',
+    'channel',
+    {
+      width: 150,
     },
   ],
 ]
@@ -91,19 +108,32 @@ export const childrenTableFields = (customerName, orderId) => [
       },
     },
   ],
+  //   [
+  //     '上线价',
+  //     'sellingPrice',
+  //     {
+  //       width: 100,
+  //     },
+  //   ],
   [
-    '上线价',
-    'sellingPrice',
+    '优惠券折扣',
+    'couponDeduction',
+    {
+      width: 120,
+    },
+  ],
+  [
+    '手动折扣',
+    'manualDeduction',
     {
       width: 100,
     },
   ],
   [
-    '折后价',
-    'discount',
+    '上线价',
+    'sellingPrice',
     {
       width: 100,
-      render: (_, record) => <span>{record.received_Amount / record.amounts}</span>,
     },
   ],
   [
@@ -143,6 +173,14 @@ export const childrenTableFields = (customerName, orderId) => [
           />
         ) : null
       },
+    },
+  ],
+  [
+    '退款状态',
+    'refund_Status',
+    {
+      width: 100,
+      render: text => enumSuperset['refundStatus'].filter(item => item.value === text)[0]?.label,
     },
   ],
 ]

@@ -12,6 +12,7 @@ export default props => {
     deleteProps = {},
     importProps = {},
     exportProps = {},
+    extraButtonList,
   } = props
 
   return (
@@ -20,6 +21,7 @@ export default props => {
       {showDelete && <DeleteBtn {...deleteProps} />}
       {showImport && <ImportBtn {...importProps} />}
       {showExport && <ExportBtn {...exportProps} />}
+      {extraButtonList}
     </div>
   )
 }

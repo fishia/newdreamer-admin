@@ -1,40 +1,39 @@
 import React, { useRef, useState } from 'react'
-import { volumerRemote } from '@/services/baseRemote'
+import { taskRemote } from '@/services/baseRemote'
 import FormTable from '@/components/custom/table/formTable'
-import { tableFields, parseColumns, parseFormData } from './column'
+import { tableFields, parseColumns, parseFormData, resetFormData } from './column'
+import { Button } from 'antd'
+import AddRange from './components/addRange'
 
 export default props => {
   const ref = useRef()
   const [title, setTitle] = useState(false)
+  const [visible, setVisible] = useState(false)
   const FormTableProps = {
-    remote: volumerRemote,
+    remote: taskRemote,
     initialValues: {
-      volumer_Status: 'true',
-      saleRole: false,
-      measureRole: false,
-      assistWithOrder: false,
-      studyModule: false,
-      releaseTask: false,
-      operationalActivities: false,
+      publishStatus: 'true',
     },
     actionBtnProps: {
       showExport: true,
-      showImport: true,
-      templateURL: '/resources/template/单品信息.xls',
-      uploadURL: volumerRemote.importExcel(),
-      downloadURL: volumerRemote.exportExcel.bind(volumerRemote),
+      downloadURL: taskRemote.exportExcel.bind(taskRemote),
+      extraButtonList: [
+        <Button key="add" type="primary" onClick={() => setVisible(true)}>
+          新增范围
+        </Button>,
+      ],
     },
     columns: [
       [
-        '顾问名称',
-        'volumer_Name',
+        '任务名称',
+        'taskName',
         {
           width: 100,
           render: (text, record) => {
             return (
               <span
                 onClick={() => {
-                  setTitle(record.volumer_Name)
+                  setTitle(record.taskName)
                   ref.current?.viewFormModal.setFormData({
                     ...record,
                   })
@@ -59,10 +58,29 @@ export default props => {
     ],
     parseColumns,
     parseFormData,
+    resetFormData,
     viewFormModalProps: {
       title: `${document.title}-${title}`,
     },
-    resetKey: 'volumer_Id',
   }
-  return <FormTable {...FormTableProps} ref={ref} />
+
+  const AddRangeProps = {
+    modalProps: {
+      title: `新增适用范围`,
+      width: 700,
+      visible,
+      footer: [
+        <Button key="close" type="primary" onClick={() => setVisible(false)}>
+          确定
+        </Button>,
+      ],
+      onCancel: () => setVisible(false),
+    },
+  }
+  return (
+    <>
+      <FormTable {...FormTableProps} ref={ref} />
+      {visible && <AddRange {...AddRangeProps} />}
+    </>
+  )
 }

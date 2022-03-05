@@ -1,192 +1,123 @@
-import React, { useEffect, useState, useCallback } from 'react'
-import './index.less'
-import { Button, Table, Modal, Input, Upload, message, DatePicker } from 'antd'
-import { requestBonusList, requestForBonusEdit, requestForBonusExport } from './action'
+import React, { useRef, useState } from 'react'
+import moment from 'moment'
+import { Button, message } from 'antd'
+import { bonusRemote } from '@/services/baseRemote'
+import FormTable from '@/components/custom/table/formTable'
+import { tableFields, parseColumns, parseFormData, resetFormData } from './column'
+import SettleAccounts from './components/settleAccounts'
+import useFormModal from '@/hooks/useFormModal'
+import { VolumerSelect } from '@/components/custom/select'
 
-const editChat = ['deduction_Fee']
+export default props => {
+  const myRef = useRef()
+  const [title, setTitle] = useState(false)
 
-export default function ProductManager() {
-  const [isInit, setIsinit] = useState(false)
-  const [pageInfo, updatePageInfo] = useState({
-    page: 1,
-    size: 10,
-    name: '',
+  //批量结算
+  const settleFormModal = useFormModal({
+    modal: {
+      title: `结算`,
+      width: 900,
+      onOk: params =>
+        bonusRemote
+          .batchSettle({
+            ...params,
+            year: moment(params.month).format('YYYY'),
+            month: moment(params.month).format('M'),
+          })
+          .then(({ status }) => {
+            if (status) {
+              settleFormModal.setVisible(false)
+              myRef.current?.submit()
+              message.success('结算成功')
+            }
+            return status
+          }),
+    },
   })
-  const [tableSize, setTableSize] = useState(0)
-  const [dataSource, updateSource] = useState(null)
-  const [visible, setVisible] = useState(false)
-  const [modalInfo, setModalInfo] = useState(null)
-  const [chooseItems, setChooseItems] = useState(null)
 
-  const updateSearch = useCallback((key, value) => {
-    updatePageInfo(search => {
-      search[key] = value
-      return { ...search }
-    })
-  }, [])
-
-  const export_data = useCallback(() => {
-    if (!chooseItems || chooseItems.length <= 0) {
-      //message.info('请先选择商品, 再导出数据');
-      //            return ;
-    }
-    requestForBonusExport(chooseItems)
-  }, [chooseItems])
-
-  const edit = useCallback(item => {
-    setVisible('edit')
-    setModalInfo({ ...item })
-  }, [])
-
-  const updateModalInfo = useCallback((key, value) => {
-    setModalInfo(info => ({ ...info, ...{ [key]: value } }))
-  }, [])
-
-  const pageData = useCallback(() => {
-    let _pageInfo = { ...pageInfo }
-    _pageInfo.page -= 1
-    requestBonusList(_pageInfo).then(data => {
-      if (!data) return
-      setTableSize(data.totalElements)
-      if (data && Array.isArray(data.content)) {
-        updateSource([...data.content])
-      }
-    })
-  }, [pageInfo])
-
-  const submit = useCallback(() => {
-    if (visible === 'edit') {
-      requestForBonusEdit({
-        id: modalInfo.volumer_Reward_Id,
-        deduction: modalInfo.deduction_Fee, // TODO:  奖励金修改接口报错
-      }).then(res => {
-        message.info('修改成功')
-        setVisible(false)
-        pageData()
-      })
-    }
-  }, [modalInfo, pageData, visible])
-
-  const onPageChange = useCallback(
-    page => {
-      if (page !== pageInfo.page) {
-        pageInfo.page = page
-        updatePageInfo({ ...pageInfo })
-        pageData()
-      }
+  const FormTableProps = {
+    remote: bonusRemote,
+    initialValues: { status: 'false' },
+    actionBtnProps: {
+      showCopy: false,
+      showImport: true,
+      templateURL: '/resources/template/顾问提成.xls',
+      uploadURL: bonusRemote.importExcel(),
+      showExport: true,
+      downloadURL: bonusRemote.exportExcel.bind(bonusRemote),
+      extraButtonList: [
+        <Button key="add" type="primary" onClick={() => settleFormModal.setVisible(true)}>
+          结算
+        </Button>,
+      ],
     },
-    [pageData, pageInfo]
-  )
-
-  useEffect(() => {
-    if (isInit) return
-    pageData()
-    setIsinit(true)
-  }, [isInit, pageData])
-  const [columns] = useState([
-    { title: '着装顾问姓名', dataIndex: 'volumer_Name' },
-    { title: '订单号', dataIndex: 'order_Id' },
-    { title: '订单金额', dataIndex: 'total_Received_Amount' },
-    { title: '下单时间', dataIndex: 'creation_Time' },
-    // { title: '量体时间', dataIndex: 'volume_Time'},
-    { title: '完成情况', dataIndex: 'order_Status' },
-    { title: '奖励金额', dataIndex: 'reward_Price' },
-    { title: '返修扣款', dataIndex: 'deduction_Fee' },
-    { title: '实际奖励', dataIndex: 'actual_Reward' },
-    {
-      title: '操作',
-      dataIndex: 'name11',
-      render: (item, record) => (
-        <div className="product-table-operations">
-          <Button type="primary" onClick={() => edit(record)} size="small">
-            修改
-          </Button>
-        </div>
-      ),
+    columns: [
+      [
+        '顾问名称',
+        'volumerName',
+        {
+          width: 100,
+          render: (text, record) => {
+            return (
+              <span
+                onClick={() => {
+                  setTitle(`${record.volumerName}${record.orderId ? `-${record.orderId}` : ''}`)
+                  myRef.current?.viewFormModal.setFormData({
+                    ...record,
+                  })
+                  //详情
+                  myRef.current?.viewFormModal.setVisible(true)
+                }}
+                className="primaryBtn"
+              >
+                {text}
+              </span>
+            )
+          },
+          filter: {
+            isunions: true, //联合类型
+          },
+          form: {
+            type: 'other',
+            name: 'volumerId',
+            children: props => <VolumerSelect {...props} params={{ volumer_Status: true }} />,
+            rules: [{ required: true }],
+          },
+        },
+      ],
+      ...tableFields,
+    ],
+    otherTableProps: {
+      otherActionBtns: (text, record) => {
+        let btns = [
+          {
+            name: '结算',
+            popconfirm: {
+              title: '是否确认结算？',
+              confirm() {
+                bonusRemote.settle({ id: record.id }).then(() => {
+                  myRef.current?.submit()
+                  message.success('结算成功')
+                })
+              },
+            },
+          },
+        ]
+        return record.status ? null : btns
+      },
     },
-  ])
+    parseColumns,
+    parseFormData,
+    resetFormData,
+    viewFormModalProps: {
+      title: `${document.title}-${title}`,
+    },
+  }
 
   return (
-    <div className="product-manager">
-      <section className="product-manager-search">
-        <div className="manager-search-item">
-          <div className="search-item__title">着装顾问姓名</div>
-          <Input
-            size="small"
-            placeholder="输入着装顾问"
-            onChange={e => updateSearch('name', e.target.value)}
-          />
-        </div>
-        <div className="manager-search-item">
-          <div className="search-item__title">订单号</div>
-          <Input
-            size="small"
-            placeholder="输入订单号"
-            onChange={e => updateSearch('orderId', e.target.value)}
-          />
-        </div>
-
-        <div className="manager-search-btn">
-          <Button
-            onClick={() => {
-              updatePageInfo({ ...pageInfo, page: 1 })
-              setIsinit(false)
-            }}
-            type="primary"
-          >
-            筛选
-          </Button>
-        </div>
-      </section>
-      <section className="product-manager-operation">
-        <Button onClick={export_data} type="primary">
-          数据导出
-        </Button>{' '}
-        {/**奖励金导出没有 */}
-      </section>
-      <section className="product-manager-table">
-        <Table
-          rowKey="order_Id"
-          rowSelection={{
-            type: 'checkbox',
-            onChange: (selectedRowKeys, selectedRows) => {
-              setChooseItems((selectedRowKeys + '').split(',').filter(item => item))
-            },
-          }}
-          dataSource={dataSource}
-          columns={columns}
-          pagination={{
-            current: pageInfo.page,
-            total: tableSize,
-            onChange: onPageChange,
-          }}
-        />
-      </section>
-      {modalInfo && (
-        <Modal
-          title="商品编辑"
-          visible={visible}
-          width={1000}
-          onOk={submit}
-          onCancel={() => setVisible(false)}
-        >
-          <div className="pm-edit-container">
-            {columns.map(col => (
-              <div className="pm-edit-item">
-                <span className="edit-item__title">{col.title}</span>
-                {editChat.indexOf(col.dataIndex) >= 0 ? (
-                  <Input
-                    value={modalInfo[col.dataIndex]}
-                    onChange={e => updateModalInfo(col.dataIndex, e.target.value)}
-                  />
-                ) : (
-                  <span className="edit-item__value">{modalInfo[col.dataIndex]}</span>
-                )}
-              </div>
-            ))}
-          </div>
-        </Modal>
-      )}
-    </div>
+    <>
+      <FormTable {...FormTableProps} ref={myRef} />
+      {settleFormModal.modalProps.visible && <SettleAccounts {...settleFormModal} />}
+    </>
   )
 }

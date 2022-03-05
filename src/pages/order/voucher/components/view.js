@@ -6,6 +6,7 @@ import { childrenTableFields } from '../column'
 import FormTable from '@/components/custom/table/formTable'
 import { orderInfoRemote } from '@/services/baseRemote'
 import styles from './index.less'
+import { JKUtil } from '@/utils/util'
 
 export default props => {
   const { modalProps, record, formList } = props
@@ -21,7 +22,7 @@ export default props => {
       showEdit: false,
       showCopy: false,
     },
-    actionWidth: 120,
+    actionWidth: 180,
     otherTableProps: {
       dataSource: subOrder,
       rowKey: record => record.item_Id,
@@ -54,18 +55,18 @@ export default props => {
             },
           },
           btn1 = {
-            name: '撤销',
+            name: '撤销备货',
             popconfirm: {
-              title: '是否确认撤销？',
+              title: '是否确认撤销备货？',
               confirm() {
-                //TODO:撤销
+                //TODO:撤销备货
                 orderInfoRemote
                   .cancelProduce({
                     ids: [record.item_Id],
                   })
                   .then(({ status, data }) => {
                     if (status) {
-                      message.success('已撤销')
+                      message.success('已撤销备货')
                       setSubOrder(
                         u(
                           {
@@ -78,9 +79,71 @@ export default props => {
                   })
               },
             },
+          },
+          btn2 = {
+            name: '退款',
+            style: { color: 'red' },
+            popconfirm: {
+              title: '是否确认退款？',
+              confirm() {
+                //TODO:退款
+                orderInfoRemote
+                  .refundApply({
+                    item_Id: record.item_Id,
+                  })
+                  .then(({ status, data }) => {
+                    if (status) {
+                      message.success('发起退款成功')
+                      setSubOrder(
+                        u(
+                          {
+                            [i]: { ...data },
+                          },
+                          subOrder
+                        )
+                      )
+                    }
+                  })
+              },
+            },
+          },
+          btn3 = {
+            name: '撤销退款',
+            style: { color: 'red' },
+            popconfirm: {
+              title: '是否确认撤销退款？',
+              confirm() {
+                //TODO:退款
+                orderInfoRemote
+                  .refundCancel({
+                    item_Id: record.item_Id,
+                  })
+                  .then(({ status, data }) => {
+                    if (status) {
+                      message.success('撤销退款成功')
+                      setSubOrder(
+                        u(
+                          {
+                            [i]: { ...data },
+                          },
+                          subOrder
+                        )
+                      )
+                    }
+                  })
+              },
+            },
           }
-        record.itemStatusName === '待备货' && btns.push(btn)
+        //备货：已驳回或者没有退款状态时且订单状态为待备货展示
+        record.itemStatusName === '待备货' &&
+          (!record.refund_Status || record.refund_Status === 'REJECT') &&
+          btns.push(btn)
+        //撤销备货:待发货展示撤销备货
         record.itemStatusName === '待发货' && btns.push(btn1)
+        //退款：无退款状态或者已驳回都显示
+        ;(record.refund_Status === 'REJECT' || !record.refund_Status) && btns.push(btn2)
+        //撤销退款：只有在退款中时候显示，
+        record.refund_Status === 'REFUNDING' && btns.push(btn3)
         return btns
       },
       toolbar: false,
@@ -101,17 +164,37 @@ export default props => {
       </div>
       <div className={styles.total}>
         <Statistic
-          title="总金额:"
-          value={record.total_Original_Price || 0}
+          title="商品金额:"
+          value={
+            Array.isArray(record.subOrderInfoDTOS)
+              ? JKUtil.toFixed(
+                  record.subOrderInfoDTOS.reduce(
+                    (total, item) => total + parseFloat(item.sellingPrice || 0),
+                    0
+                  ),
+                  2
+                )
+              : 0
+          }
           valueStyle={{ fontSize: '14px' }}
         />
         <Statistic
-          title="折扣:"
+          title="优惠券:"
           value={record.totalDiscountAmount || 0}
           valueStyle={{ fontSize: '14px' }}
         />
         <Statistic
-          title="实收总金额:"
+          title="折扣:"
+          value={record.total_Discount || 0}
+          valueStyle={{ fontSize: '14px' }}
+        />
+        <Statistic
+          title="其他费用:"
+          value={record.otherFees || 0}
+          valueStyle={{ fontSize: '14px' }}
+        />
+        <Statistic
+          title="实际支付:"
           value={record.total_Received_Amount || 0}
           valueStyle={{ fontSize: '14px' }}
         />

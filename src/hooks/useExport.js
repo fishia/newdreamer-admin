@@ -3,11 +3,11 @@ import { message, Modal } from 'antd'
 
 function useExport(downloadURL, options = {}) {
   const [loading, setLoading] = useState(false)
-  const { dataSource = [], fileName, parseColumns, columns, exportCommonsFieds } = options
+  const { dataSource = [], fileName, parseColumns, columns, exportCommonsFields } = options
   const run = async ids => {
     if (dataSource.length) {
       try {
-        downloadURL({ ids, ...exportCommonsFieds }).then(status => {
+        downloadURL({ ids, ...exportCommonsFields }).then(status => {
           if (status) {
             message.success('导出成功')
           }

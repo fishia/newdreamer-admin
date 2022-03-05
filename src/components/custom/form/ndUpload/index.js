@@ -43,7 +43,6 @@ const NdUpload = props => {
           window.open(file?.url, '_blank')
         },
         onSuccess(file) {
-          console.log(file)
           let files = []
           if (mode === 'single') {
             files = [

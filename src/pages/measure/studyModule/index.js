@@ -1,32 +1,33 @@
 import React, { useRef, useState } from 'react'
-import { backCustomerRemote } from '@/services/baseRemote'
+import { productInfoRemote } from '@/services/baseRemote'
 import FormTable from '@/components/custom/table/formTable'
-import { tableFields, parseColumns, parseFormData } from './column'
+import { tableFields, parseColumns, parseFormData, resetFormData } from './column'
+import { Button } from 'antd'
+import AddRange from './components/addRange'
 
 export default props => {
   const ref = useRef()
   const [title, setTitle] = useState(false)
+  const [visible, setVisible] = useState(false)
   const FormTableProps = {
-    remote: backCustomerRemote,
-    actionWidth: 100,
+    remote: productInfoRemote,
     actionBtnProps: {
-      showAdd: false,
-      showCopy: false,
-      showDelete: false,
-      showExport: true,
-      downloadURL: backCustomerRemote.exportExcel.bind(backCustomerRemote),
+      extraButtonList: [
+        <Button key="add" type="primary" onClick={() => setVisible(true)}>
+          新增模块
+        </Button>,
+      ],
     },
     columns: [
       [
-        'wechatid',
-        'customer_Wechat_Id',
+        '名称',
+        'name',
         {
-          width: 100,
           render: (text, record) => {
             return (
               <span
                 onClick={() => {
-                  setTitle(record.customer_Wechat_Id)
+                  setTitle(record.name)
                   ref.current?.viewFormModal.setFormData({
                     ...record,
                   })
@@ -41,10 +42,9 @@ export default props => {
           },
           filter: {
             isunions: true, //联合类型
-            orderIndex: 4,
           },
           form: {
-            disabled: 'edit',
+            rules: [{ required: true }],
           },
         },
       ],
@@ -52,9 +52,29 @@ export default props => {
     ],
     parseColumns,
     parseFormData,
+    resetFormData,
     viewFormModalProps: {
       title: `${document.title}-${title}`,
     },
   }
-  return <FormTable {...FormTableProps} ref={ref} />
+
+  const AddRangeProps = {
+    modalProps: {
+      title: `新增模块`,
+      width: 700,
+      visible,
+      footer: [
+        <Button key="close" type="primary" onClick={() => setVisible(false)}>
+          确定
+        </Button>,
+      ],
+      onCancel: () => setVisible(false),
+    },
+  }
+  return (
+    <>
+      <FormTable {...FormTableProps} ref={ref} />
+      {visible && <AddRange {...AddRangeProps} />}
+    </>
+  )
 }

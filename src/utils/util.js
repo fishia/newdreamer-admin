@@ -3,7 +3,6 @@ import 'moment/locale/zh-cn'
 import _, { isObject, cloneDeep, omit, pickBy } from 'lodash'
 import { Input } from 'antd'
 import { UnionSelect } from '@/components/custom/select'
-import User from './user'
 moment.locale('zh-cn')
 /*
     时间util类
@@ -11,7 +10,7 @@ moment.locale('zh-cn')
 export const JKTime = {
   /*
         获取时间
-        time: 指定时间,  可以是任何类型的时间 
+        time: 指定时间,  可以是任何类型的时间
             默认:当前时间
         format: YYYY/MM/DD/HH/mm/ss
             类型: String
@@ -28,7 +27,7 @@ export const JKTime = {
         format: YYYY/MM/DD/HH/mm/ss
             默认: YYYY-MM-DD
             类型: String
-        type: 加/减   
+        type: 加/减
             默认: add
             类型: String
             参数: add/subtract
@@ -274,11 +273,16 @@ export const renderSearchFields = tableFields => {
         name: item[2].filter.isunions ? 'unions' : item[2].filter.name || item[1],
         elem: item[2].filter.isunions ? (
           <UnionSelect
-            list={_.map(unionsfiltersList, o => ({
-              label: o[0],
-              value: o[1],
-              elem: o[2].filter.elem || undefined,
-            }))}
+            list={_.orderBy(
+              _.map(unionsfiltersList, o => ({
+                label: o[0],
+                value: o[1],
+                elem: o[2].filter.elem || undefined,
+                orderIndex: o[2].filter.orderIndex || 0,
+              })),
+              ['orderIndex'],
+              ['asc']
+            )}
           />
         ) : item[2].filter.elem ? (
           item[2].filter.elem
