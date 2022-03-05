@@ -109,5 +109,6 @@ export const parseColumns = data => ({
 })
 export const parseFormData = data => ({
   ...data,
+  taskId: data.id,
   brief: data.brief && JSON.stringify(data.brief),
 })

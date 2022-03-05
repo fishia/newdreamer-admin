@@ -6,7 +6,7 @@ if (APP_ENV === 'development') {
   api = 'http://newdreamer.mynatapp.cc/' //https://test.newdreamer.cn/http://newdreamer.mynatapp.cc/
 } else {
   // 生产
-  api = 'http://newdreamer.mynatapp.cc/' //,https://www.hznewdreamer.cn/
+  api = 'https://www.hznewdreamer.cn/' //,https://www.hznewdreamer.cn/
 }
 export default {
   target: api,
