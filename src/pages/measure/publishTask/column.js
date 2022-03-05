@@ -16,7 +16,7 @@ export const tableFields = [
     '任务概述',
     'content',
     {
-      form: {},
+      form: { rules: [{ required: true }] },
       width: 150,
     },
   ],
@@ -33,6 +33,7 @@ export const tableFields = [
         type: 'upload',
         fileDirectorEnum: 'PRODUCT',
         mode: 'single',
+        rules: [{ required: true }],
       },
     },
   ],
