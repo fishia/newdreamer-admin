@@ -52,6 +52,7 @@ export const tableFields = [
       width: 150,
       form: {
         type: 'datePicker',
+        disabled: 'edit',
       },
     },
   ],

@@ -41,7 +41,7 @@ export const tableFields = [
     '发布时间',
     'createTime',
     {
-      render: text => (text ? moment(text).format('YYYY-MM-DD') : ''),
+      render: text => (text ? moment(text).format(format) : ''),
     },
   ],
   [
@@ -63,12 +63,11 @@ export const tableFields = [
                 let obj = {
                   publishStatus: checked,
                 }
-                if (!checked) {
-                  obj = Object.assign(obj, {
-                    endTime: '',
-                  })
-                }
-                setFieldsValue({ ...obj })
+
+                setFieldsValue({
+                  ...obj,
+                  endTime: checked ? '' : moment(),
+                })
               }}
             />
           )
@@ -91,7 +90,7 @@ export const tableFields = [
         type: 'datePicker',
         rules: [{ required: true }],
       },
-      render: text => (text ? moment(text).format('YYYY-MM-DD') : ''),
+      render: text => (text ? moment(text).format(format) : ''),
     },
   ],
   ['领取人数', 'receiveCount', {}],
@@ -141,7 +140,7 @@ export const parseColumns = data => ({
 
 export const parseFormData = data => ({
   ...data,
-  createTime: data.createTime ? moment(data.createTime).format('YYYY-MM-DD HH:mm:ss') : undefined,
-  endTime: data.endTime ? moment(data.endTime).format('YYYY-MM-DD HH:mm:ss') : undefined,
+  createTime: data.createTime ? moment(data.createTime).format('YYYY-MM-DD') : undefined,
+  endTime: data.endTime ? moment(data.endTime).format('YYYY-MM-DD') : undefined,
   brief: data.brief && JSON.stringify(data.brief),
 })
