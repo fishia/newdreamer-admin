@@ -26,8 +26,8 @@ export const tableFields = [
   ['实收单据金额', 'total_Received_Amount', { width: 150 }],
   ['付款时间', 'paymentTime', { width: 100 }],
   ['预计使用时间', 'expectedUsingTime', { width: 150 }],
-  ['量体顾问', 'volumerName', { width: 100 }],
   ['销售顾问', 'saleAdvisorName', { width: 100 }],
+  ['量体顾问', 'volumerName', { width: 100 }],
   ['备注', 'remarks', { width: 80 }],
   ['快递地址', 'receiver_Adress', { display: false }],
   [
