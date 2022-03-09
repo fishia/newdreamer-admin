@@ -30,7 +30,7 @@ export default path => {
       title: '返修管理',
       icon: <ScissorOutlined />,
       path: `/${path}/repair`,
-      show: true,
+      hide: true,
       component: () => RouterContainer,
       routes: [
         {
