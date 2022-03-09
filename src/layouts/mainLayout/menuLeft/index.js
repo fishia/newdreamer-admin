@@ -83,10 +83,14 @@ class MenuLeft extends React.Component {
     let t = this,
       { role } = User.getUserInfo()
     return (ary || []).map(item => {
-      if (item.title === '商品库管理') console.log(item)
       if (item.path === '/') {
         return t.renderMenu(item.children)
-      } else if (item.show && item.children && item.children.length > 0) {
+      } else if (
+        item.show &&
+        item.children &&
+        item.children.length > 0 &&
+        !_every(item.children, { show: false })
+      ) {
         /*
           过滤菜单栏如果包含二级导航且子项不应该出现在菜单栏中需要隐藏，所以需要过滤childen是否有隐藏
        */
