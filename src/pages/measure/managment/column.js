@@ -1,7 +1,12 @@
 import { Switch } from 'antd'
 import moment from 'moment'
 import { enumSuperset, format } from '@/utils/contants'
-import { CollegeSelect, CollegePartSelect, MySelect } from '@/components/custom/select'
+import {
+  CollegeSelect,
+  CollegePartSelect,
+  MySelect,
+  ScopeNameSelect,
+} from '@/components/custom/select'
 
 export const tableFields = [
   [
@@ -203,6 +208,20 @@ export const tableFields = [
     },
   ],
   [
+    '模块',
+    'scopeIds',
+    {
+      display: false,
+      form: {
+        type: 'other',
+        desp: 'releaseTask',
+        shouldUpdate: true,
+        children: props => <ScopeNameSelect mode="multiple" {...props} />,
+        rules: [{ required: true }],
+      },
+    },
+  ],
+  [
     '运营活动',
     'operationalActivities',
     {
@@ -232,11 +251,13 @@ export const parseColumns = data => ({
   disabled_Time: data.disabled_Time ? moment(data.disabled_Time) : undefined,
   register_Time: data.register_Time ? moment(data.register_Time) : undefined,
   files: data.files && JSON.parse(data.files),
+  scopeIds: data.scopeIds && data.scopeIds.split(','),
 })
 export const parseFormData = data => ({
   ...data,
   volumer_Id: data.id,
   disabled_Time: data.disabled_Time ? moment(data.disabled_Time).format(format) : undefined,
   register_Time: data.register_Time ? moment(data.register_Time).format(format) : undefined,
-  files: JSON.stringify(data.files),
+  files: data.files && JSON.stringify(data.files),
+  scopeIds: data.scopeIds && data.scopeIds.join(','),
 }) //下拉保存给id给后台
