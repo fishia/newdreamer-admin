@@ -15,6 +15,8 @@ export default class Index extends React.Component {
       searchForm: {
         couponCode: '',
         couponType: '',
+        activityName: '',
+        channel: '',
       },
       pageInfo: {
         page: 1,
@@ -317,7 +319,22 @@ export default class Index extends React.Component {
                 <Option value="RATE">折扣</Option>
               </Select>
             </div>
-            {/*<div className="manager-search-btn"><Button onClick={this.pageData.bind(this)} type="primary" >筛选</Button></div>*/}
+            <div className="manager-search-item">
+              <div className="search-item__title">活动名称</div>
+              <Input
+                placeholder="请输入活动名称"
+                value={this.state.searchForm.activityName}
+                onChange={e => this.updateSearch('activityName', e.target.value)}
+              />
+            </div>
+            <div className="manager-search-item">
+              <div className="search-item__title">活动渠道</div>
+              <Input
+                placeholder="请输入活动渠道"
+                value={this.state.searchForm.channel}
+                onChange={e => this.updateSearch('channel', e.target.value)}
+              />
+            </div>
             <div className="manager-search-btn">
               <Button onClick={this.searchClick} type="primary">
                 筛选
