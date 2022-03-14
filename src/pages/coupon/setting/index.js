@@ -8,15 +8,19 @@ import QRCODE from '@/components/custom/qrcode'
 import { getQrcode } from '@/services/baseRemote'
 import { ExportOutlined } from '@ant-design/icons'
 const { Option } = Select
+
+const initSearchForm = {
+  couponCode: '',
+  couponType: '',
+  activityName: '',
+  channel: '',
+}
 export default class Index extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       searchForm: {
-        couponCode: '',
-        couponType: '',
-        activityName: '',
-        channel: '',
+        ...initSearchForm,
       },
       pageInfo: {
         page: 1,
@@ -142,8 +146,7 @@ export default class Index extends React.Component {
           size: 10,
         },
         searchForm: {
-          couponCode: '',
-          couponType: '',
+          ...initSearchForm,
         },
       },
       () => {
