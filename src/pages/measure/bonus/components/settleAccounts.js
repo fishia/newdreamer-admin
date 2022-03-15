@@ -1,8 +1,9 @@
 import React, { forwardRef, useEffect, useRef } from 'react'
 import { VtxModal } from '@vtx/components'
 import { formItemLayout } from '@/utils/contants'
-import { Input, Form, Row, Col, DatePicker } from 'antd'
+import { Form, Row, Col, DatePicker } from 'antd'
 import { VolumerSelect } from '@/components/custom/select'
+import { requestForListUnSettle } from '../../appoint/action'
 
 function Add(props) {
   const { modalProps, formData = {}, confirm } = props
@@ -29,7 +30,7 @@ function Add(props) {
         <Row>
           <Col span={12}>
             <Form.Item name="volumerId" label="顾问名称" rules={[{ required: true }]}>
-              <VolumerSelect />
+              <VolumerSelect fetchApi={requestForListUnSettle} />
             </Form.Item>
           </Col>
           <Col span={12}>

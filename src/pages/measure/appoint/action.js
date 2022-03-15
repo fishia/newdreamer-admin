@@ -87,12 +87,11 @@ export function reservationStatusCount() {
     url: '/newdreamer/backVolumer/reservationStatusCount',
   })
 }
-export function requestForAppointDelete(data) {
-  // TODO: 预约单删除
-  // return request({
-  //     method: 'delete',
-  //     url: '/newdreamer/volumer',
-  //     data: data,
-  //     type: 'json'
-  // })
+//结算顾问下拉
+export function requestForListUnSettle(data) {
+  return request({
+    method: 'get',
+    url: '/newdreamer/volumer/listUnSettle',
+    params: data,
+  })
 }
