@@ -217,7 +217,6 @@ export const tableFields = [
         desp: 'releaseTask',
         shouldUpdate: true,
         children: props => <ScopeNameSelect mode="multiple" {...props} />,
-        rules: [{ required: true }],
       },
     },
   ],
@@ -251,7 +250,7 @@ export const parseColumns = data => ({
   disabled_Time: data.disabled_Time ? moment(data.disabled_Time) : undefined,
   register_Time: data.register_Time ? moment(data.register_Time) : undefined,
   files: data.files && JSON.parse(data.files),
-  scopeIds: data.scopeIds && data.scopeIds.split(','),
+  scopeIds: data.scopeIds && data.scopeIds.split(',').map(item => parseInt(item)),
 })
 export const parseFormData = data => ({
   ...data,
