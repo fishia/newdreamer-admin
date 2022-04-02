@@ -12,6 +12,7 @@ const customerInfo = [
   { title: '身高CM', key: 'height' },
   { title: '体重', key: 'weight' },
   { title: '量体地址', key: 'volume_Adress' },
+  { title: '喜好', key: 'favorite' },
 ]
 
 const pureSize = [
@@ -311,19 +312,17 @@ export default function VolumeModal({
               )}
             </div>
             <div className="figure-images-content">
-              {_info.body_Shape_Remark && (
-                <div>
-                  体型备注:{' '}
-                  {_editable ? (
-                    <Input
-                      value={_info.body_Shape_Remark || ''}
-                      onChange={e => updateForm('body_Shape_Remark', e.target.value)}
-                    />
-                  ) : (
-                    <div className="item__value">{_info.body_Shape_Remark}</div>
-                  )}
-                </div>
-              )}
+              <div>
+                体型备注:{' '}
+                {_editable ? (
+                  <Input
+                    value={_info.body_Shape_Remark || ''}
+                    onChange={e => updateForm('body_Shape_Remark', e.target.value)}
+                  />
+                ) : (
+                  <div className="item__value">{_info.body_Shape_Remark}</div>
+                )}
+              </div>
             </div>
           </div>
         </div>
