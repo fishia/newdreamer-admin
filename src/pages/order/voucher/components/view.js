@@ -165,17 +165,7 @@ export default props => {
       <div className={styles.total}>
         <Statistic
           title="商品金额:"
-          value={
-            Array.isArray(record.subOrderInfoDTOS)
-              ? JKUtil.toFixed(
-                  record.subOrderInfoDTOS.reduce(
-                    (total, item) => total + parseFloat(item.sellingPrice || 0),
-                    0
-                  ),
-                  2
-                )
-              : 0
-          }
+          value={record.total_Original_Price || 0}
           valueStyle={{ fontSize: '14px' }}
         />
         <Statistic
@@ -185,7 +175,7 @@ export default props => {
         />
         <Statistic
           title="折扣:"
-          value={record.total_Discount || 0}
+          value={record.manualDiscountAmount || 0}
           valueStyle={{ fontSize: '14px' }}
         />
         <Statistic
