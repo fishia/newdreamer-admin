@@ -70,7 +70,6 @@ export default [
     title: '任务发放',
     icon: <TransactionOutlined />,
     component: () => RouterContainer,
-    show: true,
     routes: [
       {
         path: '/measure/taskManage',
